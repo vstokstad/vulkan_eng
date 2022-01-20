@@ -3,24 +3,40 @@
 #include <iostream>
 #include <utility>
 
-namespace vs {
-
-	vs_window::vs_window(const int w, const int h, std::string name) : width(w), height(h), window_name(std::move(name))
+namespace vs
+{
+	vs_window::vs_window(const int w, const int h, std::string name) : width(w),
+	                                                                   height(h),
+	                                                                   window_name(name)
 	{
-		init_window();
+		initWindow();
 	}
+
 	vs_window::~vs_window()
 	{
 		glfwDestroyWindow(window);
 		glfwTerminate();
 	}
 
-	auto vs_window::should_close() const -> bool
+	bool vs_window::shouldClose() const
 	{
-		return	glfwWindowShouldClose(window);
+		return glfwWindowShouldClose(window);
 	}
 
-	auto vs_window::init_window() -> int
+	VkExtent2D vs_window::getExtent()
+	{
+		return {static_cast<uint32_t>(width), static_cast<uint32_t>(height)};
+	}
+
+	void vs_window::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface)
+	{
+		if (glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS)
+		{
+			throw std::runtime_error("Failed to create window surface");
+		}
+	}
+
+	auto vs_window::initWindow() -> int
 	{
 		glfwInit();
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
@@ -31,7 +47,6 @@ namespace vs {
 		{
 			printf_s("failed creating window");
 			return 1;
-
 		}
 		return 0;
 	}

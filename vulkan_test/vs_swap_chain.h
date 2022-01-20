@@ -2,8 +2,6 @@
 
 #include "vs_device.h"
 
-// vulkan headers
-#include <vulkan/vulkan.h>
 
 // std lib headers
 #include <string>
