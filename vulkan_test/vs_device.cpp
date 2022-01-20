@@ -54,7 +54,7 @@ namespace vs
 	}
 
 	// class member functions
-	vs_device::vs_device(vs_window& window) : window{window}
+	vs_device::vs_device(vs::vs_window& window): window(window)
 	{
 		createInstance();
 		setupDebugMessenger();
@@ -87,11 +87,11 @@ namespace vs
 
 		VkApplicationInfo appInfo = {};
 		appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-		appInfo.pApplicationName = "LittleVulkanEngine App";
-		appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
+		appInfo.pApplicationName = "vs_vulkan_eng_test";
+		appInfo.applicationVersion = VK_API_VERSION_1_2;
 		appInfo.pEngineName = "No Engine";
-		appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-		appInfo.apiVersion = VK_API_VERSION_1_0;
+		appInfo.engineVersion = VK_API_VERSION_1_2;
+		appInfo.apiVersion = VK_API_VERSION_1_2;
 
 		VkInstanceCreateInfo createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
