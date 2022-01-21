@@ -16,7 +16,7 @@
     <ClInclude Include="vs_pipeline.h" />
     <ClInclude Include="vs_swap_chain.h" />
     <ClInclude Include="vs_model.h" />
-    <ClInclude Include="vs_triangles.h" />
+    <ClInclude Include="vs_matrix.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\simple_shader.vert.spv" />

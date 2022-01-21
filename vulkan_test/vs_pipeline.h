@@ -2,24 +2,30 @@
 // 2022 © Vilhelm Stokstad
 
 #pragma once
+#include "vs_device.h"
+//std
 #include <string>
 #include <vector>
-#include "vs_device.h"
 
 namespace vs
 {
 	struct pipeline_config_info
 	{
-		VkViewport viewport;
-		VkRect2D scissor;
+		pipeline_config_info() = default;
+		pipeline_config_info(const pipeline_config_info&) = delete;
+		pipeline_config_info& operator=(const pipeline_config_info&) = delete;
+
+		VkPipelineViewportStateCreateInfo viewport_info;
 		VkPipelineInputAssemblyStateCreateInfo input_assembly_info;
 		VkPipelineRasterizationStateCreateInfo rasterization_info;
 		VkPipelineMultisampleStateCreateInfo multisample_info;
 		VkPipelineColorBlendAttachmentState color_blend_attachment;
 		VkPipelineColorBlendStateCreateInfo color_blend_info;
 		VkPipelineDepthStencilStateCreateInfo depth_stencil_info;
-		VkPipelineLayout pipeline_layout = VK_NULL_HANDLE;
-		VkRenderPass render_pass = VK_NULL_HANDLE;
+		std::vector<VkDynamicState> dynamic_state_enables;
+		VkPipelineDynamicStateCreateInfo dynamic_state_info;
+		VkPipelineLayout pipeline_layout = nullptr;
+		VkRenderPass render_pass = nullptr;
 		uint32_t subpass = 0;
 	};
 
@@ -34,12 +40,11 @@ namespace vs
 		~vs_pipeline();
 
 		vs_pipeline(const vs_pipeline&) = delete;
-
-		void operator=(const vs_pipeline&) = delete;
+		vs_pipeline& operator=(const vs_pipeline&) = delete;
 
 		void bind(VkCommandBuffer command_buffer);
 
-		static pipeline_config_info defaultPipelineConfigInfo(uint32_t width, uint32_t height);
+		static void defaultPipelineConfigInfo(pipeline_config_info& config_info);
 
 	private:
 		static std::vector<char> readFile(const std::string& path);
