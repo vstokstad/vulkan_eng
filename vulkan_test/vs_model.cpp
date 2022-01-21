@@ -34,10 +34,12 @@ namespace vs
 		vkUnmapMemory(device_.device(), vertex_buffer_memory_);
 	}
 
+
 	void vs_model::draw(VkCommandBuffer command_buffer)
 	{
 		vkCmdDraw(command_buffer, vertex_count, 1, 0, 0);
 	}
+
 
 	void vs_model::bind(VkCommandBuffer command_buffer)
 	{
@@ -58,7 +60,7 @@ namespace vs
 	std::vector<VkVertexInputAttributeDescription> vs_model::vertex::getAttributeDescriptions()
 	{
 		return {
-			{0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(vertex, position)},
+			{0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(vertex, position)},
 			{1, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(vertex, color)},
 
 		};

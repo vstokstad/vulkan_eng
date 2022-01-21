@@ -23,6 +23,7 @@ namespace vs
 		vs_app();
 		~vs_app();
 
+
 		vs_app(const vs_app&) = delete;
 		vs_app& operator==(const vs_app&) = delete;
 
@@ -31,21 +32,24 @@ namespace vs
 		void sierpinski(
 			std::vector<vs_model::vertex>& vertices,
 			int depth,
-			glm::vec2 left,
-			glm::vec2 right,
-			glm::vec2 top,
+			glm::vec3 left,
+			glm::vec3 right,
+			glm::vec3 top,
 			glm::vec3 color);
 		void loadModels();
-
 	private:
 		void createPipelineLayout();
 		void createPipeline();
 		void createCommandBuffers();
+		void freeCommandBuffers();
 		void drawFrame();
+		void recreateSwapChain();
+		void recordCommandBuffer(int imageIndex);
+
 
 		vs_window window_{WIDTH, HEIGHT, "Vulkan App"};
 		vs_device device_{window_};
-		vs_swap_chain swap_chain_{device_, window_.getExtent()};
+		std::unique_ptr<vs_swap_chain> swap_chain_;
 		std::unique_ptr<vs_pipeline> pipeline;
 		std::unique_ptr<vs_model> model_;
 		VkPipelineLayout pipeline_layout_;

@@ -66,27 +66,27 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
-    <CustomBuildBeforeTargets>Build</CustomBuildBeforeTargets>
+    <CustomBuildBeforeTargets>PreBuildEvent</CustomBuildBeforeTargets>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
-    <CustomBuildBeforeTargets>Build</CustomBuildBeforeTargets>
+    <CustomBuildBeforeTargets>PreBuildEvent</CustomBuildBeforeTargets>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
-    <CustomBuildBeforeTargets>Build</CustomBuildBeforeTargets>
+    <CustomBuildBeforeTargets>PreBuildEvent</CustomBuildBeforeTargets>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
-    <CustomBuildBeforeTargets>Build</CustomBuildBeforeTargets>
+    <CustomBuildBeforeTargets>PreBuildEvent</CustomBuildBeforeTargets>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -110,10 +110,12 @@
       <Message>compiling shaders:</Message>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>$(MSBuildProjectDirectory)\compile_shaders.ps1</Command>
+      <Command>.\shader_compile.bat</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>%(Outputs)</Outputs>
+      <Outputs>
+      </Outputs>
+      <Message>compiling shaders</Message>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -141,10 +143,12 @@
       <Message>compiling shaders:</Message>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>$(MSBuildProjectDirectory)\compile_shaders.ps1</Command>
+      <Command>.\shader_compile.bat</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>%(Outputs)</Outputs>
+      <Outputs>
+      </Outputs>
+      <Message>compiling shaders</Message>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -168,10 +172,12 @@
       <Message>compiling shaders:</Message>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>$(MSBuildProjectDirectory)\compile_shaders.ps1</Command>
+      <Command>.\shader_compile.bat</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>%(Outputs)</Outputs>
+      <Outputs>
+      </Outputs>
+      <Message>compiling shaders</Message>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -199,10 +205,12 @@
       <Message>compiling shaders:</Message>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>$(MSBuildProjectDirectory)\compile_shaders.ps1</Command>
+      <Command>.\shader_compile.bat</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>%(Outputs)</Outputs>
+      <Outputs>
+      </Outputs>
+      <Message>compiling shaders</Message>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -219,7 +227,7 @@
     <ClInclude Include="vs_model.h" />
     <ClInclude Include="vs_pipeline.h" />
     <ClInclude Include="vs_swap_chain.h" />
-    <ClInclude Include="vs_triangles.h" />
+    <ClInclude Include="vs_matrix.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="compile_shaders.ps1" />

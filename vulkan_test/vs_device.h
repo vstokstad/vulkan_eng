@@ -43,7 +43,7 @@ namespace vs
 
 		// Not copyable or movable
 		vs_device(const vs_device&) = delete;
-		void operator=(const vs_device&) = delete;
+		vs_device operator=(const vs_device&) = delete;
 		vs_device(vs_device&&) = delete;
 		vs_device& operator=(vs_device&&) = delete;
 
