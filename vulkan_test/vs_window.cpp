@@ -3,35 +3,61 @@
 #include <iostream>
 #include <utility>
 
-namespace vs {
-
-	vs_window::vs_window(const int w, const int h, std::string name) : width(w), height(h), window_name(std::move(name))
+namespace vs
+{
+	vs_window::vs_window(const int w, const int h, std::string name) : width(w),
+	                                                                   height(h),
+	                                                                   window_name(name)
 	{
-		init_window();
+		initWindow();
 	}
+
 	vs_window::~vs_window()
 	{
-		glfwDestroyWindow(window);
+		glfwDestroyWindow(window_);
 		glfwTerminate();
 	}
 
-	auto vs_window::should_close() const -> bool
+	bool vs_window::shouldClose() const
 	{
-		return	glfwWindowShouldClose(window);
+		return glfwWindowShouldClose(window_);
 	}
 
-	auto vs_window::init_window() -> int
+	VkExtent2D vs_window::getExtent()
+	{
+		return {static_cast<uint32_t>(width), static_cast<uint32_t>(height)};
+	}
+
+	void vs_window::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface)
+	{
+		if (glfwCreateWindowSurface(instance, window_, nullptr, surface) != VK_SUCCESS)
+		{
+			throw std::runtime_error("Failed to create window_ surface");
+		}
+	}
+
+	void vs_window::frameBufferResizedCallback(GLFWwindow* window, int width, int height)
+	{
+		auto _window = reinterpret_cast<vs_window*>(glfwGetWindowUserPointer(window));
+		_window->frame_buffer_resized_ = true;
+		_window->width = width;
+		_window->height = height;
+	}
+
+
+	auto vs_window::initWindow() -> int
 	{
 		glfwInit();
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-		window = glfwCreateWindow(width, height, window_name.c_str(), nullptr, nullptr);
-		if (!window)
+		window_ = glfwCreateWindow(width, height, window_name.c_str(), nullptr, nullptr);
+		glfwSetWindowUserPointer(window_, this);
+		glfwSetFramebufferSizeCallback(window_, frameBufferResizedCallback);
+		if (!window_)
 		{
-			printf_s("failed creating window");
+			printf_s("failed creating window_");
 			return 1;
-
 		}
 		return 0;
 	}

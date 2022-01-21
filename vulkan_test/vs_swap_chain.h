@@ -2,11 +2,10 @@
 
 #include "vs_device.h"
 
-// vulkan headers
-#include <vulkan/vulkan.h>
 
 // std lib headers
 #include <string>
+#include <memory>
 #include <vector>
 
 namespace vs
@@ -14,13 +13,15 @@ namespace vs
 	class vs_swap_chain
 	{
 	public:
-		static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
+		static constexpr int MAX_FRAMES_IN_FLIGHT = 3;
 
 		vs_swap_chain(vs_device& deviceRef, VkExtent2D windowExtent);
+		vs_swap_chain(vs_device& deviceRef, VkExtent2D windowExtent,
+		              std::shared_ptr<vs_swap_chain> previous_swap_chain);
 		~vs_swap_chain();
 
 		vs_swap_chain(const vs_swap_chain&) = delete;
-		void operator=(const vs_swap_chain&) = delete;
+		vs_swap_chain operator=(const vs_swap_chain&) = delete;
 
 		VkFramebuffer getFrameBuffer(int index) { return swapChainFramebuffers[index]; }
 		VkRenderPass getRenderPass() { return renderPass; }
@@ -42,6 +43,7 @@ namespace vs
 		VkResult submitCommandBuffers(const VkCommandBuffer* buffers, uint32_t* imageIndex);
 
 	private:
+		void init();
 		void createSwapChain();
 		void createImageViews();
 		void createDepthResources();
@@ -72,6 +74,7 @@ namespace vs
 		VkExtent2D windowExtent;
 
 		VkSwapchainKHR swapChain;
+		std::shared_ptr<vs_swap_chain> old_swap_chain;
 
 		std::vector<VkSemaphore> imageAvailableSemaphores;
 		std::vector<VkSemaphore> renderFinishedSemaphores;
