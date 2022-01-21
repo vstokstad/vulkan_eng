@@ -14,6 +14,20 @@ namespace vs
 	vs_swap_chain::vs_swap_chain(vs_device& deviceRef, VkExtent2D extent)
 		: device{deviceRef}, windowExtent{extent}
 	{
+		init();
+	}
+
+	vs_swap_chain::vs_swap_chain(vs_device& deviceRef, VkExtent2D extent,
+	                             std::shared_ptr<vs_swap_chain> previous_swap_chain)
+		: device{deviceRef}, windowExtent{extent}, old_swap_chain(previous_swap_chain)
+	{
+		init();
+		//clean out old swapchain since we don't need it after init.
+		old_swap_chain = nullptr;
+	}
+
+	void vs_swap_chain::init()
+	{
 		createSwapChain();
 		createImageViews();
 		createRenderPass();
@@ -178,7 +192,7 @@ namespace vs
 		createInfo.presentMode = presentMode;
 		createInfo.clipped = VK_TRUE;
 
-		createInfo.oldSwapchain = VK_NULL_HANDLE;
+		createInfo.oldSwapchain = old_swap_chain == nullptr ? VK_NULL_HANDLE : old_swap_chain->swapChain;
 
 		if (vkCreateSwapchainKHR(device.device(), &createInfo, nullptr, &swapChain) != VK_SUCCESS)
 		{
@@ -395,7 +409,7 @@ namespace vs
 	{
 		for (const auto& availableFormat : availableFormats)
 		{
-			if (availableFormat.format == VK_FORMAT_B8G8R8A8_UNORM &&
+			if (availableFormat.format == VK_FORMAT_B8G8R8A8_SRGB &&
 				availableFormat.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)
 			{
 				return availableFormat;
@@ -412,7 +426,7 @@ namespace vs
 		{
 			if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR)
 			{
-				std::cout << "Present mode: Mailbox" << std::endl;
+				//		std::cout << "Present mode: Mailbox" << std::endl;
 				return availablePresentMode;
 			}
 		}
@@ -424,7 +438,7 @@ namespace vs
 		//   }
 		// }
 
-		std::cout << "Present mode: V-Sync" << std::endl;
+		//	std::cout << "Present mode: V-Sync" << std::endl;
 		return VK_PRESENT_MODE_FIFO_KHR;
 	}
 
