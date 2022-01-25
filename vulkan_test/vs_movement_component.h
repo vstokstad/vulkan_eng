@@ -21,10 +21,12 @@ namespace vs
 			int look_right = GLFW_KEY_RIGHT;
 			int look_up = GLFW_KEY_UP;
 			int look_down = GLFW_KEY_DOWN;
+			int escape = GLFW_KEY_ESCAPE;
 		};
 
 		struct input
 		{
+			glm::vec3 pos_vec3;
 			double x{0};
 			double y{0};
 			double z{0};
@@ -40,8 +42,8 @@ namespace vs
 
 		key_mappings keys{};
 		input last_mouse_input{};
-		float move_speed{3.f};
+		float move_speed{3.0f};
 		float keyboard_look_speed{1.5f};
-		float mouse_speed{1.0f};
+		float mouse_speed{1.5f};
 	};
 }

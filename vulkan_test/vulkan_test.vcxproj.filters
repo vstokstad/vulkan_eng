@@ -14,6 +14,7 @@
     <ClCompile Include="vs_simple_render_system.cpp" />
     <ClCompile Include="vs_camera.cpp" />
     <ClCompile Include="vs_movement_component.cpp" />
+    <ClCompile Include="vs_buffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vs_app.h" />
@@ -28,6 +29,8 @@
     <ClInclude Include="vs_camera.h" />
     <ClInclude Include="vs_movement_component.h" />
     <ClInclude Include="vs_utils.h" />
+    <ClInclude Include="vs_buffer.h" />
+    <ClInclude Include="vs_frame_info.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\simple_shader.vert.spv" />
@@ -38,5 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="compile_shaders.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="models\colored_cube.obj" />
+    <Image Include="models\cube.mtl" />
+    <Image Include="models\cube.obj" />
+    <Image Include="models\flat_vase.obj" />
+    <Image Include="models\smooth_vase.obj" />
   </ItemGroup>
 </Project>
