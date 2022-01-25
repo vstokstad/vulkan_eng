@@ -12,6 +12,8 @@
     <ClCompile Include="vs_game_object.cpp" />
     <ClCompile Include="vs_renderer.cpp" />
     <ClCompile Include="vs_simple_render_system.cpp" />
+    <ClCompile Include="vs_camera.cpp" />
+    <ClCompile Include="vs_movement_component.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vs_app.h" />
@@ -23,6 +25,9 @@
     <ClInclude Include="vs_game_object.h" />
     <ClInclude Include="vs_renderer.h" />
     <ClInclude Include="vs_simple_render_system.h" />
+    <ClInclude Include="vs_camera.h" />
+    <ClInclude Include="vs_movement_component.h" />
+    <ClInclude Include="vs_utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\simple_shader.vert.spv" />

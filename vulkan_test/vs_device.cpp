@@ -3,6 +3,7 @@
 // std headers
 #include <cstring>
 #include <iostream>
+#include <cstdlib>
 #include <set>
 #include <unordered_set>
 

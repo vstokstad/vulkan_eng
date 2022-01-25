@@ -23,6 +23,7 @@ namespace vs
 
 
 		VkRenderPass getSwapChainRenderPass() const { return swap_chain_->getRenderPass(); }
+		float getAspectRatio() const { return swap_chain_->extentAspectRatio(); }
 		bool isFrameInProgress() const { return isFrameStarted; }
 
 		VkCommandBuffer getCurrentCommandBuffer() const
