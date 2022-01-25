@@ -95,7 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.198.1\Include;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glm;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glfw-3.3.6.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.198.1\Include;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\tinyobjloader;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glm;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glfw-3.3.6.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -126,7 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.198.1\Include;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glm;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glfw-3.3.6.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.198.1\Include;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\tinyobjloader;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glm;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glfw-3.3.6.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -157,7 +157,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.198.1\Include;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glm;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glfw-3.3.6.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.198.1\Include;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\tinyobjloader;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glm;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glfw-3.3.6.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -188,7 +188,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.198.1\Include;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glm;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glfw-3.3.6.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.2.198.1\Include;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\tinyobjloader;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glm;C:\Users\vstok\Documents\Visual Studio 2019\Libraries\glfw-3.3.6.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -216,8 +216,10 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="vs_app.cpp" />
+    <ClCompile Include="vs_camera.cpp" />
     <ClCompile Include="vs_device.cpp" />
     <ClCompile Include="vs_game_object.cpp" />
+    <ClCompile Include="vs_movement_component.cpp" />
     <ClCompile Include="vs_model.cpp" />
     <ClCompile Include="vs_pipeline.cpp" />
     <ClCompile Include="vs_renderer.cpp" />
@@ -226,14 +228,17 @@
     <ClCompile Include="vs_window.cpp" />
     <ClCompile Include="vs_window.h" />
     <ClInclude Include="vs_app.h" />
+    <ClInclude Include="vs_camera.h" />
     <ClInclude Include="vs_device.h" />
     <ClInclude Include="vs_game_object.h" />
+    <ClInclude Include="vs_movement_component.h" />
     <ClInclude Include="vs_model.h" />
     <ClInclude Include="vs_pipeline.h" />
     <ClInclude Include="vs_renderer.h" />
     <ClInclude Include="vs_simple_render_system.h" />
     <ClInclude Include="vs_swap_chain.h" />
     <ClInclude Include="vs_matrix.h" />
+    <ClInclude Include="vs_utils.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="compile_shaders.ps1" />

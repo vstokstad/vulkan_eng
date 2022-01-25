@@ -66,18 +66,18 @@ void vs::vs_simple_render_system::createPipeline(VkRenderPass render_pass)
 
 
 void vs::vs_simple_render_system::renderGameObjects(VkCommandBuffer command_buffer,
-                                                    std::vector<vs_game_object>& game_objects)
+                                                    std::vector<vs_game_object>& game_objects, const vs_camera& camera)
 {
 	pipeline->bind(command_buffer);
 
+	auto projection_view = camera.getProjection() * camera.getView();
+
 	for (auto& object : game_objects)
 	{
-		object.transform.rotation.y = glm::mod(object.transform.rotation.y + 0.01f, glm::two_pi<float>());
-
 		simple_push_constant_data push{};
 
 		push.color = object.color;
-		push.transform = object.transform.mat4();
+		push.transform = projection_view * object.transform.mat4();
 
 		vkCmdPushConstants(command_buffer, pipeline_layout_,
 		                   VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0,

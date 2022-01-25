@@ -7,6 +7,7 @@
 #include "vs_device.h"
 #include "vs_game_object.h"
 #include "vs_pipeline.h"
+#include "vs_camera.h"
 
 
 namespace vs
@@ -21,7 +22,8 @@ namespace vs
 		vs_simple_render_system(const vs_simple_render_system&) = delete;
 		vs_simple_render_system& operator==(const vs_simple_render_system&) = delete;
 
-		void renderGameObjects(VkCommandBuffer command_buffer, std::vector<vs_game_object>& game_objects);
+		void renderGameObjects(VkCommandBuffer command_buffer, std::vector<vs_game_object>& game_objects,
+		                       const vs_camera& camera);
 
 
 	private:
