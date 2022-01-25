@@ -9,6 +9,9 @@
     <ClCompile Include="vs_pipeline.cpp" />
     <ClCompile Include="vs_swap_chain.cpp" />
     <ClCompile Include="vs_model.cpp" />
+    <ClCompile Include="vs_game_object.cpp" />
+    <ClCompile Include="vs_renderer.cpp" />
+    <ClCompile Include="vs_simple_render_system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vs_app.h" />
@@ -17,14 +20,15 @@
     <ClInclude Include="vs_swap_chain.h" />
     <ClInclude Include="vs_model.h" />
     <ClInclude Include="vs_matrix.h" />
+    <ClInclude Include="vs_game_object.h" />
+    <ClInclude Include="vs_renderer.h" />
+    <ClInclude Include="vs_simple_render_system.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\simple_shader.vert.spv" />
     <None Include="shaders\simple_shader.frag.spv" />
     <None Include="shaders\simple_shader.frag" />
     <None Include="shaders\simple_shader.vert" />
-    <None Include="shaders\test.frag" />
-    <None Include="shaders\test.vert" />
     <None Include="shader_compile.bat" />
   </ItemGroup>
   <ItemGroup>

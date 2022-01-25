@@ -2,13 +2,13 @@
 
 #include <memory>
 #include <vector>
-#include <glm/vec2.hpp>
 
-#include "vs_pipeline.h"
 #include "vs_window.h"
 #include "vs_device.h"
-#include "vs_model.h"
-#include "vs_swap_chain.h"
+
+
+#include "vs_game_object.h"
+#include "vs_renderer.h"
 
 namespace vs
 {
@@ -29,30 +29,16 @@ namespace vs
 
 
 		void run();
-		void sierpinski(
-			std::vector<vs_model::vertex>& vertices,
-			int depth,
-			glm::vec3 left,
-			glm::vec3 right,
-			glm::vec3 top,
-			glm::vec3 color);
-		void loadModels();
+
+
 	private:
-		void createPipelineLayout();
-		void createPipeline();
-		void createCommandBuffers();
-		void freeCommandBuffers();
-		void drawFrame();
-		void recreateSwapChain();
-		void recordCommandBuffer(int imageIndex);
+		void loadGameObjects();
 
 
 		vs_window window_{WIDTH, HEIGHT, "Vulkan App"};
 		vs_device device_{window_};
-		std::unique_ptr<vs_swap_chain> swap_chain_;
-		std::unique_ptr<vs_pipeline> pipeline;
-		std::unique_ptr<vs_model> model_;
-		VkPipelineLayout pipeline_layout_;
-		std::vector<VkCommandBuffer> command_buffers_;
+		vs_renderer renderer_{window_, device_};
+
+		std::vector<vs_game_object> game_objects_;
 	};
 }
