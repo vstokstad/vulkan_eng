@@ -12,12 +12,11 @@ namespace vs
 	void vs_movement_component::init(GLFWwindow* window)
 	{
 		glfwSetScrollCallback(window, mouse_scroll_callback);
-		//glfwSetCursorEnterCallback(window, window_in_focus_callback);
 		glfwSetWindowFocusCallback(window, window_in_focus_callback);
 
 		if (glfwRawMouseMotionSupported())
 		{
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			std::cout << "using raw mouse input" << std::endl;
 			glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 		}
@@ -28,36 +27,18 @@ namespace vs
 		}
 	}
 
-	void vs_movement_component::window_in_focus_callback(GLFWwindow* window, int focused)
-	{
-		if (focused == GLFW_FALSE)
-		{
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-			glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
-			std::cout << "Mouse left window, activating cursor." << std::endl;
-		}
-		else if (focused == GLFW_TRUE)
-		{
-			if (glfwRawMouseMotionSupported())
-			{
-				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-				glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-			}
-			std::cout << "Mouse focused window, deactivating cursor." << std::endl;
-		}
-	}
 
 	void vs_movement_component::moveInPlaneXZ(GLFWwindow* window, float dt, vs_game_object& game_object)
 	{
 		glm::vec3 rotate{0};
-		if (glfwGetInputMode(window, GLFW_RAW_MOUSE_MOTION))
+		if (glfwGetInputMode(window, GLFW_RAW_MOUSE_MOTION) == GLFW_TRUE)
 		{
 			//mouse rotation
 			double xpos, ypos;
 			glfwGetCursorPos(window, &xpos, &ypos);
 
-			rotate.y = glm::clamp(xpos - last_mouse_input.x, -1.0, 1.0);
-			rotate.x = glm::clamp(ypos - last_mouse_input.y, -1.0, 1.0);
+			rotate.x += static_cast<float>(ypos - last_mouse_input.y) * -1.f;
+			rotate.y += static_cast<float>(xpos - last_mouse_input.x);
 			last_mouse_input.y = ypos;
 			last_mouse_input.x = xpos;
 
@@ -90,7 +71,7 @@ namespace vs
 		const glm::vec3 rightDir{forwardDir.z, 0.f, -forwardDir.x};
 		const glm::vec3 upDir{0.f, -1.f, 0.f};
 
-
+		//movement
 		glm::vec3 moveDir{0.f};
 		if (glfwGetKey(window, keys.forward) == GLFW_PRESS)moveDir += forwardDir;
 		if (glfwGetKey(window, keys.back) == GLFW_PRESS)moveDir -= forwardDir;
@@ -102,6 +83,33 @@ namespace vs
 		if (glm::dot(moveDir, moveDir) > std::numeric_limits<float>::epsilon())
 		{
 			game_object.transform.translation += move_speed * dt * glm::normalize(moveDir);
+		}
+
+
+		//other
+		if (glfwGetKey(window, keys.escape) == GLFW_PRESS)
+		{
+			std::cout << "pressed escape and window is closing" << std::endl;
+			glfwSetWindowShouldClose(window, GLFW_TRUE);
+		}
+	}
+
+	void vs_movement_component::window_in_focus_callback(GLFWwindow* window, int focused)
+	{
+		if (focused == GLFW_FALSE)
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+			std::cout << "window not focused, activating cursor." << std::endl;
+		}
+		else if (focused == GLFW_TRUE)
+		{
+			if (glfwRawMouseMotionSupported())
+			{
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+				glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+			}
+			std::cout << "window in focus, deactivating cursor." << std::endl;
 		}
 	}
 

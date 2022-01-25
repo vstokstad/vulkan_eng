@@ -1,5 +1,6 @@
 #pragma once
 #include "vs_device.h"
+#include "vs_buffer.h"
 
 //libs
 #define GLM_FORCE_RADIANS
@@ -59,13 +60,11 @@ namespace vs
 
 		vs_device& device_;
 
-		VkBuffer vertex_buffer_;
-		VkDeviceMemory vertex_buffer_memory_;
+		std::unique_ptr<vs_buffer> vertex_buffer_;
 		uint32_t vertex_count_ = 0;
 
 		bool has_index_buffer_ = false;
-		VkBuffer index_buffer_;
-		VkDeviceMemory index_buffer_memory_;
+		std::unique_ptr<vs_buffer> index_buffer_;
 		uint32_t index_count_ = 0;
 	};
 }

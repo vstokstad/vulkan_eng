@@ -12,6 +12,12 @@
 
 namespace vs
 {
+	struct global_ubo
+	{
+		glm::mat4 projection_view{1.f};
+		glm::vec3 light_direction = glm::normalize(glm::vec3{1.f, -3.f, -1.f});
+	};
+
 	vs_app::vs_app()
 	{
 		loadGameObjects();
@@ -23,9 +29,20 @@ namespace vs
 
 	void vs_app::run()
 	{
+		vs_buffer global_ubo_buffer{
+			device_,
+			sizeof(global_ubo),
+			vs_swap_chain::MAX_FRAMES_IN_FLIGHT,
+			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
+			device_.properties.limits.minUniformBufferOffsetAlignment,
+		};
+
+		global_ubo_buffer.map();
+
+
 		vs_simple_render_system simple_render_system{device_, renderer_.getSwapChainRenderPass()};
 		vs_camera camera{};
-		camera.setViewTarget({-1.f, -2.f, 2.f}, {0.f, 0.f, 2.5f});
 
 		auto viewerObject = vs_game_object::createGameObject();
 		vs_movement_component movement_controller{window_.getGLFWwindow()};
@@ -48,12 +65,28 @@ namespace vs
 
 			//Camera perspective step
 			float aspect = renderer_.getAspectRatio();
-			camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 100.f);
+			camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 10.f);
 
 			if (auto command_buffer = renderer_.beginFrame())
 			{
+				//start frame
+				int frame_index = renderer_.getFrameIndex();
+				frame_info frame{
+					frame_index, frameTime, command_buffer, camera
+				};
+
+				//Update
+				global_ubo ubo{};
+				ubo.projection_view = camera.getProjection() * camera.getView();
+				global_ubo_buffer.writeToIndex((void*)&ubo, frame_index);
+				if (global_ubo_buffer.flushIndex(frame_index) != VK_SUCCESS)
+				{
+					throw std::runtime_error("something is wrong while flushing UBO");
+				};
+
+				//Render
 				renderer_.beginSwapChainRenderPass(command_buffer);
-				simple_render_system.renderGameObjects(command_buffer, game_objects_, camera);
+				simple_render_system.renderGameObjects(frame, game_objects_);
 				renderer_.endSwapChainRenderPass(command_buffer);
 				renderer_.endFrame();
 			}
@@ -64,12 +97,23 @@ namespace vs
 
 	void vs_app::loadGameObjects()
 	{
-		std::shared_ptr<vs_model> model = vs_model::createModelFromFile(
-			device_, "models/smooth_vase.obj");
-		auto game_object = vs_game_object::createGameObject();
-		game_object.model = model;
-		game_object.transform.translation = {.0f, .0f, 2.5f};
-		game_object.transform.scale = glm::vec3(3.f);
-		game_objects_.push_back(std::move(game_object));
+		for (int i = 0; i < 10; ++i)
+		{
+			std::shared_ptr<vs_model> model = vs_model::createModelFromFile(
+				device_, "models/smooth_vase.obj");
+			auto game_object = vs_game_object::createGameObject();
+			game_object.model = model;
+			game_object.transform.translation = {i + .0f, .5f, 2.5f + i};
+			game_object.transform.scale = glm::vec3(1.f, 1.f, 1.f);
+			game_objects_.push_back(std::move(game_object));
+
+			std::shared_ptr<vs_model> flat_vase = vs_model::createModelFromFile(
+				device_, "models/flat_vase.obj");
+			auto vase = vs_game_object::createGameObject();
+			vase.model = flat_vase;
+			vase.transform.translation = {-i * .5f, .5f, 2.5f - i};
+			vase.transform.scale = glm::vec3(1.f, 1.f, 1.f);
+			game_objects_.push_back(std::move(vase));
+		}
 	}
 }

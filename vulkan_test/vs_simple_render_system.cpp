@@ -13,7 +13,7 @@
 struct simple_push_constant_data
 {
 	glm::mat4 transform{1.f};
-	alignas(16) glm::vec3 color;
+	glm::mat4 normal_matrix{1.0f};
 };
 
 vs::vs_simple_render_system::vs_simple_render_system(vs_device& device, VkRenderPass render_pass) : device_(device)
@@ -65,24 +65,25 @@ void vs::vs_simple_render_system::createPipeline(VkRenderPass render_pass)
 }
 
 
-void vs::vs_simple_render_system::renderGameObjects(VkCommandBuffer command_buffer,
-                                                    std::vector<vs_game_object>& game_objects, const vs_camera& camera)
+void vs::vs_simple_render_system::renderGameObjects(frame_info& frame_info,
+                                                    std::vector<vs_game_object>& game_objects)
 {
-	pipeline->bind(command_buffer);
+	pipeline->bind(frame_info.command_buffer);
 
-	auto projection_view = camera.getProjection() * camera.getView();
+	auto projection_view = frame_info.camera.getProjection() * frame_info.camera.getView();
 
 	for (auto& object : game_objects)
 	{
 		simple_push_constant_data push{};
 
-		push.color = object.color;
-		push.transform = projection_view * object.transform.mat4();
 
-		vkCmdPushConstants(command_buffer, pipeline_layout_,
+		push.transform = projection_view * object.transform.mat4();
+		push.normal_matrix = object.transform.normal_matrix();
+
+		vkCmdPushConstants(frame_info.command_buffer, pipeline_layout_,
 		                   VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0,
 		                   sizeof(simple_push_constant_data), &push);
-		object.model->bind(command_buffer);
-		object.model->draw(command_buffer);
+		object.model->bind(frame_info.command_buffer);
+		object.model->draw(frame_info.command_buffer);
 	}
 }
