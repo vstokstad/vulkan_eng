@@ -1,6 +1,6 @@
 #pragma once
-#include "vs_device.h"
-#include "vs_buffer.h"
+#include "renderer/vs_device.h"
+#include "renderer/vs_buffer.h"
 
 //libs
 #define GLM_FORCE_RADIANS
@@ -38,7 +38,7 @@ namespace vs
 			std::vector<vertex> vertices{};
 			std::vector<uint32_t> indices{};
 
-			void loadModel(const std::string& filename);
+			void loadModel(const std::string& obj_file, const std::string& mtr_path);
 		};
 
 
@@ -48,7 +48,8 @@ namespace vs
 		vs_model(const vs_model&) = delete;
 		vs_model& operator=(const vs_model&) = delete;
 
-		static std::unique_ptr<vs_model> createModelFromFile(vs_device& device, const std::string& filepath);
+		static std::unique_ptr<vs_model> createModelFromFile(vs_device& device, const std::string& obj_file,
+		                                                     const std::string& mtl_path = nullptr);
 
 		void bind(VkCommandBuffer command_buffer);
 		void draw(VkCommandBuffer command_buffer);

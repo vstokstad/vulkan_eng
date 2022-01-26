@@ -40,10 +40,12 @@ namespace vs
 	{
 	}
 
-	std::unique_ptr<vs_model> vs_model::createModelFromFile(vs_device& device, const std::string& filepath)
+	std::unique_ptr<vs_model> vs_model::createModelFromFile(vs_device& device, const std::string& obj_file,
+	                                                        const std::string& mtl_path)
 	{
 		builder builder{};
-		builder.loadModel(filepath);
+
+		builder.loadModel(obj_file, mtl_path);
 		return std::make_unique<vs_model>(device, builder);
 	}
 
@@ -74,7 +76,6 @@ namespace vs
 			VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT
 		);
 
-
 		device_.copyBuffer(staging_buffer.getBuffer(), vertex_buffer_->getBuffer(), buffer_size);
 	}
 
@@ -84,10 +85,9 @@ namespace vs
 		has_index_buffer_ = index_count_ > 0;
 
 		if (!has_index_buffer_)return;
-
-
 		VkDeviceSize buffer_size = sizeof(indices[0]) * index_count_;
 		uint32_t index_size = sizeof(indices[0]);
+
 		vs_buffer staging_buffer{
 			device_, index_size, index_count_,
 			VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
@@ -155,17 +155,19 @@ namespace vs
 		return attribute_descriptions;
 	}
 
-	void vs_model::builder::loadModel(const std::string& filename)
+	void vs_model::builder::loadModel(const std::string& obj_file, const std::string& mtr_path = "")
 	{
 		tinyobj::attrib_t attrib;
 		std::vector<tinyobj::shape_t> shapes;
 		std::vector<tinyobj::material_t> materials;
 		std::string warn, err;
 
-		if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filename.c_str()))
+		if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, obj_file.c_str(),
+		                      mtr_path == "" ? 0 : mtr_path.c_str()))
 		{
 			throw std::runtime_error(warn + err);
 		}
+
 
 		vertices.clear();
 		indices.clear();

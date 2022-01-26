@@ -13,7 +13,7 @@ namespace vs
 	class vs_swap_chain
 	{
 	public:
-		static constexpr int MAX_FRAMES_IN_FLIGHT = 3;
+		static constexpr int MAX_FRAMES_IN_FLIGHT = 1;
 
 		vs_swap_chain(vs_device& deviceRef, VkExtent2D windowExtent);
 		vs_swap_chain(vs_device& deviceRef, VkExtent2D windowExtent,
@@ -63,10 +63,6 @@ namespace vs
 		VkPresentModeKHR chooseSwapPresentMode(
 			const std::vector<VkPresentModeKHR>& availablePresentModes);
 		VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
-
-		//TODO should not save here but quick fix to not spam presentmode on recreating swapchain every frame.
-		VkPresentModeKHR current_present_mode_ = VK_PRESENT_MODE_MAX_ENUM_KHR;
-
 
 		VkFormat swapChainImageFormat;
 		VkFormat swapChainDepthFormat;

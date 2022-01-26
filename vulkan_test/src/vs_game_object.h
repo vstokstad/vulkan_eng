@@ -1,9 +1,12 @@
 ﻿#pragma once
 #include "vs_model.h"
-#include	<memory>
 
+//std
+#include	<memory>
+#include <unordered_map>
 //libs
 #include	<glm/gtc/matrix_transform.hpp>
+
 
 namespace vs
 {
@@ -31,6 +34,7 @@ namespace vs
 	{
 	public:
 		using id_t = unsigned int;
+		using map = std::unordered_map<id_t, vs_game_object>;
 
 		static vs_game_object createGameObject()
 		{
