@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "vs_model.h"
+#include "../vs_model.h"
 
 namespace vs
 {

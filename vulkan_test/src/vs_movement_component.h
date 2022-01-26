@@ -4,6 +4,8 @@
 
 namespace vs
 {
+	static float mouse_speed_scroll_modifier = 0.f;
+
 	class vs_movement_component
 	{
 	public:
@@ -44,6 +46,6 @@ namespace vs
 		input last_mouse_input{};
 		float move_speed{3.0f};
 		float keyboard_look_speed{1.5f};
-		float mouse_speed{1.5f};
+		float mouse_speed{1.7f};
 	};
 }

@@ -4,7 +4,7 @@
 #include <vector>
 #include <cassert>
 
-#include "vs_window.h"
+#include "../vs_window.h"
 #include "vs_device.h"
 #include "vs_swap_chain.h"
 

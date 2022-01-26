@@ -6,6 +6,7 @@ namespace vs
 {
 	vs_movement_component::vs_movement_component(GLFWwindow* window)
 	{
+		mouse_speed_scroll_modifier = {0.f};
 		init(window);
 	}
 
@@ -13,7 +14,6 @@ namespace vs
 	{
 		glfwSetScrollCallback(window, mouse_scroll_callback);
 		glfwSetWindowFocusCallback(window, window_in_focus_callback);
-
 		if (glfwRawMouseMotionSupported())
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -45,7 +45,8 @@ namespace vs
 
 			if (glm::dot(rotate, rotate) > std::numeric_limits<float>::epsilon())
 			{
-				game_object.transform.rotation += mouse_speed * dt * glm::normalize(rotate);
+				game_object.transform.rotation += (mouse_speed + mouse_speed_scroll_modifier) * dt *
+					glm::normalize(rotate);
 			}
 			rotate = {0.f, 0.f, 0.f};
 		}
@@ -116,6 +117,7 @@ namespace vs
 	void vs_movement_component::mouse_scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		//TODO implement this using the getUserWindowPointer to get a ref back to our non-static class.
+		mouse_speed_scroll_modifier += static_cast<float>(yoffset / 10.0);
 		//last_mouse_input.z = yoffset;
 		std::cout << "mouse scroll callback with yoffset: " << yoffset << std::endl;
 	}

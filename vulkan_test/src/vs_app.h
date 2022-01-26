@@ -1,14 +1,14 @@
 #pragma once
 
+#include "vs_window.h"
+#include "renderer/vs_device.h"
+#include "vs_game_object.h"
+#include "renderer/vs_renderer.h"
+#include "vs_descriptors.h"
+
+//std
 #include <memory>
 #include <vector>
-
-#include "vs_window.h"
-#include "vs_device.h"
-
-
-#include "vs_game_object.h"
-#include "vs_renderer.h"
 
 namespace vs
 {
@@ -39,6 +39,8 @@ namespace vs
 		vs_device device_{window_};
 		vs_renderer renderer_{window_, device_};
 
-		std::vector<vs_game_object> game_objects_;
+		//order of declaration matters (pool need to be constructed after device and destroyed before device.)
+		std::unique_ptr<vs_descriptor_pool> global_descriptor_pool_{};
+		vs_game_object::map game_objects_;
 	};
 }
