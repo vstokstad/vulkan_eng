@@ -1,7 +1,6 @@
 #version 450
 
 
-
 layout (location = 0) in vec3 fragColor;
 layout (location = 1) in vec3 fragPosWorld;
 layout (location = 2) in vec3 fragNormalWorld;
@@ -10,20 +9,20 @@ layout (location = 0) out vec4 outColor;
 
 
 layout(set=0, binding=0) uniform global_ubo {
-mat4 projection_view_matrix;
-vec4 ambient_light_color;
-vec3 point_light_position;
-vec4 point_light_color;
+	mat4 projection;
+	mat4 view;
+	vec4 ambient_light_color; // w is intensity
+	vec3 point_light_position;
+	vec4 point_light_color; // w is intensity
 } ubo;
 
 layout(push_constant) uniform Push {
-mat4 model_matrix; 
-mat4 normal_matrix;
+	mat4 model_matrix; 
+	mat4 normal_matrix;
 } push;
 
 
 void main() {
-
 
   vec3 direction_to_light = ubo.point_light_position - fragPosWorld;
 
