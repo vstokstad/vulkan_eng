@@ -241,6 +241,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </Image>
+    <None Include="shaders\point_light.frag" />
+    <None Include="shaders\point_light.frag.spv" />
+    <None Include="shaders\point_light.vert" />
+    <None Include="shaders\point_light.vert.spv" />
     <None Include="shaders\simple_shader.frag" />
     <None Include="shaders\simple_shader.frag.spv" />
     <None Include="shaders\simple_shader.vert" />
@@ -308,6 +312,7 @@
     <ClCompile Include="src\render_systems\vs_simple_render_system.cpp" />
     <ClCompile Include="src\renderer\vs_swap_chain.cpp" />
     <ClCompile Include="src\vs_window.cpp" />
+    <ClCompile Include="src\render_systems\vs_point_light_system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vs_app.h" />
@@ -325,6 +330,7 @@
     <ClInclude Include="src\renderer\vs_swap_chain.h" />
     <ClInclude Include="src\vs_utils.h" />
     <ClInclude Include="src\vs_window.h" />
+    <ClInclude Include="src\render_systems\vs_point_light_system.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

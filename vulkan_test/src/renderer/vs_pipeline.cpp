@@ -82,8 +82,8 @@ namespace vs
 		shader_stages[1].pNext = nullptr;
 		shader_stages[1].pSpecializationInfo = nullptr;
 
-		auto bindingDescription = vs_model::vertex::getBindingDescriptions();
-		auto attributeDescription = vs_model::vertex::getAttributeDescriptions();
+		auto& bindingDescription = config_info.binding_descriptions;
+		auto& attributeDescription = config_info.attribute_descriptions;
 
 		VkPipelineVertexInputStateCreateInfo vertex_input_info{};
 		vertex_input_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -204,5 +204,9 @@ namespace vs
 		config_info.dynamic_state_info.pDynamicStates = config_info.dynamic_state_enables.data();
 		config_info.dynamic_state_info.dynamicStateCount = static_cast<uint32_t>(config_info.dynamic_state_enables.
 			size());
+		config_info.dynamic_state_info.flags = 0;
+
+		config_info.binding_descriptions = vs_model::vertex::getBindingDescriptions();
+		config_info.attribute_descriptions = vs_model::vertex::getAttributeDescriptions();
 	}
 }
