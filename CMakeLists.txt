@@ -50,11 +50,6 @@ target_link_libraries(vulkan_eng PRIVATE glm::glm)
 find_package(Vulkan REQUIRED)
 target_link_libraries(vulkan_eng PRIVATE Vulkan::Vulkan)
 
-#add_custom_command(
-#		TARGET vulkan_eng POST_BUILD
-#		COMMAND ${CMAKE_COMMAND} -E copy_directory
-#		${CMAKE_SOURCE_DIR}/shaders/
-#		${CMAKE_CURRENT_BINARY_DIR}/shaders/)
 
 ## copy over models folder
 add_custom_command(
@@ -62,7 +57,15 @@ add_custom_command(
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
 		${CMAKE_SOURCE_DIR}/models
 		${CMAKE_CURRENT_BINARY_DIR}/models
-COMMENT "copying models folder")
+		COMMENT "copying models folder")
+
+##Copy shaders folder
+add_custom_command(
+		TARGET vulkan_eng POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_directory
+		${CMAKE_SOURCE_DIR}/shaders/
+		${CMAKE_CURRENT_BINARY_DIR}/shaders/
+		COMMENT "copying shaders folder")
 
 ############## Build SHADERS #######################
 
@@ -95,9 +98,9 @@ foreach (GLSL ${GLSL_SOURCE_FILES})
 	list(APPEND SPIRV_BINARY_FILES ${SPIRV})
 endforeach (GLSL)
 
-
 add_custom_target(
 		Shaders
 		DEPENDS ${SPIRV_BINARY_FILES}
 		COMMENT "shaders compiled"
 )
+

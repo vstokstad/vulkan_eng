@@ -146,7 +146,7 @@ void vs_app::run() {
 void vs_app::loadGameObjects() {
 
   std::shared_ptr<vs_model> model;
-  {
+ /* {
     model = vs_model::createModelFromFile(device_, "models/hairball.obj",
                                           "models/");
     auto object = vs_game_object::createGameObject();
@@ -154,8 +154,8 @@ void vs_app::loadGameObjects() {
     object.transform.translation = {0.f, .0f, 0.f};
     object.transform.scale = glm::vec3(.5f, .5f, .5f);
     game_objects_.emplace(object.getId(), std::move(object));
-  }
-  {
+  }*/
+ /* {
     model = vs_model::createModelFromFile(device_, "models/cloud/cumulus00.obj",
                                           "models/cloud");
     auto object = vs_game_object::createGameObject();
@@ -163,7 +163,7 @@ void vs_app::loadGameObjects() {
     object.transform.translation = {0.f, -10.f, 0.f};
     object.transform.scale = glm::vec3(1.f, 1.5f, 1.5f);
     game_objects_.emplace(object.getId(), std::move(object));
-  }
+  }*/
 
   /*** ROW OF VASES******/
   for (int i = 0; i < 5; ++i) {
