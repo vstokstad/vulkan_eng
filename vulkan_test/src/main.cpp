@@ -1,8 +1,9 @@
-#include "vs_app.h"
+#include "engine/vs_app.h"
 #include <iostream>
 #include <cstdlib>
 
-int main() {
+int main()
+{
 	vs::vs_app app{};
 
 	try
@@ -13,7 +14,6 @@ int main() {
 	{
 		std::cerr << e.what() << '\n';
 		return EXIT_FAILURE;
-
 	}
 
 

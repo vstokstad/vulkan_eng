@@ -1,0 +1,3147 @@
+#
+#
+#
+
+newmtl sponza_00 Mesh_leaf
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_thorn_diff.png
+
+newmtl sponza_01 Mesh_Material__57
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_plant.png
+
+newmtl sponza_01 Mesh_vase_round
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd vase_round.png
+
+newmtl sponza_03 Mesh_Material__298
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd background.png
+
+newmtl sponza_05 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_06 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_07 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_08 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_09 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_10 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_100 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_101 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_102 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_103 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_104 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_105 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_106 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_107 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_108 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_109 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_11 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_110 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_111 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_112 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_113 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_114 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_115 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_116 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_117 Mesh_floor
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 70.000000
+map_Kd sponza_floor_a_diff.png
+
+newmtl sponza_118 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_119 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_12 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_120 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_121 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_122 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_123 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_124 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_125 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_126 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_127 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_128 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_129 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_13 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_130 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_131 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_132 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_133 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_134 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_135 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_136 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_137 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_138 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_139 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_14 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_140 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_141 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_142 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_143 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_144 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_145 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_146 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_147 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_148 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_149 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_15 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_150 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_151 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_152 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_153 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_154 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_155 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_156 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_157 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_158 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_159 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_16 Mesh_column_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_a_diff.png
+
+newmtl sponza_160 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_161 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_162 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_163 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_164 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_165 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_166 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_167 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_168 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_169 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_17 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_170 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_171 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_172 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_173 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_174 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_175 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_176 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_177 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_178 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_179 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_18 Mesh_floor
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 70.000000
+map_Kd sponza_floor_a_diff.png
+
+newmtl sponza_180 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_181 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_182 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_183 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_184 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_185 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_186 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_187 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_188 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_189 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_19 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_190 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_191 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_192 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_193 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_194 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_195 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_196 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_197 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_198 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_199 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_20 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_200 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_201 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_202 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_203 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_204 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_205 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_206 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_207 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_208 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_209 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_21 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_210 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_211 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_212 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_213 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_214 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_215 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_216 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_217 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_218 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_219 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_22 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_220 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_221 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_222 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_223 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_224 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_225 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_226 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_227 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_228 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_229 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_23 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_230 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_231 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_232 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_233 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_234 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_235 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_236 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_237 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_238 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_239 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_24 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_240 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_241 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_242 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_243 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_244 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_245 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_246 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_247 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_248 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_249 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_25 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_250 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_251 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_252 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_253 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_254 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_255 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_256 Mesh_column_b
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_column_b_diff.png
+
+newmtl sponza_257 Mesh_Material__47
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+
+newmtl sponza_258 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_259 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_26 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_260 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_261 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_262 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_263 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_264 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_265 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_266 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_267 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_268 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_269 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_27 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_270 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_271 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_272 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_273 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_274 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_275 Mesh_leaf
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_thorn_diff.png
+
+newmtl sponza_276 Mesh_leaf
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_thorn_diff.png
+
+newmtl sponza_277 Mesh_leaf
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_thorn_diff.png
+
+newmtl sponza_278 Mesh_leaf
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_thorn_diff.png
+
+newmtl sponza_279 Mesh_leaf
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_thorn_diff.png
+
+newmtl sponza_28 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_280 Mesh_leaf
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_thorn_diff.png
+
+newmtl sponza_281 Mesh_leaf
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_thorn_diff.png
+
+newmtl sponza_282 Mesh_fabric_e
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_fabric_green_diff.png
+
+newmtl sponza_283 Mesh_fabric_d
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_fabric_blue_diff.png
+
+newmtl sponza_284 Mesh_fabric_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_fabric_diff.png
+
+newmtl sponza_285 Mesh_fabric_e
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_fabric_green_diff.png
+
+newmtl sponza_286 Mesh_fabric_d
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_fabric_blue_diff.png
+
+newmtl sponza_287 Mesh_fabric_e
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_fabric_green_diff.png
+
+newmtl sponza_288 Mesh_fabric_a
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_fabric_diff.png
+
+newmtl sponza_289 Mesh_fabric_d
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_fabric_blue_diff.png
+
+newmtl sponza_29 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_290 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_291 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_292 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_293 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_294 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_295 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_296 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_297 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_298 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_299 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_30 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_300 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_301 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_302 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_303 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_304 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_305 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_306 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_307 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_308 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_309 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_31 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_310 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_311 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_312 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_313 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_314 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_315 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_316 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_317 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_318 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_319 Mesh_flagpole
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ns 10.000000
+map_Kd sponza_flagpole_diff.png
+
+newmtl sponza_32 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_320 Mesh_fabric_g
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_curtain_blue_diff.png
+
+newmtl sponza_321 Mesh_fabric_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_curtain_diff.png
+
+newmtl sponza_322 Mesh_fabric_f
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_curtain_green_diff.png
+
+newmtl sponza_323 Mesh_fabric_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_curtain_diff.png
+
+newmtl sponza_324 Mesh_fabric_f
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_curtain_green_diff.png
+
+newmtl sponza_325 Mesh_fabric_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_curtain_diff.png
+
+newmtl sponza_326 Mesh_fabric_g
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_curtain_blue_diff.png
+
+newmtl sponza_327 Mesh_fabric_f
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_curtain_green_diff.png
+
+newmtl sponza_328 Mesh_fabric_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_curtain_diff.png
+
+newmtl sponza_329 Mesh_fabric_g
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 0.100000
+map_Kd sponza_curtain_blue_diff.png
+
+newmtl sponza_33 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_330 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_331 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_332 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_333 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_334 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_335 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_336 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_337 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_338 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_339 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_34 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_340 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_341 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_342 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_343 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_344 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_345 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_346 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_347 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_348 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_349 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_35 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_350 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_351 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_352 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_353 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_354 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_355 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_356 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_357 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_358 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_359 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_36 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_360 Mesh_chain
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 50.000000
+map_Kd chain_texture.png
+
+newmtl sponza_361 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_362 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_363 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_364 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_365 Mesh_vase_hanging
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ns 50.000000
+map_Kd vase_hanging.png
+
+newmtl sponza_366 Mesh_Material__57
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_plant.png
+
+newmtl sponza_366 Mesh_vase_round
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd vase_round.png
+
+newmtl sponza_367 Mesh_Material__57
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_plant.png
+
+newmtl sponza_367 Mesh_vase_round
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd vase_round.png
+
+newmtl sponza_368 Mesh_Material__57
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_plant.png
+
+newmtl sponza_368 Mesh_vase_round
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd vase_round.png
+
+newmtl sponza_369 Mesh_Material__57
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_plant.png
+
+newmtl sponza_369 Mesh_vase_round
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd vase_round.png
+
+newmtl sponza_37 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_370 Mesh_Material__57
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_plant.png
+
+newmtl sponza_370 Mesh_vase_round
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd vase_round.png
+
+newmtl sponza_371 Mesh_Material__57
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_plant.png
+
+newmtl sponza_371 Mesh_vase_round
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd vase_round.png
+
+newmtl sponza_372 Mesh_Material__57
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_plant.png
+
+newmtl sponza_372 Mesh_vase_round
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd vase_round.png
+
+newmtl sponza_373 Mesh_vase
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_dif.png
+
+newmtl sponza_374 Mesh_vase
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_dif.png
+
+newmtl sponza_375 Mesh_vase
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_dif.png
+
+newmtl sponza_376 Mesh_vase
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd vase_dif.png
+
+newmtl sponza_377 Mesh_Material__25
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd lion.png
+
+newmtl sponza_377 Mesh_Material__298
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd background.png
+
+newmtl sponza_378 Mesh_Material__25
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd lion.png
+
+newmtl sponza_378 Mesh_Material__298
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd background.png
+
+newmtl sponza_379 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_38 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_380 Mesh_roof
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_roof_diff.png
+
+newmtl sponza_381 Mesh_roof
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_roof_diff.png
+
+newmtl sponza_382 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_39 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_40 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_41 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_42 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_43 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_44 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_45 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_46 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_47 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_48 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_49 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_50 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_51 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_52 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_53 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_54 Mesh_ceiling
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_ceiling_a_diff.png
+
+newmtl sponza_55 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_56 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_57 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_58 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_59 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_60 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_61 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_62 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_63 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_64 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_65 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_66 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_67 Mesh_arch
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.100000 0.100000 0.100000
+Ns 40.000000
+map_Kd sponza_arch_diff.png
+
+newmtl sponza_68 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_69 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_70 Mesh_details
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_details_diff.png
+
+newmtl sponza_71 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_71 Mesh_details
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_details_diff.png
+
+newmtl sponza_72 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_72 Mesh_details
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_details_diff.png
+
+newmtl sponza_73 Mesh_details
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_details_diff.png
+
+newmtl sponza_74 Mesh_details
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 10.000000
+map_Kd sponza_details_diff.png
+
+newmtl sponza_75 Mesh_bricks
+illum 2
+Ka 0.588000 0.588000 0.588000
+Kd 1.000000 1.000000 1.000000
+Ks 0.015000 0.015000 0.015000
+Ns 10.000000
+map_Kd spnza_bricks_a_diff.png
+
+newmtl sponza_76 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_77 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_78 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_79 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_80 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_81 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_82 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_83 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_84 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_85 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_86 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_87 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_88 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_89 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_90 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_91 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_92 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_93 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_94 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_95 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_96 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_97 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_98 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+
+newmtl sponza_99 Mesh_column_c
+illum 2
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ns 10.000000
+map_Kd sponza_column_c_diff.png
+

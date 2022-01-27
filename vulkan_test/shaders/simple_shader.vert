@@ -9,13 +9,20 @@ layout(location = 0) out vec3 fragColor;
 layout(location = 1) out vec3 fragPosWorld;
 layout(location = 2) out vec3 fragNormalWorld;
 
+struct point_light {
+vec4 position; // ignore w
+vec4 color; // w is intensity
+};
+
+
 layout(set=0, binding=0) uniform global_ubo {
-mat4 projection;
-mat4 view;
-vec4 ambient_light_color;
-vec3 point_light_position;
-vec4 point_light_color;
+	mat4 projection;
+	mat4 view;
+	vec4 ambient_light_color;
+	point_light point_lights[10]; // value could be dynamically but is hardcoded for now.
+	int num_lights;
 } ubo;
+
 
 layout(push_constant) uniform Push {
 mat4 model_matrix; 
