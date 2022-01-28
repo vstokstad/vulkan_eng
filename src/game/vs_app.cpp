@@ -124,8 +124,8 @@ void vs_app::run() {
       global_ubo ubo{};
       ubo.projection = camera.getProjection();
       ubo.view = camera.getView();
-      ubo.camera_position = glm::vec4(camera_objet.transform_comp.translation, 1.0f);
       ubo.ambient_light_color = {.5f, .5f, .5f, .3f};
+      ubo.camera_position = glm::vec4(camera_objet.transform_comp.translation, 1.0f);
 
 
       point_light_render_system.update(frame, ubo);

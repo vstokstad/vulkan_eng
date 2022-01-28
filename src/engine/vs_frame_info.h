@@ -18,7 +18,7 @@ namespace vs
 		glm::mat4 projection{1.f};
 		glm::mat4 view{1.f};
 		glm::vec4 ambient_light_color{1.f, 1.f, 1.f, 0.2f}; //w is intensity
-                glm::vec4 camera_position;
+                glm::vec4 camera_position{1.f}; //w is ignored
 		point_light point_lights[MAX_LIGHTS];
 		int num_lights;
 	};
