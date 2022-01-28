@@ -12,43 +12,64 @@ set(CMAKE_CXX_STANDARD 20)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-
-
-
-# FetchContent added in CMake 3.11, downloads during the configure step
-#include(FetchContent)
-# FetchContent_MakeAvailable was not added until CMake 3.14; use our shim
-#if (${CMAKE_VERSION} VERSION_LESS 3.14)
-#	include(cmake/add_FetchContent_MakeAvailable.cmake)
-#endif ()
-
 ##This should be the path to your own vcpkg
-set(CMAKE_TOOLCHAIN_FILE: /usr/local/Cellar/vcpkg/2021.05.12/libexec/scripts/buildsystems/vcpkg.cmake)
+#set(CMAKE_TOOLCHAIN_FILE: /usr/local/Cellar/vcpkg/2021.05.12/libexec/scripts/buildsystems/vcpkg.cmake)
 
 file(GLOB_RECURSE src_files
 	 CONFIGURE_DEPENDS
 	 src/*.cpp
 	 )
 
-
+#### TARGET ###
 add_executable(vulkan_eng ${src_files})
 
 target_include_directories(vulkan_eng PRIVATE src src/engine src/engine/renderer src/game)
 
+####### LINK DEPENDENCY LIBS
+# FetchContent added in CMake 3.11, downloads during the configure step
+include(FetchContent)
+# FetchContent_MakeAvailable was not added until CMake 3.14; use our shim
+if (${CMAKE_VERSION} VERSION_LESS 3.14)
+	include(cmake/add_FetchContent_MakeAvailable.cmake)
+endif ()
 
-## LINK DEPENDENCY LIBS
-#tiny
-find_package(tinyobjloader CONFIG REQUIRED)
-target_link_libraries(vulkan_eng PRIVATE tinyobjloader::tinyobjloader)
-#glfw3
-find_package(glfw3 CONFIG REQUIRED)
+set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL ON)
+
+FetchContent_Declare(
+		tinyobjloader
+		GIT_REPOSITORY https://github.com/tinyobjloader/tinyobjloader.git
+)
+FetchContent_Declare(
+		glfw3
+		GIT_REPOSITORY https://github.com/glfw/glfw.git
+)
+FetchContent_Declare(
+		glm
+		GIT_REPOSITORY https://github.com/g-truc/glm.git
+)
+
+FetchContent_MakeAvailable(tinyobjloader glfw3 glm)
+
+#add_subdirectory(${tinyobjloader_SOURCE_DIR})
+
+#target_include_directories(${tinyobjloader_SOURCE_DIR})
+#target_include_directories(${glm_BINARY_DIR})
+#include_directories(${glfw3_BINARY_DIR})
+
+######## tiny #######
+#set(tinyobjloader_DIR ${tinyobjloader_BINARY_DIR})
+#find_package(tinyobjloader CONFIG REQUIRED)
+target_link_libraries(vulkan_eng PRIVATE tinyobjloader)
+##########glfw3#############
+#find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(vulkan_eng PRIVATE glfw)
-#glm
-find_package(glm CONFIG REQUIRED)
+###########glm###############
+#find_package(glm CONFIG REQUIRED)
 target_link_libraries(vulkan_eng PRIVATE glm::glm)
-#vulkan
+###############vulkan###########
 find_package(Vulkan REQUIRED)
 target_link_libraries(vulkan_eng PRIVATE Vulkan::Vulkan)
+
 
 
 ## copy over models folder
