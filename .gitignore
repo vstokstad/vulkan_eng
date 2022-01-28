@@ -374,3 +374,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd!/vulkan_eng.sln
 .DS_Store
+/models/hairball.obj
