@@ -5,6 +5,10 @@
 .idea
 vulkan_test/.idea
 cmake-build*
+out/*
+CMakePresets.json
+vcpkg_rf.txt
+hairball.obj
 
 # User-specific files
 *.rsuser

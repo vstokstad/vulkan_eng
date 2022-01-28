@@ -1,14 +1,15 @@
 ﻿#pragma once
-#include "vs_model.h"
+#include "vs_model_component.h"
 
 // std
 #include <memory>
 #include <unordered_map>
 // libs
 #include <glm/gtc/matrix_transform.hpp>
+#include <optional>
 
 namespace vs {
-struct TransformComponent {
+struct transform_component {
   glm::vec3 translation{};
   glm::vec3 scale{1.f, 1.f, 1.f};
   glm::vec3 rotation;
@@ -21,12 +22,12 @@ struct TransformComponent {
   glm::mat3 normal_matrix();
 };
 
-struct RigidBody2dComponent {
-  glm::vec2 velocity;
+struct rigid_body_component {
+  glm::vec3 velocity;
   float mass{1.0f};
 };
 
-struct PointLightComponent {
+struct point_light_component {
   float light_intensity = 1.0f;
 };
 
@@ -45,18 +46,18 @@ public:
   vs_game_object(const vs_game_object &) = delete;
   vs_game_object &operator=(const vs_game_object &) = delete;
 
-  id_t getId() { return id_; }
+  id_t getId() const { return id_; }
   static vs_game_object makePointLight(float intensity = 10.f,
                                        float radius = 0.1f,
                                        glm::vec3 color = glm::vec3(1.f));
 
   glm::vec3 color{};
-  TransformComponent transform{};
+  transform_component transform_comp{};
 
   // optional pointer components
-  std::shared_ptr<vs_model> model{};
-  std::shared_ptr<PointLightComponent> point_light = nullptr;
-  // RigidBody2dComponent rigid_body2d{};
+  std::shared_ptr<vs_model_component> model_comp{};
+  std::shared_ptr<point_light_component> point_light_comp;
+  std::shared_ptr<rigid_body_component> rigid_body_comp{};
 
 private:
   vs_game_object(id_t obj_id) : id_(obj_id){};

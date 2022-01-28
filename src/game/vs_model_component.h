@@ -13,8 +13,7 @@
 
 namespace vs
 {
-	class vs_model
-	{
+	class vs_model_component {
 	public:
 		struct vertex
 		{
@@ -40,14 +39,13 @@ namespace vs
 			void loadModel(const std::string& obj_file, const std::string& mtr_path);
 		};
 
+                vs_model_component(vs_device& device, const builder& builder);
+		~vs_model_component();
 
-		vs_model(vs_device& device, const builder& builder);
-		~vs_model();
+                vs_model_component(const vs_model_component &) = delete;
+                vs_model_component & operator=(const vs_model_component &) = delete;
 
-		vs_model(const vs_model&) = delete;
-		vs_model& operator=(const vs_model&) = delete;
-
-		static std::unique_ptr<vs_model> createModelFromFile(vs_device& device, const std::string& obj_file,
+		static std::unique_ptr<vs_model_component> createModelFromFile(vs_device& device, const std::string& obj_file,
 		                                                     const std::string& mtl_path = nullptr);
 
 		void bind(VkCommandBuffer command_buffer);

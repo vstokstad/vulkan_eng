@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "vs_model.h"
+#include "vs_model_component.h"
 
 namespace vs
 {
@@ -65,7 +65,9 @@ namespace vs
 		create_shader_module(vert_code, &vert_shader_module_);
 		create_shader_module(frag_code, &frag_shader_module_);
 
-		VkPipelineShaderStageCreateInfo shader_stages[2]{};
+                const int shader_stage_count = 2;
+
+		VkPipelineShaderStageCreateInfo shader_stages[shader_stage_count]{};
 		shader_stages[0].sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
 		shader_stages[0].stage = VK_SHADER_STAGE_VERTEX_BIT;
 		shader_stages[0].module = vert_shader_module_;
@@ -95,7 +97,7 @@ namespace vs
 
 		VkGraphicsPipelineCreateInfo pipeline_info{};
 		pipeline_info.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-		pipeline_info.stageCount = 2;
+		pipeline_info.stageCount = shader_stage_count;
 		pipeline_info.pStages = shader_stages;
 		pipeline_info.pVertexInputState = &vertex_input_info;
 		pipeline_info.pInputAssemblyState = &config_info.input_assembly_info;
@@ -206,7 +208,9 @@ namespace vs
 			size());
 		config_info.dynamic_state_info.flags = 0;
 
-		config_info.binding_descriptions = vs_model::vertex::getBindingDescriptions();
-		config_info.attribute_descriptions = vs_model::vertex::getAttributeDescriptions();
+		config_info.binding_descriptions =
+                    vs_model_component::vertex::getBindingDescriptions();
+		config_info.attribute_descriptions =
+                    vs_model_component::vertex::getAttributeDescriptions();
 	}
 }

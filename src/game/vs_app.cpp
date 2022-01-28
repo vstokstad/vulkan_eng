@@ -1,12 +1,12 @@
 #include "vs_app.h"
 #include "vs_camera.h"
 #include "vs_movement_component.h"
-#include "vs_point_light_system.h"
+#include "vs_point_light_render_system.h"
 #include "vs_simple_render_system.h"
 // libs
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/glm.hpp>
+#include "glm/glm.hpp"
 
 // std
 #include <chrono>
@@ -64,7 +64,7 @@ void vs_app::run() {
       device_, renderer_.getSwapChainRenderPass(),
       global_set_layout->getDescriptorSetLayout()};
   // pointlight
-  vs_point_light_system point_light_system{
+  vs_point_light_render_system point_light_render_system{
       device_, renderer_.getSwapChainRenderPass(),
       global_set_layout->getDescriptorSetLayout()};
 
@@ -72,8 +72,8 @@ void vs_app::run() {
    * OBJECTS***************************************************************/
   /*********************************************************************************************/
   vs_camera camera{};
-  auto viewerObject = vs_game_object::createGameObject();
-  viewerObject.transform.translation.z = -2.5f;
+  auto camera_objet = vs_game_object::createGameObject();
+  camera_objet.transform_comp.translation.z = -2.5f;
   vs_movement_component movement_controller{window_.getGLFWwindow()};
 
   /*FRAME TIME*/
@@ -94,12 +94,12 @@ void vs_app::run() {
     std::cout << "frame_time: " << frameTime << std::endl;
     currentTime = newTime;
 
-    if (frameTime > 0.25f)
+   /* if (frameTime > 0.25f)
       frameTime = .25f;
-
+*/
     // Camera perspective step (if resizing etc.)
     float aspect = renderer_.getAspectRatio();
-    camera.setPerspectiveProjection(glm::radians(90.f), aspect, 0.01f, 10000.f);
+    camera.setPerspectiveProjection(glm::radians(80.f), aspect, 0.1f, 1000.f);
 
     /*UPDATE & RENDER
      * *************************************************************************************/
@@ -112,20 +112,23 @@ void vs_app::run() {
                        command_buffer,
                        camera,
                        global_descriptor_sets[frame_index],
-                       game_objects_};
+                       game_objects_, lights_};
 
       // Update
       // player movement
       movement_controller.moveInPlaneXZ(window_.getGLFWwindow(), frameTime,
-                                        viewerObject);
-      camera.setViewYXZ(viewerObject.transform.translation,
-                        viewerObject.transform.rotation);
+                                        camera_objet);
+      camera.setViewYXZ(camera_objet.transform_comp.translation,
+                        camera_objet.transform_comp.rotation);
 
       global_ubo ubo{};
       ubo.projection = camera.getProjection();
       ubo.view = camera.getView();
-      ubo.ambient_light_color = {.1f, .1f, .8f * frameTime, .3f};
-      point_light_system.update(frame, ubo);
+      ubo.camera_position = glm::vec4(camera_objet.transform_comp.translation, 1.0f);
+      ubo.ambient_light_color = {.5f, .5f, .5f, .3f};
+
+
+      point_light_render_system.update(frame, ubo);
 
       // write updates to buffer
       ubo_buffers[frame_index]->writeToIndex(&ubo, frame_index);
@@ -134,7 +137,7 @@ void vs_app::run() {
       // Render
       renderer_.beginSwapChainRenderPass(command_buffer);
       simple_render_system.renderGameObjects(frame);
-      point_light_system.render(frame);
+      point_light_render_system.render(frame);
       renderer_.endSwapChainRenderPass(command_buffer);
       renderer_.endFrame();
     }
@@ -145,34 +148,27 @@ void vs_app::run() {
 
 void vs_app::loadGameObjects() {
 
-  std::shared_ptr<vs_model> model;
- /* {
-    model = vs_model::createModelFromFile(device_, "models/hairball.obj",
-                                          "models/");
-    auto object = vs_game_object::createGameObject();
-    object.model = model;
-    object.transform.translation = {0.f, .0f, 0.f};
-    object.transform.scale = glm::vec3(.5f, .5f, .5f);
-    game_objects_.emplace(object.getId(), std::move(object));
-  }*/
- /* {
-    model = vs_model::createModelFromFile(device_, "models/cloud/cumulus00.obj",
-                                          "models/cloud");
-    auto object = vs_game_object::createGameObject();
-    object.model = model;
-    object.transform.translation = {0.f, -10.f, 0.f};
-    object.transform.scale = glm::vec3(1.f, 1.5f, 1.5f);
-    game_objects_.emplace(object.getId(), std::move(object));
-  }*/
+  std::shared_ptr<vs_model_component> model;
 
   /*** ROW OF VASES******/
-  for (int i = 0; i < 5; ++i) {
-    model = vs_model::createModelFromFile(device_, "models/smooth_vase.obj",
-                                          "models/");
+  model = vs_model_component::createModelFromFile(device_, "models/smooth_vase.obj",
+                                        "models/");
+
+  for (int i = 0; i < 10000; ++i) {
     auto game_object = vs_game_object::createGameObject();
-    game_object.model = model;
-    game_object.transform.translation = {i - 2.f, .5f, 0.f};
-    game_object.transform.scale = glm::vec3(1.5f, 1.5f, 3.f);
+    game_object.model_comp = model;
+    game_object.transform_comp.translation = {i - 2.f, .5f, 0.f};
+    game_object.transform_comp.scale = glm::vec3(1.5f, 1.5f, 1.5f);
+    game_objects_.emplace(game_object.getId(), std::move(game_object));
+  }
+
+  {
+    model = vs_model_component::createModelFromFile(
+        device_, "models/colored_cube.obj", "models/");
+    auto game_object = vs_game_object::createGameObject();
+    game_object.model_comp = model;
+    game_object.transform_comp.translation = { 0.f, 1.5f, 0.f};
+    game_object.transform_comp.scale = glm::vec3(1.f, 1.f, 1.f);
     game_objects_.emplace(game_object.getId(), std::move(game_object));
   }
 
@@ -191,17 +187,17 @@ void vs_app::loadGameObjects() {
         glm::mat4(1.f), (i * glm::two_pi<float>()) / lightColors.size(),
         {0.f, -1.f, 0.f});
 
-    point_light.transform.translation =
+    point_light.transform_comp.translation =
         glm::vec3(rotate_light * glm::vec4(-1.f, -1.f, -1.f, 1.f));
 
-    game_objects_.emplace(point_light.getId(), std::move(point_light));
+    lights_.emplace(point_light.getId(), std::move(point_light));
   }
   // fly hig lights
   for (int i = 0; i < 3; ++i) {
     auto light = vs_game_object::makePointLight(50);
-    light.transform.translation = {-20.f * i, -20.f * i - 20.f,
+    light.transform_comp.translation = {-20.f * i, -20.f * i - 20.f,
                                    20.f * i + 20.f};
-    game_objects_.emplace(light.getId(), std::move(light));
+    lights_.emplace(light.getId(), std::move(light));
   }
 }
 } // namespace vs

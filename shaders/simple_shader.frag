@@ -46,6 +46,9 @@ void main() {
 	
 	vec3 intensity = light.color.xyz * light.color.w * attenuation;
 
+		//spec light
+
+
 	diffuse_light += intensity*cos_ang_incidence;
 
 	};

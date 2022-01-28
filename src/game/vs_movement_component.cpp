@@ -45,7 +45,7 @@ namespace vs
 
 			if (glm::dot(rotate, rotate) > std::numeric_limits<float>::epsilon())
 			{
-				game_object.transform.rotation += (mouse_speed + mouse_speed_scroll_modifier) * dt *
+				game_object.transform_comp.rotation += (mouse_speed + mouse_speed_scroll_modifier) * dt *
 					glm::normalize(rotate);
 			}
 			rotate = {0.f, 0.f, 0.f};
@@ -59,15 +59,15 @@ namespace vs
 
 		if (glm::dot(rotate, rotate) > std::numeric_limits<float>::epsilon())
 		{
-			game_object.transform.rotation += keyboard_look_speed * dt * glm::normalize(rotate);
+			game_object.transform_comp.rotation += keyboard_look_speed * dt * glm::normalize(rotate);
 		}
 
 
 		//limit pitch and yaw;
-		game_object.transform.rotation.x = glm::clamp(game_object.transform.rotation.x, -1.5f, 1.5f);
-		game_object.transform.rotation.y = glm::mod(game_object.transform.rotation.y, glm::two_pi<float>());
+		game_object.transform_comp.rotation.x = glm::clamp(game_object.transform_comp.rotation.x, -1.5f, 1.5f);
+		game_object.transform_comp.rotation.y = glm::mod(game_object.transform_comp.rotation.y, glm::two_pi<float>());
 
-		float yaw = game_object.transform.rotation.y;
+		float yaw = game_object.transform_comp.rotation.y;
 		const glm::vec3 forwardDir{sin(yaw), 0.f, cos(yaw)};
 		const glm::vec3 rightDir{forwardDir.z, 0.f, -forwardDir.x};
 		const glm::vec3 upDir{0.f, -1.f, 0.f};
@@ -83,7 +83,7 @@ namespace vs
 
 		if (glm::dot(moveDir, moveDir) > std::numeric_limits<float>::epsilon())
 		{
-			game_object.transform.translation += (move_speed + mouse_speed_scroll_modifier) * dt *
+			game_object.transform_comp.translation += (move_speed + mouse_speed_scroll_modifier) * dt *
 				glm::normalize(moveDir);
 		}
 

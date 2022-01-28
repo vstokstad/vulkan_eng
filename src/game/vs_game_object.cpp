@@ -2,7 +2,7 @@
 
 namespace vs
 {
-	glm::mat4 TransformComponent::mat4()
+	glm::mat4 transform_component::mat4()
 	{
 		const float c3 = glm::cos(rotation.z);
 		const float s3 = glm::sin(rotation.z);
@@ -33,7 +33,7 @@ namespace vs
 		};
 	}
 
-	glm::mat3 TransformComponent::normal_matrix()
+	glm::mat3 transform_component::normal_matrix()
 	{
 		const float c3 = glm::cos(rotation.z);
 		const float s3 = glm::sin(rotation.z);
@@ -67,9 +67,9 @@ namespace vs
 	{
 		vs_game_object object = vs_game_object::createGameObject();
 		object.color = color;
-		object.transform.scale.x = radius;
-		object.point_light = std::make_unique<PointLightComponent>();
-		object.point_light->light_intensity = intensity;
+		object.transform_comp.scale.x = radius;
+		object.point_light_comp = std::make_unique<point_light_component>();
+		object.point_light_comp->light_intensity = intensity;
 		return object;
 	}
 }

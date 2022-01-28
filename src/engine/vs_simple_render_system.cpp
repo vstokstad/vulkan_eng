@@ -77,23 +77,24 @@ namespace vs
 		vkCmdBindDescriptorSets(frame_info.command_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline_layout_, 0, 1,
 		                        &frame_info.global_descriptor_set, 0, nullptr);
 
-		for (auto& kv : frame_info.game_objects)
-		{
-			auto& object = kv.second;
 
-			if (object.model == nullptr)continue;
+
+		for (auto& [key, object]: frame_info.game_objects)
+		{
+
+			//if (object.model_comp == nullptr)continue;
 
 			simple_push_constant_data push{};
 
 
-			push.model_matrix = object.transform.mat4();
-			push.normal_matrix = object.transform.normal_matrix();
+			push.model_matrix = object.transform_comp.mat4();
+			push.normal_matrix = object.transform_comp.normal_matrix();
 
 			vkCmdPushConstants(frame_info.command_buffer, pipeline_layout_,
 			                   VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0,
 			                   sizeof(simple_push_constant_data), &push);
-			object.model->bind(frame_info.command_buffer);
-			object.model->draw(frame_info.command_buffer);
+			object.model_comp->bind(frame_info.command_buffer);
+			object.model_comp->draw(frame_info.command_buffer);
 		}
 	}
 }

@@ -48,5 +48,4 @@ void main()
 
 	gl_Position = ubo.projection * ubo.view * vec4(position_world, 1.0);
 
-
 }

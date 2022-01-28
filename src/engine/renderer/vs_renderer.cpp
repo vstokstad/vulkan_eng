@@ -148,7 +148,7 @@ namespace vs
 		render_pass_begin_info.pClearValues = clear_values.data();
 
 		vkCmdBeginRenderPass(cmdBuffer, &render_pass_begin_info, VK_SUBPASS_CONTENTS_INLINE);
-		auto extents = swap_chain_->getSwapChainExtent();
+
 		VkViewport viewport{
 			0.0f, 0.0f, static_cast<float>(swap_chain_->getSwapChainExtent().width),
 			static_cast<float>(swap_chain_->getSwapChainExtent().height), 0.0f, 1.0f

@@ -1,5 +1,4 @@
-#include "vs_point_light_system.h"
-
+#include "vs_point_light_render_system.h"
 
 //libs
 #define GLM_FORCE_RADIANS
@@ -20,19 +19,19 @@ namespace vs
 		float radius;
 	};
 
-	vs_point_light_system::vs_point_light_system(vs_device& device, VkRenderPass render_pass,
+        vs_point_light_render_system::vs_point_light_render_system(vs_device& device, VkRenderPass render_pass,
 	                                             VkDescriptorSetLayout global_set_layout) : device_(device)
 	{
 		createPipelineLayout(global_set_layout);
 		createPipeline(render_pass);
 	}
 
-	vs_point_light_system::~vs_point_light_system()
+        vs_point_light_render_system::~vs_point_light_render_system()
 	{
 		vkDestroyPipelineLayout(device_.device(), pipeline_layout_, nullptr);
 	}
 
-	void vs_point_light_system::createPipelineLayout(VkDescriptorSetLayout global_set_layout)
+	void vs_point_light_render_system::createPipelineLayout(VkDescriptorSetLayout global_set_layout)
 	{
 		VkPushConstantRange push_constant_range{};
 		push_constant_range.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
@@ -55,9 +54,10 @@ namespace vs
 		}
 	}
 
-	void vs_point_light_system::createPipeline(VkRenderPass render_pass)
+	void
+        vs_point_light_render_system::createPipeline(VkRenderPass render_pass)
 	{
-		assert(pipeline_layout_ != nullptr && "cannont create pipeline before pipeline layout");
+		assert(pipeline_layout_ != nullptr && "cannot create pipeline before pipeline layout");
 
 		pipeline_config_info pipeline_config{};
 
@@ -75,7 +75,7 @@ namespace vs
 	}
 
 
-	void vs_point_light_system::update(frame_info& frame_info, global_ubo& ubo)
+	void vs_point_light_render_system::update(frame_info& frame_info, global_ubo& ubo)
 	{
 		auto rotate_light = glm::rotate(
 			glm::mat4(1.f),
@@ -86,28 +86,28 @@ namespace vs
 
 		int light_index = 0;
 
-		for (auto& kv : frame_info.game_objects)
+		for (auto& kv : frame_info.lights)
 		{
 			auto& obj = kv.second;
-			if (obj.point_light == nullptr) continue;
+			if (obj.point_light_comp ==nullptr) continue;
 
 
 			assert(light_index <= MAX_LIGHTS && "reached max number of lights");
 			//update position
-			obj.transform.translation = glm::vec3(
-				rotate_light * glm::vec4(obj.transform.translation, 1.f));
+			obj.transform_comp.translation = glm::vec3(
+				rotate_light * glm::vec4(obj.transform_comp.translation, 1.f));
 
 
 			//copy light to ubo
-			ubo.point_lights[light_index].position = glm::vec4(obj.transform.translation, 1.f);
-			ubo.point_lights[light_index].color = glm::vec4(obj.color, obj.point_light->light_intensity);
+			ubo.point_lights[light_index].position = glm::vec4(obj.transform_comp.translation, 1.f);
+			ubo.point_lights[light_index].color = glm::vec4(obj.color, obj.point_light_comp->light_intensity);
 
 			light_index++;
 		}
 		ubo.num_lights = light_index;
 	}
 
-	void vs_point_light_system::render(frame_info& frame_info)
+	void vs_point_light_render_system::render(frame_info& frame_info)
 	{
 		pipeline->bind(frame_info.command_buffer);
 
@@ -115,14 +115,14 @@ namespace vs
 		                        &frame_info.global_descriptor_set, 0, nullptr);
 
 		//check for lights and render
-		for (auto& kv : frame_info.game_objects)
+		for (auto& kv : frame_info.lights)
 		{
 			auto& obj = kv.second;
-			if (obj.point_light == nullptr) continue;
+			if (obj.point_light_comp == nullptr) continue;
 			point_light_push_constants push{};
-			push.position = glm::vec4(obj.transform.translation, 1.f);
-			push.color = glm::vec4(obj.color, obj.point_light->light_intensity);
-			push.radius = obj.transform.scale.x;
+			push.position = glm::vec4(obj.transform_comp.translation, 1.f);
+			push.color = glm::vec4(obj.color, obj.point_light_comp->light_intensity);
+			push.radius = obj.transform_comp.scale.x;
 
 			vkCmdPushConstants(frame_info.command_buffer,
 			                   pipeline_layout_,

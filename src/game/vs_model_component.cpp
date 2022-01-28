@@ -1,4 +1,4 @@
-#include "vs_model.h"
+#include "vs_model_component.h"
 
 #include "engine/renderer/vs_utils.h"
 
@@ -16,9 +16,9 @@
 namespace std
 {
 	template <>
-	struct hash<vs::vs_model::vertex>
+	struct hash<vs::vs_model_component::vertex>
 	{
-		std::size_t operator()(vs::vs_model::vertex const& vertex) const
+		std::size_t operator()(vs::vs_model_component::vertex const& vertex) const
 		{
 			std::size_t seed = 0;
 			vs::hash_combine(seed, vertex.position, vertex.color, vertex.normal, vertex.uv);
@@ -29,26 +29,27 @@ namespace std
 
 namespace vs
 {
-	vs_model::vs_model(vs_device& device, const vs_model::builder& builder) : device_(device)
+vs_model_component::vs_model_component(vs_device& device, const vs_model_component::builder& builder) : device_(device)
 	{
 		createVertexBuffers(builder.vertices);
 		createIndexBuffers(builder.indices);
 	}
 
-	vs_model::~vs_model()
+        vs_model_component::~vs_model_component()
 	{
 	}
 
-	std::unique_ptr<vs_model> vs_model::createModelFromFile(vs_device& device, const std::string& obj_file,
+	std::unique_ptr<vs_model_component>
+        vs_model_component::createModelFromFile(vs_device& device, const std::string& obj_file,
 	                                                        const std::string& mtl_path)
 	{
 		builder builder{};
 
 		builder.loadModel(obj_file, mtl_path);
-		return std::make_unique<vs_model>(device, builder);
+		return std::make_unique<vs_model_component>(device, builder);
 	}
 
-	void vs_model::createVertexBuffers(const std::vector<vertex>& vertices)
+	void vs_model_component::createVertexBuffers(const std::vector<vertex>& vertices)
 	{
 		vertex_count_ = static_cast<uint32_t>(vertices.size());
 		assert(vertex_count_ >= 3 && "Vertex count must be at least 3");
@@ -78,7 +79,7 @@ namespace vs
 		device_.copyBuffer(staging_buffer.getBuffer(), vertex_buffer_->getBuffer(), buffer_size);
 	}
 
-	void vs_model::createIndexBuffers(const std::vector<uint32_t>& indices)
+	void vs_model_component::createIndexBuffers(const std::vector<uint32_t>& indices)
 	{
 		index_count_ = static_cast<uint32_t>(indices.size());
 		has_index_buffer_ = index_count_ > 0;
@@ -107,7 +108,7 @@ namespace vs
 		device_.copyBuffer(staging_buffer.getBuffer(), index_buffer_->getBuffer(), buffer_size);
 	}
 
-	void vs_model::draw(VkCommandBuffer command_buffer)
+	void vs_model_component::draw(VkCommandBuffer command_buffer)
 	{
 		if (has_index_buffer_)
 		{
@@ -120,7 +121,7 @@ namespace vs
 	}
 
 
-	void vs_model::bind(VkCommandBuffer command_buffer)
+	void vs_model_component::bind(VkCommandBuffer command_buffer)
 	{
 		VkBuffer buffers[] = {vertex_buffer_->getBuffer()};
 		VkDeviceSize offsets[] = {0};
@@ -133,7 +134,8 @@ namespace vs
 		}
 	}
 
-	std::vector<VkVertexInputBindingDescription> vs_model::vertex::getBindingDescriptions()
+	std::vector<VkVertexInputBindingDescription>
+        vs_model_component::vertex::getBindingDescriptions()
 	{
 		std::vector<VkVertexInputBindingDescription> binding_descriptions(1);
 		binding_descriptions[0].binding = 0;
@@ -142,7 +144,8 @@ namespace vs
 		return binding_descriptions;
 	}
 
-	std::vector<VkVertexInputAttributeDescription> vs_model::vertex::getAttributeDescriptions()
+	std::vector<VkVertexInputAttributeDescription>
+        vs_model_component::vertex::getAttributeDescriptions()
 	{
 		std::vector<VkVertexInputAttributeDescription> attribute_descriptions{};
 
@@ -154,7 +157,7 @@ namespace vs
 		return attribute_descriptions;
 	}
 
-	void vs_model::builder::loadModel(const std::string& obj_file, const std::string& mtr_path = "")
+	void vs_model_component::builder::loadModel(const std::string& obj_file, const std::string& mtr_path = "")
 	{
 		tinyobj::attrib_t attrib;
 		std::vector<tinyobj::shape_t> shapes;

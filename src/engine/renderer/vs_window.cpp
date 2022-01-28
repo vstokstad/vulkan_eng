@@ -57,7 +57,6 @@ namespace vs
 		if (!window_)
 		{
                   throw std::runtime_error("failed to create window");
-			return 1;
 		}
 		return 0;
 	}
