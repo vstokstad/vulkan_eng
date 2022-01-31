@@ -181,7 +181,6 @@ namespace vs
 		config_info.color_blend_info.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
 		config_info.color_blend_info.logicOpEnable = VK_FALSE;
 		config_info.color_blend_info.logicOp = VK_LOGIC_OP_COPY;
-
 		config_info.color_blend_info.attachmentCount = 1;
 		config_info.color_blend_info.pAttachments = &config_info.color_blend_attachment;
 		config_info.color_blend_info.blendConstants[0] = 0.0f;

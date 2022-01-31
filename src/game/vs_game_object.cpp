@@ -63,7 +63,7 @@ namespace vs
 		};
 	}
 
-	vs_game_object vs_game_object::makePointLight(float intensity, float radius, glm::vec3 color)
+	vs_game_object vs_game_object::createPointLight(float intensity, float radius, glm::vec3 color)
 	{
 		vs_game_object object = vs_game_object::createGameObject();
 		object.color = color;
@@ -72,4 +72,12 @@ namespace vs
 		object.point_light_comp->light_intensity = intensity;
 		return object;
 	}
+
+        vs_game_object vs_game_object::createPhysicsObject(glm::vec3 position, glm::vec3 velocity){
+          vs_game_object object = vs_game_object::createGameObject();
+          object.rigid_body_comp = std::make_unique<rigid_body_component>();
+          object.transform_comp.translation = position;
+          object.rigid_body_comp->velocity = velocity;
+          return object;
+        }
 }

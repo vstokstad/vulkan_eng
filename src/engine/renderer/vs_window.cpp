@@ -22,10 +22,6 @@ namespace vs
 		return glfwWindowShouldClose(window_);
 	}
 
-	VkExtent2D vs_window::getExtent()
-	{
-		return {static_cast<uint32_t>(width), static_cast<uint32_t>(height)};
-	}
 
 	void vs_window::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface)
 	{

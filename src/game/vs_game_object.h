@@ -36,10 +36,7 @@ public:
   using id_t = unsigned int;
   using map = std::unordered_map<id_t, vs_game_object>;
 
-  static vs_game_object createGameObject() {
-    static id_t current_id = 0;
-    return vs_game_object{current_id++};
-  }
+
 
   vs_game_object &operator=(vs_game_object &&) = default;
   vs_game_object(vs_game_object &&) = default;
@@ -47,9 +44,17 @@ public:
   vs_game_object &operator=(const vs_game_object &) = delete;
 
   id_t getId() const { return id_; }
-  static vs_game_object makePointLight(float intensity = 10.f,
+
+  static vs_game_object createPointLight(float intensity = 10.f,
                                        float radius = 0.1f,
                                        glm::vec3 color = glm::vec3(1.f));
+
+  static vs_game_object createGameObject() {
+    static id_t current_id = 0;
+    return vs_game_object{current_id++};
+  }
+
+
 
   glm::vec3 color{};
   transform_component transform_comp{};
@@ -60,6 +65,7 @@ public:
   std::shared_ptr<rigid_body_component> rigid_body_comp{};
 
 private:
+  static vs_game_object createPhysicsObject(glm::vec3 position = glm::vec3(0.f), glm::vec3 velocity= glm::vec3(0.f));
   vs_game_object(id_t obj_id) : id_(obj_id){};
 
   const id_t id_;

@@ -20,7 +20,11 @@ namespace vs
 		 * \return true if the window has had a should_close event queried else false.
 		 */
 		bool shouldClose() const;
-		VkExtent2D getExtent();
+
+                VkExtent2D getExtent() {
+                  return {static_cast<uint32_t>(width),
+                          static_cast<uint32_t>(height)};
+                }
 		bool wasFrameBufferResized() { return frame_buffer_resized_; }
 		void resetFrameBufferResizedFlag() { frame_buffer_resized_ = false; }
 

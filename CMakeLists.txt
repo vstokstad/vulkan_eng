@@ -28,12 +28,8 @@ target_include_directories(vulkan_eng PRIVATE src src/engine src/engine/renderer
 ####### LINK DEPENDENCY LIBS
 # FetchContent added in CMake 3.11, downloads during the configure step
 include(FetchContent)
-# FetchContent_MakeAvailable was not added until CMake 3.14; use our shim
-if (${CMAKE_VERSION} VERSION_LESS 3.14)
-	include(cmake/add_FetchContent_MakeAvailable.cmake)
-endif ()
 
-set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL ON)
+set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL OFF)
 
 FetchContent_Declare(
 		tinyobjloader
@@ -50,11 +46,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(tinyobjloader glfw3 glm)
 
-#add_subdirectory(${tinyobjloader_SOURCE_DIR})
-
-#target_include_directories(${tinyobjloader_SOURCE_DIR})
-#target_include_directories(${glm_BINARY_DIR})
-#include_directories(${glfw3_BINARY_DIR})
 
 ######## tiny #######
 #set(tinyobjloader_DIR ${tinyobjloader_BINARY_DIR})
@@ -74,7 +65,7 @@ target_link_libraries(vulkan_eng PRIVATE Vulkan::Vulkan)
 
 ## copy over models folder
 add_custom_command(
-		TARGET vulkan_eng PRE_BUILD
+		TARGET vulkan_eng POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
 		${CMAKE_SOURCE_DIR}/models
 		${CMAKE_CURRENT_BINARY_DIR}/models

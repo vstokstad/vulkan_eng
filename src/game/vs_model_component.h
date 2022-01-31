@@ -39,6 +39,7 @@ namespace vs
 			void loadModel(const std::string& obj_file, const std::string& mtr_path);
 		};
 
+
                 vs_model_component(vs_device& device, const builder& builder);
 		~vs_model_component();
 
@@ -51,8 +52,9 @@ namespace vs
 		void bind(VkCommandBuffer command_buffer);
 		void draw(VkCommandBuffer command_buffer);
 
+                std::string  string_name;
 
-	private:
+              private:
 		void createVertexBuffers(const std::vector<vertex>& vertices);
 		void createIndexBuffers(const std::vector<uint32_t>& indices);
 
@@ -64,5 +66,5 @@ namespace vs
 		bool has_index_buffer_ = false;
 		std::unique_ptr<vs_buffer> index_buffer_;
 		uint32_t index_count_ = 0;
-	};
-}
+        };
+};
