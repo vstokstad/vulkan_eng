@@ -9,23 +9,23 @@ vs_movement_component::vs_movement_component(GLFWwindow *window) {
 }
 
 void vs_movement_component::init(GLFWwindow *window) {
-  /*glfwSetScrollCallback(window, mouse_scroll_callback);
+  glfwSetScrollCallback(window, mouse_scroll_callback);
   glfwSetWindowFocusCallback(window, window_in_focus_callback);
-  */
- /* if (glfwRawMouseMotionSupported()) {
+
+  if (glfwRawMouseMotionSupported()) {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     std::cout << "using raw mouse input" << std::endl;
     glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
   } else {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
-  }*/
+  }
 }
 
 void vs_movement_component::moveInPlaneXZ(GLFWwindow *window, float dt,
                                           vs_game_object &game_object) {
   glm::vec3 rotate{0};
-  /*	if (glfwGetInputMode(window, GLFW_RAW_MOUSE_MOTION) == GLFW_TRUE)
+  	if (glfwGetInputMode(window, GLFW_RAW_MOUSE_MOTION) == GLFW_TRUE)
           {
                   //mouse rotation
                   double xpos, ypos;
@@ -44,7 +44,7 @@ void vs_movement_component::moveInPlaneXZ(GLFWwindow *window, float dt,
      mouse_speed_scroll_modifier) * dt * glm::normalize(rotate);
                   }
                   rotate = {0.f, 0.f, 0.f};
-          }*/
+          }
 
   // keyboard rotation
   if (glfwGetKey(window, keys.look_right) == GLFW_PRESS)

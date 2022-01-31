@@ -35,6 +35,7 @@ namespace vs
 		{
 			std::vector<vertex> vertices{};
 			std::vector<uint32_t> indices{};
+                        std::string name;
 
 			void loadModel(const std::string& obj_file, const std::string& mtr_path);
 		};

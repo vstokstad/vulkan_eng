@@ -18,7 +18,6 @@ layout(set=0, binding=0) uniform global_ubo {
 	mat4 projection;
 	mat4 view;
 	vec4 ambient_light_color;
-	vec4 camera_position; // ignore w
 	point_light point_lights[10]; // value could be dynamically but is hardcoded for now.
 	int num_lights;
 } ubo;

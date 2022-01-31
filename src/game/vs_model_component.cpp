@@ -33,6 +33,7 @@ vs_model_component::vs_model_component(vs_device& device, const vs_model_compone
 	{
 		createVertexBuffers(builder.vertices);
 		createIndexBuffers(builder.indices);
+                string_name = builder.name;
 	}
 
         vs_model_component::~vs_model_component()
@@ -223,3 +224,5 @@ vs_model_component::vs_model_component(vs_device& device, const vs_model_compone
 		}
 	}
 }
+
+#pragma clang diagnostic pop

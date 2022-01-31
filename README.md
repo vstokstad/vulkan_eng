@@ -1,5 +1,5 @@
 # vulkan_eng
-Im learing vulkan, rendering and shaders by making a simple spawner engine.
+Im learing vulkan, rendering and shaders by making a simple asset_manager engine.
 
 ### requirements
 

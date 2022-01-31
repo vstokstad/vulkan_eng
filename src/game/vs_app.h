@@ -5,7 +5,7 @@
 #include "vs_game_object.h"
 #include "vs_renderer.h"
 #include "vs_window.h"
-#include "vs_model_loader.h"
+#include "vs_asset_manager.h"
 
 // std
 #include <memory>
@@ -33,14 +33,15 @@ private:
   vs_window window_{WIDTH, HEIGHT, "Vulkan App"};
   vs_device device_{window_};
   vs_renderer renderer_{window_, device_};
-
+  game::vs_asset_manager asset_manager{device_};
 
   // order of declaration matters (pool need to be constructed after device and
   // destroyed before device.)
+
   std::unique_ptr<vs_descriptor_pool> global_descriptor_pool_{};
   vs_game_object::map game_objects_;
   vs_game_object::map lights_;
 
-  game::vs_model_loader spawner{device_};
+
 };
 } // namespace vs

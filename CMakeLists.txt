@@ -21,7 +21,7 @@ file(GLOB_RECURSE src_files
 	 )
 
 #### TARGET ###
-add_executable(vulkan_eng ${src_files})
+add_executable(vulkan_eng ${src_files} src/game/profiler.h)
 
 target_include_directories(vulkan_eng PRIVATE src src/engine src/engine/renderer src/game)
 
@@ -65,7 +65,7 @@ target_link_libraries(vulkan_eng PRIVATE Vulkan::Vulkan)
 
 ## copy over models folder
 add_custom_command(
-		TARGET vulkan_eng POST_BUILD
+		TARGET vulkan_eng PRE_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
 		${CMAKE_SOURCE_DIR}/models
 		${CMAKE_CURRENT_BINARY_DIR}/models

@@ -86,10 +86,10 @@ namespace vs
 
 		int light_index = 0;
 
-		for (auto& [k,obj] : frame_info.lights)
+		for (auto& kv: frame_info.lights)
 		{
-			//auto& obj = kv.second;
-			//if (obj.point_light_comp ==nullptr) continue;
+			auto& obj = kv.second;
+			if (obj.point_light_comp ==nullptr) continue;
 
 
 			assert(light_index <= MAX_LIGHTS && "reached max number of lights");

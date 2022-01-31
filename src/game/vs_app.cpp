@@ -28,6 +28,7 @@ vs_app::~vs_app() {}
 void vs_app::run() {
 
   loadGameObjects();
+
   /* UBO BUFFERS
    * *****************************************************************************/
   /******************************************************************************************/
@@ -91,7 +92,7 @@ void vs_app::run() {
         std::chrono::duration<float, std::chrono::seconds::period>(newTime -
                                                                    currentTime)
             .count();
-  //  std::cout << "frame_time: " << frameTime << std::endl;
+    //  std::cout << "frame_time: " << frameTime << std::endl;
     currentTime = newTime;
 
     /* if (frameTime > 0.25f)
@@ -127,8 +128,6 @@ void vs_app::run() {
       ubo.projection = camera.getProjection();
       ubo.view = camera.getView();
       ubo.ambient_light_color = {.5f, .5f, .5f, .3f};
-      ubo.camera_position =
-          glm::vec4(camera_objet.transform_comp.translation, 1.0f);
 
       point_light_render_system.update(frame, ubo);
 
@@ -150,15 +149,17 @@ void vs_app::run() {
 
 void vs_app::loadGameObjects() {
 
-  auto spawned = spawner.spawnGameObject("smooth_vase.obj");
+  auto spawned = asset_manager.spawnGameObject("smooth_vase.obj");
   game_objects_.emplace(spawned.getId(), std::move(spawned));
 
-  auto cube = spawner.spawnGameObject("colored_cube.obj", {1.f, -1.f, 5.f});
-  game_objects_.emplace(cube.getId(), std::move(cube));
+  if (asset_manager.isModelLoaded("hairball.obj")) {
+    auto hairball =
+        asset_manager.spawnGameObject("hairball.obj", {1.f, -1.f, 15.f});
+    game_objects_.emplace(hairball.getId(), std::move(hairball));
+  }
 
-  auto light = vs_game_object::createPointLight(0.5f, 0.1f, {1.f, 0.f, 0.f});
+  auto light = vs_game_object::createPointLight(10.f, 0.1f, {1.f, 0.f, 0.f});
   lights_.emplace(light.getId(), std::move(light));
-
 
   /* std::shared_ptr<vs_model_component> model;
 
