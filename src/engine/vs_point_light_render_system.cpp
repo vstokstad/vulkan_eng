@@ -75,11 +75,11 @@ namespace vs
 	}
 
 
-	void vs_point_light_render_system::update(frame_info& frame_info, global_ubo& ubo)
+	void vs_point_light_render_system::update(const frame_info& frame_info, global_ubo& ubo)
 	{
 		auto rotate_light = glm::rotate(
 			glm::mat4(1.f),
-			(frame_info.frame_time * glm::half_pi<float>()),
+			frame_info.frame_time * glm::pi<float>(),
 			{0.1f, -1.f, .1f}
 		);
 
@@ -89,8 +89,6 @@ namespace vs
 		for (auto& kv: frame_info.lights)
 		{
 			auto& obj = kv.second;
-			if (obj.point_light_comp ==nullptr) continue;
-
 
 			assert(light_index <= MAX_LIGHTS && "reached max number of lights");
 			//update position
@@ -118,7 +116,6 @@ namespace vs
 		for (auto& kv : frame_info.lights)
 		{
 			auto& obj = kv.second;
-			if (obj.point_light_comp == nullptr) continue;
 			point_light_push_constants push{};
 			push.position = glm::vec4(obj.transform_comp.translation, 1.f);
 			push.color = glm::vec4(obj.color, obj.point_light_comp->light_intensity);

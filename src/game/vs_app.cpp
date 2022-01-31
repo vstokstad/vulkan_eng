@@ -74,7 +74,7 @@ void vs_app::run() {
   /*********************************************************************************************/
   vs_camera camera{};
   auto camera_objet = vs_game_object::createGameObject();
-  camera_objet.transform_comp.translation.z = -2.5f;
+  camera_objet.transform_comp.translation.z = -5.f;
   vs_movement_component movement_controller{window_.getGLFWwindow()};
 
   /*FRAME TIME*/
@@ -100,7 +100,7 @@ void vs_app::run() {
  */
     // Camera perspective step (if resizing etc.)
     float aspect = renderer_.getAspectRatio();
-    camera.setPerspectiveProjection(glm::radians(80.f), aspect, 0.1f, 1000.f);
+    camera.setPerspectiveProjection(glm::radians(70.f), aspect, 0.1f, 1000.f);
 
     /*UPDATE & RENDER
      * *************************************************************************************/
@@ -127,7 +127,7 @@ void vs_app::run() {
       global_ubo ubo{};
       ubo.projection = camera.getProjection();
       ubo.view = camera.getView();
-      ubo.ambient_light_color = {.5f, .5f, .5f, .3f};
+      ubo.ambient_light_color = {.5f, .5f, .5f, .5f};
 
       point_light_render_system.update(frame, ubo);
 
@@ -148,71 +148,62 @@ void vs_app::run() {
 }
 
 void vs_app::loadGameObjects() {
-
-  auto spawned = asset_manager.spawnGameObject("smooth_vase.obj");
+  // colored lights
+  std::vector<glm::vec3> lightColors{
+      {1.f, .1f, .1f}, {.1f, .1f, 1.f}, {.1f, 1.f, .1f},
+      {1.f, 1.f, .1f}, {.1f, 1.f, 1.f}, {1.f, 1.f, 1.f} //
+  };
+/*
+  auto spawned =
+      asset_manager.spawnGameObject("smooth_vase.obj", {1.f, 0.5f, 2.5f});
   game_objects_.emplace(spawned.getId(), std::move(spawned));
+*/
 
   if (asset_manager.isModelLoaded("hairball.obj")) {
     auto hairball =
-        asset_manager.spawnGameObject("hairball.obj", {1.f, -1.f, 15.f});
+        asset_manager.spawnGameObject("hairball.obj", {0.f, 0.f, 0.f}, {0.f, 0.f, 0.f}, {0.5f, 0.5f, 0.5f});
     game_objects_.emplace(hairball.getId(), std::move(hairball));
+    for (int i = 0; i < lightColors.size(); ++i) {
+
+      auto point_light = vs_game_object::createPointLight(1.f);
+      point_light.color = lightColors[i];
+      auto rotate_light = glm::rotate(
+          glm::mat4(1.f), (i * glm::two_pi<float>()) / lightColors.size(),
+          {0.f, -1.f, 0.f});
+
+      point_light.transform_comp.translation =
+          glm::vec3(rotate_light * glm::vec4(-3.f, -0.5f, -1.5f, 1.f));
+      lights_.emplace(point_light.getId(), std::move(point_light));
+    }
+
+  auto floor = asset_manager.spawnGameObject("cube.obj", {0.f, 4.f, 0.f},
+                                             {0.f, 0, 0}, {5.f, 0.2f, 5.f});
+  game_objects_.emplace(floor.getId(), std::move(floor));
   }
 
-  auto light = vs_game_object::createPointLight(10.f, 0.1f, {1.f, 0.f, 0.f});
-  lights_.emplace(light.getId(), std::move(light));
+  /*** ROW OF VASES******/
+/*
+  for (int i = 0; i < 10; ++i) {
+    auto game_object = asset_manager.spawnGameObject("flat_vase.obj");
+    game_object.transform_comp.translation = {i - 2.f, .5f, 0.f};
+    game_object.transform_comp.scale = glm::vec3(1.5f, 1.5f, 1.5f);
+    game_objects_.emplace(game_object.getId(), std::move(game_object));
+  }
+*/
+  /** SPINNING POINT LIGHTS **/
+/*
+  for (int i = 0; i < lightColors.size(); ++i) {
+    auto point_light = vs_game_object::createPointLight(0.5f);
+    point_light.color = lightColors[i];
+    auto rotate_light = glm::rotate(
+        glm::mat4(1.f), (i * glm::two_pi<float>()) / lightColors.size(),
+        {0.f, -1.f, 0.f});
 
-  /* std::shared_ptr<vs_model_component> model;
+    point_light.transform_comp.translation =
+        glm::vec3(rotate_light * glm::vec4(-1.f, -1.f, -1.f, 1.f));
 
-   */
-  /*** ROW OF VASES******/      /*
-      model = vs_model_component::createModelFromFile(device_,
-      "models/smooth_vase.obj",      "models/");
+    lights_.emplace(point_light.getId(), std::move(point_light));
+  }*/
 
-      for (int i = 0; i < 10000; ++i) {
-        auto game_object = vs_game_object::createGameObject();
-        game_object.model_comp = model;
-        game_object.transform_comp.translation = {i - 2.f, .5f, 0.f};
-        game_object.transform_comp.scale = glm::vec3(1.5f, 1.5f, 1.5f);
-        game_objects_.emplace(game_object.getId(), std::move(game_object));
-      }
-
-      {
-        model = vs_model_component::createModelFromFile(
-            device_, "models/colored_cube.obj", "models/");
-        auto game_object = vs_game_object::createGameObject();
-        game_object.model_comp = model;
-        game_object.transform_comp.translation = { 0.f, 1.5f, 0.f};
-        game_object.transform_comp.scale = glm::vec3(1.f, 1.f, 1.f);
-        game_objects_.emplace(game_object.getId(), std::move(game_object));
-      }
-
-      */
-  /** SPINNING POINT LIGHTS **/ /*
-
- // colored lights
- std::vector<glm::vec3> lightColors{
-     {1.f, .1f, .1f}, {.1f, .1f, 1.f}, {.1f, 1.f, .1f},
-     {1.f, 1.f, .1f}, {.1f, 1.f, 1.f}, {1.f, 1.f, 1.f} //
- };
-
- for (int i = 0; i < lightColors.size(); ++i) {
-   auto point_light = vs_game_object::makePointLight(0.5f);
-   point_light.color = lightColors[i];
-   auto rotate_light = glm::rotate(
-       glm::mat4(1.f), (i * glm::two_pi<float>()) / lightColors.size(),
-       {0.f, -1.f, 0.f});
-
-   point_light.transform_comp.translation =
-       glm::vec3(rotate_light * glm::vec4(-1.f, -1.f, -1.f, 1.f));
-
-   lights_.emplace(point_light.getId(), std::move(point_light));
- }
- // fly hig lights
- for (int i = 0; i < 3; ++i) {
-   auto light = vs_game_object::makePointLight(50);
-   light.transform_comp.translation = {-20.f * i, -20.f * i - 20.f,
-                                  20.f * i + 20.f};
-   lights_.emplace(light.getId(), std::move(light));
- }*/
 }
 } // namespace vs

@@ -33,8 +33,6 @@ vs_game_object vs_asset_manager::spawnGameObject(const std::string &model_name,
       throw std::runtime_error(
           "failed to create a game object, model was not preloaded.");
     }
-    std::cout << "creating vs_game_object with model: " << model_name
-              << std::endl;
     object.transform_comp.translation = position;
     object.transform_comp.rotation = rotation;
     object.transform_comp.scale = scale;
@@ -59,12 +57,10 @@ void vs_asset_manager::loadModelsFromFolder(
 
       uintmax_t size = entry.file_size();
 
-      std::cout << "found model to load: " << path << ". file size: " << size
-                << std::endl;
 
       // DO SOME ASYNC LOADING FOR LARGE FILES //
       if (size > 1000000) {
-        continue;
+      //  continue;
         std::packaged_task<vs_model_component::builder(std::string name,
                                                        std::string path)>
             task([](std::string name, std::string path) {

@@ -396,11 +396,11 @@ VkPresentModeKHR vs_swap_chain::chooseSwapPresentMode(
   }
   /* for (const auto& availablePresentMode : availablePresentModes)
    {
-   	if (availablePresentMode == VK_PRESENT_MODE_IMMEDIATE_KHR)
-   	{
+        if (availablePresentMode == VK_PRESENT_MODE_IMMEDIATE_KHR)
+        {
                 std::cout << "Present mode: Immediate" << std::endl;
-   		return availablePresentMode;
-   	}
+                return availablePresentMode;
+        }
    }*/
   for (const auto &availablePresentMode : availablePresentModes) {
     if (availablePresentMode == VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR) {

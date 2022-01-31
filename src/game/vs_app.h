@@ -1,11 +1,11 @@
 #pragma once
 
+#include "vs_asset_manager.h"
 #include "vs_descriptors.h"
 #include "vs_device.h"
 #include "vs_game_object.h"
 #include "vs_renderer.h"
 #include "vs_window.h"
-#include "vs_asset_manager.h"
 
 // std
 #include <memory>
@@ -16,8 +16,8 @@ class vs_model_component;
 
 class vs_app {
 public:
-  static constexpr int WIDTH = 1024;
-  static constexpr int HEIGHT = 720;
+  static constexpr int WIDTH = 800;
+  static constexpr int HEIGHT = 500;
 
   vs_app();
   ~vs_app();
@@ -41,7 +41,5 @@ private:
   std::unique_ptr<vs_descriptor_pool> global_descriptor_pool_{};
   vs_game_object::map game_objects_;
   vs_game_object::map lights_;
-
-
 };
 } // namespace vs

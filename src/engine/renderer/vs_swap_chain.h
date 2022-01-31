@@ -13,7 +13,7 @@ namespace vs
 	class vs_swap_chain
 	{
 	public:
-		static constexpr int MAX_FRAMES_IN_FLIGHT = 3;
+		static constexpr int MAX_FRAMES_IN_FLIGHT = 1;
 
 		vs_swap_chain(vs_device& deviceRef, VkExtent2D windowExtent);
 		vs_swap_chain(vs_device& deviceRef, VkExtent2D windowExtent,

@@ -7,8 +7,8 @@ namespace vs {
 #define MAX_LIGHTS 10
 
 struct point_light {
-  glm::vec4 position{}; // ignore w
-  glm::vec4 color{};    // w is intensity
+  glm::vec4 position; // ignore w
+  glm::vec4 color;    // w is intensity
 };
 
 struct global_ubo {
