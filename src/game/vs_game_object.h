@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "vs_model_component.h"
-
+#include "vs_rigid_body_component.h"
 // std
 #include <memory>
 #include <unordered_map>
@@ -22,10 +22,7 @@ struct transform_component {
   glm::mat3 normal_matrix();
 };
 
-struct rigid_body_component {
-  glm::vec3 velocity;
-  float mass{1.0f};
-};
+
 
 struct point_light_component {
   float light_intensity = 1.0f;
