@@ -10,9 +10,9 @@
 #include <string>
 #include <vector>
 
-namespace vs::game {
+namespace vs {
 
-vs::game::vs_asset_manager::vs_asset_manager(vs_device &device) {
+vs_asset_manager::vs_asset_manager(vs_device &device) {
   timer timer_;
   timer_.start();
   loadModelsFromFolder("models", device);
@@ -46,7 +46,6 @@ void vs_asset_manager::loadModelsFromFolder(
     const std::string &models_folder_path, vs_device &device_) {
 
   std::vector<std::future<vs::vs_model_component::builder>> futures;
-  std::size_t vsize = futures.size();
   std::vector<std::thread> threads;
 
   for (auto &entry :
@@ -57,10 +56,9 @@ void vs_asset_manager::loadModelsFromFolder(
 
       uintmax_t size = entry.file_size();
 
-
       // DO SOME ASYNC LOADING FOR LARGE FILES //
       if (size > 1000000) {
-      //  continue;
+        // continue;
         std::packaged_task<vs_model_component::builder(std::string name,
                                                        std::string path)>
             task([](std::string name, std::string path) {
@@ -76,11 +74,11 @@ void vs_asset_manager::loadModelsFromFolder(
         futures.emplace_back(task.get_future());
         threads.emplace_back(std::thread(std::move(task), name, path));
       } else {
+
         loadModelFromFileEnty(device_, entry);
       }
     }
   }
-
   for (auto &future : futures) {
     if (!future.valid())
       continue;
@@ -97,7 +95,8 @@ void vs_asset_manager::loadModelsFromFolder(
   for (auto &t : threads) {
     t.join();
   }
-
+  // 25002 without threading
+  // 24489 with. but only 1 heavy object.
   std::cout << "done loading!" << std::endl;
 }
 
@@ -119,4 +118,4 @@ bool vs_asset_manager::isModelLoaded(const std::string &model_name) {
   return (model != loaded_models.end());
 }
 
-} // namespace vs::game
+} // namespace vs

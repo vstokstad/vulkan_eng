@@ -25,26 +25,25 @@ void vs_movement_component::init(GLFWwindow *window) {
 void vs_movement_component::moveInPlaneXZ(GLFWwindow *window, float dt,
                                           vs_game_object &game_object) {
   glm::vec3 rotate{0};
-  	if (glfwGetInputMode(window, GLFW_RAW_MOUSE_MOTION) == GLFW_TRUE)
-          {
-                  //mouse rotation
-                  double xpos, ypos;
-                  glfwGetCursorPos(window, &xpos, &ypos);
-
-                  rotate.x += static_cast<float>(ypos - last_mouse_input.y) *
-     -1.f; rotate.y += static_cast<float>(xpos - last_mouse_input.x);
-                  last_mouse_input.y = ypos;
-                  last_mouse_input.x = xpos;
 
 
-                  if (glm::dot(rotate, rotate) >
-     std::numeric_limits<float>::epsilon())
-                  {
-                          game_object.transform_comp.rotation += (mouse_speed +
-     mouse_speed_scroll_modifier) * dt * glm::normalize(rotate);
-                  }
-                  rotate = {0.f, 0.f, 0.f};
-          }
+  if (glfwGetInputMode(window, GLFW_RAW_MOUSE_MOTION) == GLFW_TRUE) {
+    // mouse rotation
+    double xpos, ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+
+    rotate.x += static_cast<float>(ypos - last_mouse_input.y) * -1.f;
+    rotate.y += static_cast<float>(xpos - last_mouse_input.x);
+    last_mouse_input.y = ypos;
+    last_mouse_input.x = xpos;
+
+    if (glm::dot(rotate, rotate) > std::numeric_limits<float>::epsilon()) {
+      glm::vec3 n = mouse_speed * dt * glm::normalize(rotate);
+      game_object.transform_comp.rotation += n;
+
+    }
+    rotate = {0.f, 0.f, 0.f};
+  }
 
   // keyboard rotation
   if (glfwGetKey(window, keys.look_right) == GLFW_PRESS)
@@ -88,9 +87,9 @@ void vs_movement_component::moveInPlaneXZ(GLFWwindow *window, float dt,
     moveDir -= upDir;
 
   if (glm::dot(moveDir, moveDir) > std::numeric_limits<float>::epsilon()) {
-    game_object.transform_comp.translation +=
-        (move_speed + mouse_speed_scroll_modifier) * dt *
-        glm::normalize(moveDir);
+    glm::vec3 delta = (move_speed + mouse_speed_scroll_modifier) * dt *
+                      glm::normalize(moveDir);
+    game_object.transform_comp.translation += delta;
   }
 
   // other

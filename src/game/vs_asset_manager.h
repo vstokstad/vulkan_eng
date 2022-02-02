@@ -7,7 +7,7 @@
 #include <filesystem>
 #include <map>
 
-namespace vs::game {
+namespace vs {
 
 class vs_asset_manager {
 public:
@@ -23,8 +23,7 @@ bool isModelLoaded(const std::string& model_name);
 private:
   void loadModelsFromFolder(const std::string &models_folder_path,
                             vs_device &device_);
-  void preloadModels(const std::vector<std::filesystem::path> &model_paths,
-                     vs_device &device_);
+
 
   std::map<std::string, std::shared_ptr<vs_model_component>> loaded_models;
   void loadModelFromFileEnty(vs_device &device_,

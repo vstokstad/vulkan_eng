@@ -22,9 +22,13 @@ struct global_ubo {
 struct frame_info {
   int frame_index;
   float frame_time;
+
+  static constexpr float fixed_time_step = 1.0f / 60.f;
+
   VkCommandBuffer command_buffer;
   vs_camera &camera;
   VkDescriptorSet global_descriptor_set;
+
   vs_game_object::map &game_objects;
   vs_game_object::map &lights;
 };

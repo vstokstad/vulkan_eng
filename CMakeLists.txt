@@ -7,13 +7,7 @@ project(vulkan_eng
 
 set(CMAKE_CXX_STANDARD 20)
 
-# -DCMAKE_TOOLCHAIN_FILE=/usr/local/Cellar/vcpkg/2021.05.12/libexec/scripts/buildsystems/vcpkg.cmake
-# -DCMAKE_TOOLCHAIN_FILE=[PATH TO VCPKG]/libexec/scripts/buildsystems/vcpkg.cmake
-
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-##This should be the path to your own vcpkg
-#set(CMAKE_TOOLCHAIN_FILE: /usr/local/Cellar/vcpkg/2021.05.12/libexec/scripts/buildsystems/vcpkg.cmake)
 
 file(GLOB_RECURSE src_files
 	 CONFIGURE_DEPENDS
@@ -34,6 +28,7 @@ set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL OFF)
 FetchContent_Declare(
 		tinyobjloader
 		GIT_REPOSITORY https://github.com/tinyobjloader/tinyobjloader.git
+
 )
 FetchContent_Declare(
 		glfw3
@@ -43,10 +38,15 @@ FetchContent_Declare(
 		glm
 		GIT_REPOSITORY https://github.com/g-truc/glm.git
 )
+FetchContent_Declare(
+		reactphysics3d
+		GIT_REPOSITORY https://github.com/DanielChappuis/reactphysics3d.git
+		GIT_TAG v0.9.0
+)
+FetchContent_MakeAvailable(tinyobjloader glfw3 glm reactphysics3d)
 
-FetchContent_MakeAvailable(tinyobjloader glfw3 glm)
-
-
+######## reactPhysics ######
+target_link_libraries(vulkan_eng PRIVATE reactphysics3d)
 ######## tiny #######
 #set(tinyobjloader_DIR ${tinyobjloader_BINARY_DIR})
 #find_package(tinyobjloader CONFIG REQUIRED)

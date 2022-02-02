@@ -2,8 +2,10 @@
 #include "vs_camera.h"
 #include "vs_movement_component.h"
 #include "vs_point_light_render_system.h"
+#include "vs_simple_physics_system.h"
 #include "vs_simple_render_system.h"
 // libs
+#define GLM_LANG_STL11_FORCED
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include "glm/glm.hpp"
@@ -61,20 +63,37 @@ void vs_app::run() {
   /* RENDER SYSTEMS
    * ****************************************************************************/
   /********************************************************************************************/
+
+  // simple models renderer
   vs_simple_render_system simple_render_system{
       device_, renderer_.getSwapChainRenderPass(),
       global_set_layout->getDescriptorSetLayout()};
-  // pointlight
+
+  // point light system
   vs_point_light_render_system point_light_render_system{
       device_, renderer_.getSwapChainRenderPass(),
       global_set_layout->getDescriptorSetLayout()};
+
+  // phyics system
+  vs_simple_physics_system physics_system{};
+
+  for (auto &kv : game_objects_) {
+    auto &obj = kv.second;
+    if (obj.model_comp == nullptr)
+      continue;
+    obj.addPhysicsComponent(&physics_system,
+                            reactphysics3d::CollisionShapeName::SPHERE);
+
+  }
+
+  createWorld(&physics_system);
 
   /*CAMERA & PLAYER/VIEWER
    * OBJECTS***************************************************************/
   /*********************************************************************************************/
   vs_camera camera{};
   auto camera_objet = vs_game_object::createGameObject();
-  camera_objet.transform_comp.translation.z = -5.f;
+  camera_objet.transform_comp.translation.z = -10.f;
   vs_movement_component movement_controller{window_.getGLFWwindow()};
 
   /*FRAME TIME*/
@@ -86,13 +105,12 @@ void vs_app::run() {
   while (!window_.shouldClose()) {
     glfwPollEvents();
 
-    // frame time / delta time
+    // frame time
     auto newTime = std::chrono::high_resolution_clock::now();
     float frameTime =
         std::chrono::duration<float, std::chrono::seconds::period>(newTime -
                                                                    currentTime)
             .count();
-    //  std::cout << "frame_time: " << frameTime << std::endl;
     currentTime = newTime;
 
     /* if (frameTime > 0.25f)
@@ -125,12 +143,15 @@ void vs_app::run() {
       camera.setViewYXZ(camera_objet.transform_comp.translation,
                         camera_objet.transform_comp.rotation);
 
+      // global ubo
       global_ubo ubo{};
       ubo.projection = camera.getProjection();
       ubo.view = camera.getView();
       ubo.ambient_light_color = {.5f, .5f, .5f, .5f};
 
       point_light_render_system.update(frame, ubo);
+      // physics
+      physics_system.update(frame);
 
       // write updates to buffer
       ubo_buffers[frame_index]->writeToIndex(&ubo, frame_index);
@@ -147,7 +168,20 @@ void vs_app::run() {
 
   vkDeviceWaitIdle(device_.device());
 }
+void vs_app::createWorld(vs_simple_physics_system *physicssystem) {
+  {
+    auto floor = asset_manager.spawnGameObject("cube.obj", {0.0f, 5.f, 0.0f},
+                                               {0.f, 0, 0}, {20.f, 0.1f, 20.f});
+    floor.addPhysicsComponent(physicssystem,
+                              reactphysics3d::CollisionShapeName::BOX);
 
+    floor.rigid_body_comp->rigidBody->enableGravity(false);
+    floor.rigid_body_comp->rigidBody->setType(reactphysics3d::BodyType::STATIC);
+    floor.rigid_body_comp->rigidBody->setIsActive(true);
+
+    game_objects_.emplace(floor.getId(), std::move(floor));
+  }
+}
 void vs_app::loadGameObjects() {
   // colored lights
   std::vector<glm::vec3> lightColors{
@@ -159,37 +193,49 @@ void vs_app::loadGameObjects() {
         asset_manager.spawnGameObject("smooth_vase.obj", {1.f, 0.5f, 2.5f});
     game_objects_.emplace(spawned.getId(), std::move(spawned));
   */
+  {
+    for (int i = 0; i < 50; ++i) {
+      auto rotate = glm::rotate(
+          glm::mat4(1.f), (i * glm::two_pi<float>()) / 50,
+          {0.1f, -1.f, 0.2f});
+      auto color_cube = asset_manager.spawnGameObject(
+          "colored_cube.obj", {0.f, -5.f, 0.f},
+          {i * 1.f, -1.f, 0}, {0.2f, 0.2f, 0.2f});
 
+
+      color_cube.transform_comp.translation =
+          glm::vec3(rotate * glm::vec4(-3.f, -5.f, -1.5f, 1.f));
+
+      game_objects_.emplace(color_cube.getId(), std::move(color_cube));
+    }
+  }
   if (asset_manager.isModelLoaded("hairball.obj")) {
     auto hairball = asset_manager.spawnGameObject(
-        "hairball.obj", {0.f, 0.f, 0.f}, {0.f, 0.f, 0.f}, {0.5f, 0.5f, 0.5f});
+        "hairball.obj", {0.0f, -20.f, 0.0f}, {0.f, 0.f, 0.f}, {5.f, 5.f, 5.f});
     game_objects_.emplace(hairball.getId(), std::move(hairball));
-    for (int i = 0; i < lightColors.size(); ++i) {
+  }
 
-      auto point_light = vs_game_object::createPointLight(1.f);
-      point_light.color = lightColors[i];
-      auto rotate_light = glm::rotate(
-          glm::mat4(1.f), (i * glm::two_pi<float>()) / lightColors.size(),
-          {0.f, -1.f, 0.f});
+  for (int i = 0; i < lightColors.size(); ++i) {
 
-      point_light.transform_comp.translation =
-          glm::vec3(rotate_light * glm::vec4(-3.f, -0.5f, -1.5f, 1.f));
-      lights_.emplace(point_light.getId(), std::move(point_light));
-    }
+    auto point_light = vs_game_object::createPointLight(10.f);
+    point_light.color = lightColors[i];
+    auto rotate_light = glm::rotate(
+        glm::mat4(1.f), (i * glm::two_pi<float>()) / lightColors.size(),
+        {0.f, -1.f, 0.f});
 
-    auto floor = asset_manager.spawnGameObject("cube.obj", {0.f, 4.f, 0.f},
-                                               {0.f, 0, 0}, {5.f, 0.2f, 5.f});
-    game_objects_.emplace(floor.getId(), std::move(floor));
+    point_light.transform_comp.translation =
+        glm::vec3(rotate_light * glm::vec4(-3.f, -0.5f, -1.5f, 1.f));
+    lights_.emplace(point_light.getId(), std::move(point_light));
   }
 
   /*** ROW OF VASES******/
-  /*
-    for (int i = 0; i < 10; ++i) {
-      auto game_object = asset_manager.spawnGameObject("flat_vase.obj");
-      game_object.transform_comp.translation = {i - 2.f, .5f, 0.f};
-      game_object.transform_comp.scale = glm::vec3(1.5f, 1.5f, 1.5f);
-      game_objects_.emplace(game_object.getId(), std::move(game_object));
-    }
+/*
+  for (int i = 0; i < 10; ++i) {
+    auto game_object = asset_manager.spawnGameObject("flat_vase.obj");
+    game_object.transform_comp.translation = {i - 2.f, 5.f, 0.f};
+    game_object.transform_comp.scale = glm::vec3(.5f, .5f, .5f);
+    game_objects_.emplace(game_object.getId(), std::move(game_object));
+  }
   */
   /** SPINNING POINT LIGHTS **/
   /*

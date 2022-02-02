@@ -35,7 +35,7 @@ public:
             std::chrono::high_resolution_clock::now().time_since_epoch())
             .count());
   }
-  double get_time() { return end_time() - start_time(); }
+  double get_time() { return (end_time() - start_time())/1000.0; }
   void print_time() {
     std::cout << "profile time: " << get_time() << std::endl;
   }

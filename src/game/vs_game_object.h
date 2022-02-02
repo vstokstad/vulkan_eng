@@ -1,14 +1,16 @@
 ﻿#pragma once
 #include "vs_model_component.h"
-#include "vs_rigid_body_component.h"
+
 // std
 #include <memory>
 #include <unordered_map>
 // libs
+#include "reactphysics3d/reactphysics3d.h"
 #include <glm/gtc/matrix_transform.hpp>
-#include <optional>
 
 namespace vs {
+class vs_simple_physics_system;
+
 struct transform_component {
   glm::vec3 translation{};
   glm::vec3 scale{1.f, 1.f, 1.f};
@@ -21,19 +23,23 @@ struct transform_component {
 
   glm::mat3 normal_matrix();
 };
+struct rigid_body_component {
+  rigid_body_component(glm::vec3 position,
+                       vs_simple_physics_system* physicssystem, reactphysics3d::CollisionShapeName shape, glm::vec3 collider_size = {1.f,1.f,1.f});
 
-
+  reactphysics3d::CollisionShape *collision_shape;
+  reactphysics3d::RigidBody *rigidBody;
+};
 
 struct point_light_component {
   float light_intensity = 1.0f;
 };
 
 class vs_game_object {
+
 public:
   using id_t = unsigned int;
   using map = std::unordered_map<id_t, vs_game_object>;
-
-
 
   vs_game_object &operator=(vs_game_object &&) = default;
   vs_game_object(vs_game_object &&) = default;
@@ -43,27 +49,26 @@ public:
   id_t getId() const { return id_; }
 
   static vs_game_object createPointLight(float intensity = 10.f,
-                                       float radius = 0.1f,
-                                       glm::vec3 color = glm::vec3(1.f));
+                                         float radius = 0.1f,
+                                         glm::vec3 color = glm::vec3(1.f));
 
   static vs_game_object createGameObject() {
     static id_t current_id = 0;
     return vs_game_object{current_id++};
   }
 
-
-
   glm::vec3 color{};
   transform_component transform_comp{};
 
   // optional pointer components
-  std::shared_ptr<vs_model_component> model_comp{};
+  std::shared_ptr<vs_model_component> model_comp;
   std::shared_ptr<point_light_component> point_light_comp;
-  std::shared_ptr<rigid_body_component> rigid_body_comp{};
+  std::shared_ptr<rigid_body_component> rigid_body_comp;
+
+  void addPhysicsComponent(vs_simple_physics_system *physicssystem, reactphysics3d::CollisionShapeName shape = reactphysics3d::CollisionShapeName::BOX);
 
 private:
-  static vs_game_object createPhysicsObject(glm::vec3 position = glm::vec3(0.f), glm::vec3 velocity= glm::vec3(0.f));
-  vs_game_object(id_t obj_id) : id_(obj_id){};
+  explicit vs_game_object(id_t obj_id) : id_(obj_id){};
 
   const id_t id_;
 };
