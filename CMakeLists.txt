@@ -113,23 +113,25 @@ add_custom_target(
 
 )
 ## clean out old shader
-file(REMOVE_RECURSE ${CMAKE_CURRENT_BINARY_DIR}/shaders/)
+#file(REMOVE_RECURSE ${CMAKE_CURRENT_BINARY_DIR}/shaders/)
 
 ##copy new shaders
-file(COPY ${CMAKE_SOURCE_DIR}/shaders/
-	 DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/shaders/)
+#file(COPY ${CMAKE_SOURCE_DIR}/shaders/
+#	 DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/shaders/)
 
 ##Copy shaders folder
 add_custom_command(
-		TARGET vulkan_eng PRE_BUILD
+		TARGET Shaders PRE_BUILD
 		COMMAND ${CMAKE_COMMAND} -E remove_directory
 		${CMAKE_CURRENT_BINARY_DIR}/shaders/
-		COMMENT "copying shaders folder")
+		COMMENT "copying shaders folder"
+)
 
 ##Copy shaders folder
 add_custom_command(
-		TARGET vulkan_eng POST_BUILD
+		TARGET Shaders POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
 		${CMAKE_SOURCE_DIR}/shaders/
 		${CMAKE_CURRENT_BINARY_DIR}/shaders/
-		COMMENT "copying shaders folder")
+		COMMENT "copying shaders folder"
+)
