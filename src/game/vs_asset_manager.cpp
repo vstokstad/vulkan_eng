@@ -12,12 +12,9 @@
 
 namespace vs {
 
-vs_asset_manager::vs_asset_manager(vs_device &device) {
-  timer timer_;
-  timer_.start();
-  loadModelsFromFolder("models", device);
-  timer_.stop();
-  timer_.print_time();
+vs_asset_manager::vs_asset_manager(vs_device &device) : device_(device) {
+
+  loadModelsFromFolder("models", device_);
 }
 
 vs_game_object vs_asset_manager::spawnGameObject(const std::string &model_name,
@@ -44,7 +41,8 @@ vs_game_object vs_asset_manager::spawnGameObject(const std::string &model_name,
 
 void vs_asset_manager::loadModelsFromFolder(
     const std::string &models_folder_path, vs_device &device_) {
-
+  timer timer_{};
+  timer_.start();
   std::vector<std::future<vs::vs_model_component::builder>> futures;
   std::vector<std::thread> threads;
 
@@ -58,7 +56,8 @@ void vs_asset_manager::loadModelsFromFolder(
 
       // DO SOME ASYNC LOADING FOR LARGE FILES //
       if (size > 1000000) {
-        // continue;
+        continue;
+        // don't load big models right, now, its annoying!
         std::packaged_task<vs_model_component::builder(std::string name,
                                                        std::string path)>
             task([](std::string name, std::string path) {
@@ -95,9 +94,11 @@ void vs_asset_manager::loadModelsFromFolder(
   for (auto &t : threads) {
     t.join();
   }
+  timer_.stop();
   // 25002 without threading
   // 24489 with. but only 1 heavy object.
-  std::cout << "done loading!" << std::endl;
+  std::cout << "done loading model assets in: " << timer_.get_time()
+            <<" seconds." <<std::endl;
 }
 
 void vs_asset_manager::loadModelFromFileEnty(
@@ -117,5 +118,6 @@ bool vs_asset_manager::isModelLoaded(const std::string &model_name) {
   auto model = loaded_models.find(model_name);
   return (model != loaded_models.end());
 }
+void vs_asset_manager::cleanup() {}
 
 } // namespace vs

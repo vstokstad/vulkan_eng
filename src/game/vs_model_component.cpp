@@ -153,7 +153,7 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
   std::string err, warn;
   // TODO LOAD IMAGES WITH STBI AND SAMPLE TEXTURES;
   if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err,
-                        obj_file.c_str())) {
+                        obj_file.c_str(),NULL, false)) {
     throw std::runtime_error(warn + err);
   }
 
@@ -197,7 +197,7 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
       if (index.texcoord_index >= 0) {
         _vertex.uv = {
             attrib.texcoords[2 * index.texcoord_index + 0],
-            attrib.texcoords[2 * index.texcoord_index + 1],
+            1.0f - attrib.texcoords[2 * index.texcoord_index + 1],
         };
       }
 
@@ -221,12 +221,10 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
 
     float relative_scale = 1.0f / maxExtent;
 
-    for (auto &v : vertices) {
-      v.position *= relative_scale;
+     for (auto &v : vertices) {
+       v.position *= relative_scale;
+     }
 
-      // v.position+=(-0.5 * (bmax[0] + bmin[0]), -0.5 * (bmax[1] + bmin[1]),
-      // -0.5 * (bmax[2] + bmin[2]));
-    }
   }
 }
 } // namespace vs

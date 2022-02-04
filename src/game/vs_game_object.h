@@ -24,10 +24,13 @@ struct transform_component {
   glm::mat3 normal_matrix();
 };
 struct rigid_body_component {
-  rigid_body_component(glm::vec3 position,
-                       vs_simple_physics_system* physicssystem, reactphysics3d::CollisionShapeName shape, glm::vec3 collider_size = {1.f,1.f,1.f});
+  rigid_body_component(glm::vec3 position, glm::vec3 rotation,
+                       vs_simple_physics_system *physicssystem,
+                       reactphysics3d::CollisionShapeName shape,
+                       glm::vec3 collider_size);
 
   reactphysics3d::CollisionShape *collision_shape;
+  reactphysics3d::Transform transform;
   reactphysics3d::RigidBody *rigidBody;
 };
 
@@ -65,7 +68,9 @@ public:
   std::shared_ptr<point_light_component> point_light_comp;
   std::shared_ptr<rigid_body_component> rigid_body_comp;
 
-  void addPhysicsComponent(vs_simple_physics_system *physicssystem, reactphysics3d::CollisionShapeName shape = reactphysics3d::CollisionShapeName::BOX);
+  void addPhysicsComponent(vs_simple_physics_system *physicssystem,
+                           reactphysics3d::CollisionShapeName shape =
+                               reactphysics3d::CollisionShapeName::BOX);
 
 private:
   explicit vs_game_object(id_t obj_id) : id_(obj_id){};

@@ -23,7 +23,7 @@ target_include_directories(vulkan_eng PRIVATE src src/engine src/engine/renderer
 # FetchContent added in CMake 3.11, downloads during the configure step
 include(FetchContent)
 
-set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL OFF)
+set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL ON)
 
 FetchContent_Declare(
 		tinyobjloader
@@ -45,6 +45,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(tinyobjloader glfw3 glm reactphysics3d)
 
+##STBI IMAGE##
+target_include_directories(vulkan_eng PRIVATE external/stbi)
 ######## reactPhysics ######
 target_link_libraries(vulkan_eng PRIVATE reactphysics3d)
 ######## tiny #######
@@ -62,22 +64,16 @@ find_package(Vulkan REQUIRED)
 target_link_libraries(vulkan_eng PRIVATE Vulkan::Vulkan)
 
 
-
 ## copy over models folder
 add_custom_command(
-		TARGET vulkan_eng PRE_BUILD
+		TARGET vulkan_eng POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
 		${CMAKE_SOURCE_DIR}/models
 		${CMAKE_CURRENT_BINARY_DIR}/models
 		COMMENT "copying models folder")
 
-##Copy shaders folder
-add_custom_command(
-		TARGET vulkan_eng POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_directory
-		${CMAKE_SOURCE_DIR}/shaders/
-		${CMAKE_CURRENT_BINARY_DIR}/shaders/
-		COMMENT "copying shaders folder")
+
+
 
 ############## Build SHADERS #######################
 
@@ -114,5 +110,26 @@ add_custom_target(
 		Shaders
 		DEPENDS ${SPIRV_BINARY_FILES}
 		COMMENT "shaders compiled"
-)
 
+)
+## clean out old shader
+file(REMOVE_RECURSE ${CMAKE_CURRENT_BINARY_DIR}/shaders/)
+
+##copy new shaders
+file(COPY ${CMAKE_SOURCE_DIR}/shaders/
+	 DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/shaders/)
+
+##Copy shaders folder
+add_custom_command(
+		TARGET vulkan_eng PRE_BUILD
+		COMMAND ${CMAKE_COMMAND} -E remove_directory
+		${CMAKE_CURRENT_BINARY_DIR}/shaders/
+		COMMENT "copying shaders folder")
+
+##Copy shaders folder
+add_custom_command(
+		TARGET vulkan_eng POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_directory
+		${CMAKE_SOURCE_DIR}/shaders/
+		${CMAKE_CURRENT_BINARY_DIR}/shaders/
+		COMMENT "copying shaders folder")

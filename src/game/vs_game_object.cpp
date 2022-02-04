@@ -71,13 +71,14 @@ void vs_game_object::addPhysicsComponent(
     vs_simple_physics_system *physicssystem,
     reactphysics3d::CollisionShapeName shape) {
 
-
   rigid_body_comp = std::make_unique<rigid_body_component>(
-      transform_comp.translation, physicssystem, shape, transform_comp.scale);
+      transform_comp.translation, transform_comp.rotation, physicssystem, shape,
+      transform_comp.scale);
 }
 
 rigid_body_component::rigid_body_component(
-    glm::vec3 position, vs_simple_physics_system *physicssystem,
+    glm::vec3 position, glm::vec3 rotation,
+    vs_simple_physics_system *physicssystem,
     reactphysics3d::CollisionShapeName shape, glm::vec3 collider_size) {
   {
 
@@ -101,11 +102,14 @@ rigid_body_component::rigid_body_component(
               collider_size.x, collider_size.y, collider_size.z));
       break;
     }
-    reactphysics3d::Transform transform;
+
+    transform = reactphysics3d::Transform();
     transform.setToIdentity();
     transform.setPosition({position.x, position.y, position.z});
+    transform.setOrientation({rotation.x, rotation.y, rotation.z, 1.0f});
 
     rigidBody = physicssystem->physics_world->createRigidBody(transform);
+
     rigidBody->addCollider(collision_shape,
                            reactphysics3d::Transform::identity());
     rigidBody->getCollider(0)->getMaterial().setBounciness(0.8);

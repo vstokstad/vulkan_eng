@@ -19,8 +19,9 @@ class vs_model_component;
 
 class vs_app {
 public:
-  static constexpr int WIDTH = 800;
-  static constexpr int HEIGHT = 500;
+  static constexpr float aspect_ratio = 16.f / 9.f;
+  static constexpr int HEIGHT = 600;
+  static constexpr int WIDTH = HEIGHT*aspect_ratio;
 
   vs_app();
   ~vs_app();
@@ -38,10 +39,6 @@ private:
   vs_renderer renderer_{window_, device_};
   vs_asset_manager asset_manager{device_};
 
-  // physics
-  // reactphysics3d::PhysicsCommon physics_common{};
-  // reactphysics3d::PhysicsWorld*physics;
-
   // order of declaration matters (pool need to be constructed after device and
   // destroyed before device.)
 
@@ -49,5 +46,7 @@ private:
   vs_game_object::map game_objects_;
   vs_game_object::map lights_;
   void createWorld(vs_simple_physics_system *physicssystem);
+  void createHairballScene();
+  void createSpinningPointLights();
 };
 } // namespace vs
