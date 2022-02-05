@@ -20,7 +20,7 @@ class vs_model_component;
 class vs_app {
 public:
   static constexpr float aspect_ratio = 16.f / 9.f;
-  static constexpr int HEIGHT = 600;
+  static constexpr int HEIGHT = 1280;
   static constexpr int WIDTH = HEIGHT*aspect_ratio;
 
   vs_app();

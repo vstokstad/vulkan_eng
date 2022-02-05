@@ -173,9 +173,14 @@ void vs_app::run() {
       ubo_buffers[frame_index]->flush();
 
       // Render
+      //Begin
       renderer_.beginSwapChainRenderPass(command_buffer);
+
+      // my frame rendering
       simple_render_system.renderGameObjects(frame);
       point_light_render_system.render(frame);
+
+      //END
       renderer_.endSwapChainRenderPass(command_buffer);
       renderer_.endFrame();
     }

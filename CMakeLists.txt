@@ -124,7 +124,7 @@ add_custom_command(
 		TARGET Shaders PRE_BUILD
 		COMMAND ${CMAKE_COMMAND} -E remove_directory
 		${CMAKE_CURRENT_BINARY_DIR}/shaders/
-		COMMENT "copying shaders folder"
+		COMMENT "deleting old shaders folder"
 )
 
 ##Copy shaders folder

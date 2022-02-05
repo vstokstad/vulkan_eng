@@ -63,11 +63,11 @@ VkCommandBuffer vs_renderer::beginFrame() {
   assert(!isFrameStarted && "can't call beginFrame while already in progress");
 
   auto result = swap_chain_->acquireNextImage(&currentImageIndex);
-  if (result == VK_ERROR_OUT_OF_DATE_KHR) {
+  if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
     recreateSwapChain();
     return nullptr;
   }
-  if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+  if (result != VK_SUCCESS) {
     throw std::runtime_error("failed to acquire swap chain index");
   }
 
@@ -84,16 +84,18 @@ VkCommandBuffer vs_renderer::beginFrame() {
 }
 
 void vs_renderer::endFrame() {
+
   assert(isFrameStarted && "Can't call endFrame while not in progrsess");
+
   auto command_buffer = getCurrentCommandBuffer();
+
   if (vkEndCommandBuffer(command_buffer) != VK_SUCCESS) {
     throw std::runtime_error("failed to end recording cmd buffer");
   }
 
   auto result =
       swap_chain_->submitCommandBuffers(&command_buffer, &currentImageIndex);
-  if (result == VK_ERROR_OUT_OF_DATE_KHR ||
-      result == VK_SUBOPTIMAL_KHR || window_.wasFrameBufferResized()) {
+  if (result == VK_ERROR_OUT_OF_DATE_KHR || window_.wasFrameBufferResized() || result == VK_SUBOPTIMAL_KHR) {
     window_.resetFrameBufferResizedFlag();
     recreateSwapChain();
   } else if (result != VK_SUCCESS) {
@@ -110,7 +112,7 @@ void vs_renderer::beginSwapChainRenderPass(VkCommandBuffer cmdBuffer) {
   assert(isFrameStarted &&
          "Cannot begin render pass when frame is in progress");
   assert(cmdBuffer == getCurrentCommandBuffer() &&
-         "can't begin render pass on command buffer from a different fram");
+         "can't begin render pass on command buffer from a different frame");
 
   VkRenderPassBeginInfo render_pass_begin_info{};
   render_pass_begin_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
