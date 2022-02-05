@@ -1,5 +1,5 @@
+##todos:
 <ul>
-
 <b>TEXTURES</b>
 <li>TextureSampler should be moved from swapchain to renderer.</li>
 <li>Model-components should load and keep track of its own textures.</li>
@@ -14,3 +14,8 @@
 <li>Specular lights / blinn-phong</li>
 </ul>
 
+##engine stuff:
+<ul>
+<li>make device choose discrete device several are available</li>
+
+</ul>

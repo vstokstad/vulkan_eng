@@ -104,6 +104,17 @@ void vs_device::createInstance() {
 
   hasGflwRequiredInstanceExtensions();
 }
+bool vs_device::isPreferredDevice(VkPhysicalDevice device) {
+  if (!isSuitableDevice(device)) {
+    return false;
+  }
+
+  auto props = VkPhysicalDeviceProperties{};
+  vkGetPhysicalDeviceProperties(device, &props);
+
+  return props.deviceType ==
+         VkPhysicalDeviceType::VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU;
+}
 
 void vs_device::pickPhysicalDevice() {
   uint32_t deviceCount = 0;
@@ -116,18 +127,32 @@ void vs_device::pickPhysicalDevice() {
   vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
 
   for (const auto &device : devices) {
-    if (isDeviceSuitable(device)) {
+    vkGetPhysicalDeviceProperties(device, &properties);
+    std::cout << "physical device found: " << properties.deviceName
+              << std::endl;
+    if (isPreferredDevice(device)) {
       physicalDevice = device;
-      break;
     }
   }
-
-  if (physicalDevice == VK_NULL_HANDLE) {
-    throw std::runtime_error("failed to find a suitable GPU!");
+  //extracted this from the loop above just to list all devices before printing which one we picked.
+  if (physicalDevice != nullptr) {
+    vkGetPhysicalDeviceProperties(physicalDevice, &properties);
+    std::cout << "selected physical device: " << properties.deviceName
+              << std::endl;
+    return;
   }
 
-  vkGetPhysicalDeviceProperties(physicalDevice, &properties);
-  std::cout << "physical device: " << properties.deviceName << std::endl;
+  for (const auto &device : devices) {
+    if (isSuitableDevice(device)) {
+
+      if (physicalDevice == VK_NULL_HANDLE) {
+        throw std::runtime_error("failed to find a suitable GPU!");
+      }
+
+      vkGetPhysicalDeviceProperties(physicalDevice, &properties);
+      std::cout << "physical device: " << properties.deviceName << std::endl;
+    }
+  }
 }
 
 void vs_device::createLogicalDevice() {
@@ -162,8 +187,8 @@ void vs_device::createLogicalDevice() {
       static_cast<uint32_t>(deviceExtensions.size());
   createInfo.ppEnabledExtensionNames = deviceExtensions.data();
 
-  // might not really be necessary anymore because device specific validation
-  // layers have been deprecated
+  // might not really be necessary anymore because device specific
+  // validation layers have been deprecated
   if (enableValidationLayers) {
     createInfo.enabledLayerCount =
         static_cast<uint32_t>(validationLayers.size());
@@ -200,7 +225,7 @@ void vs_device::createSurface() {
   window.createWindowSurface(instance, &surface_);
 }
 
-bool vs_device::isDeviceSuitable(VkPhysicalDevice device) {
+bool vs_device::isSuitableDevice(VkPhysicalDevice device) {
   QueueFamilyIndices indices = findQueueFamilies(device);
 
   bool extensionsSupported = checkDeviceExtensionSupport(device);
