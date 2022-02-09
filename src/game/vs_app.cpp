@@ -100,21 +100,18 @@ void vs_app::run() {
   // spawn a floor
   createWorld(&physics_system);
 
-  /*CAMERA & PLAYER/VIEWER
-   * OBJECTS***************************************************************/
-  /*********************************************************************************************/
+  /*CAMERA & PLAYER/VIEWER OBJECTS*********************************************/
+  /****************************************************************************/
   vs_camera camera{};
   auto camera_objet = vs_game_object::createGameObject();
   camera_objet.transform_comp.translation.z = -8.f;
-  camera_objet.transform_comp.translation.y = -2.f;
   vs_movement_component movement_controller{window_.getGLFWwindow()};
 
   /*FRAME TIME*/
   auto currentTime = std::chrono::high_resolution_clock::now();
 
-  /*MAIN LOOP
-   * ******************************************************************************************/
-  /***********************************************************************************************/
+  /*MAIN LOOP******************************************************************/
+  /****************************************************************************/
   while (!window_.shouldClose()) {
     glfwPollEvents();
 
@@ -134,9 +131,8 @@ void vs_app::run() {
     float aspect = renderer_.getAspectRatio();
     camera.setPerspectiveProjection(glm::radians(60.f), aspect, 0.1f, 1000.f);
 
-    /*UPDATE & RENDER
-     * *************************************************************************************/
-    /****************************************************************************************************/
+    /*UPDATE & RENDER**********************************************************/
+    /**************************************************************************/
     if (auto command_buffer = renderer_.beginFrame()) {
       // start frame & create frame info
       int frame_index = renderer_.getFrameIndex();
@@ -191,7 +187,7 @@ void vs_app::run() {
 void vs_app::createWorld(vs_simple_physics_system *physicssystem) {
   {
     auto floor = asset_manager.spawnGameObject("cube.obj", {0.0f, 5.f, 0.0f},
-                                               {0.f, 0, 0}, {20.f, 0.1f, 20.f});
+                                               {0.f, 0, 0}, {20.f, 1.f, 20.f});
     floor.addPhysicsComponent(physicssystem,
                               reactphysics3d::CollisionShapeName::BOX);
 
@@ -207,8 +203,8 @@ void vs_app::loadGameObjects() {
   //  createHairballScene();
   // { glm::radians(90.f), glm::radians(180.f), glm::radians(45.f) }
   auto game_object = asset_manager.spawnGameObject(
-      "viking_room.obj", {0.3f, 1.f, 0.3f},
-      {glm::radians(90.f), glm::radians(180.f), glm::radians(45.f)},
+      "viking_room.obj", {0.f, 2.f, 0.f},
+      {1.2f,0.f, 0.f},
       {5.f, 5.f, 5.f});
 
   game_objects_.emplace(game_object.getId(), std::move(game_object));

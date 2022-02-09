@@ -24,7 +24,7 @@ struct transform_component {
   glm::mat3 normal_matrix();
 };
 struct rigid_body_component {
-  rigid_body_component(glm::vec3 position, glm::vec3 rotation,
+  rigid_body_component(transform_component transform_comp,
                        vs_simple_physics_system *physicssystem,
                        reactphysics3d::CollisionShapeName shape,
                        glm::vec3 collider_size);

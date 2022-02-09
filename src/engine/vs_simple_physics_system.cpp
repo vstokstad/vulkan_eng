@@ -9,6 +9,7 @@
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <reactphysics3d/systems/BroadPhaseSystem.h>
 
 // std
@@ -41,19 +42,19 @@ void vs_simple_physics_system::update(const frame_info &frame_info) {
     if (obj.rigid_body_comp == nullptr)
       continue;
 
-   obj.rigid_body_comp->rigidBody->updateMassPropertiesFromColliders();
+    obj.rigid_body_comp->rigidBody->updateMassPropertiesFromColliders();
 
-    reactphysics3d::Transform t = obj.rigid_body_comp->rigidBody->getCollider(0)
-                                      ->getLocalToWorldTransform();
+    reactphysics3d::Transform t = obj.rigid_body_comp->rigidBody->getTransform();
 
     glm::vec3 rb_position = {t.getPosition().x, t.getPosition().y,
                              t.getPosition().z};
 
-    glm::vec3 rb_rotation = {t.getOrientation().getVectorV().x,
-                             t.getOrientation().getVectorV().y,
-                             t.getOrientation().getVectorV().z};
+    /** THANKS TO Magnus Auvinen @ MachineGames for helping see this clearly! **/
+    glm::quat rb_quatRot = glm::quat(t.getOrientation().w, t.getOrientation().y,
+                                     t.getOrientation().x, t.getOrientation().z);
 
-    //  obj.transform_comp.rotation = rb_rotation;
+
+    obj.transform_comp.rotation = eulerAngles(normalize(rb_quatRot));;
     obj.transform_comp.translation = rb_position;
   }
 }

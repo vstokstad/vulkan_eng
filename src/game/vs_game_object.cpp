@@ -1,7 +1,7 @@
 ﻿
 #include "vs_game_object.h"
-
 #include "vs_simple_physics_system.h"
+#include <glm/gtc/quaternion.hpp>
 
 namespace vs {
 glm::mat4 transform_component::mat4() {
@@ -72,13 +72,11 @@ void vs_game_object::addPhysicsComponent(
     reactphysics3d::CollisionShapeName shape) {
 
   rigid_body_comp = std::make_unique<rigid_body_component>(
-      transform_comp.translation, transform_comp.rotation, physicssystem, shape,
-      transform_comp.scale);
+      transform_comp, physicssystem, shape, transform_comp.scale);
 }
 
 rigid_body_component::rigid_body_component(
-    glm::vec3 position, glm::vec3 rotation,
-    vs_simple_physics_system *physicssystem,
+    transform_component transform_comp, vs_simple_physics_system *physicssystem,
     reactphysics3d::CollisionShapeName shape, glm::vec3 collider_size) {
   {
 
@@ -105,15 +103,21 @@ rigid_body_component::rigid_body_component(
 
     transform = reactphysics3d::Transform();
     transform.setToIdentity();
-    transform.setPosition({position.x, position.y, position.z});
-    transform.setOrientation({rotation.x, rotation.y, rotation.z, 1.0f});
+    glm::quat rot_quat = glm::quat_cast(transform_comp.mat4());
+   // rot_quat = normalize(rot_quat);
+    transform.setOrientation({rot_quat.y, rot_quat.x, rot_quat.z, rot_quat.w});
+
+    transform.setPosition({transform_comp.translation.x,
+                           transform_comp.translation.y,
+                           transform_comp.translation.z});
+
 
     rigidBody = physicssystem->physics_world->createRigidBody(transform);
+   // reactphysics3d::Collider *collider = rigidBody->addCollider(
+     //   collision_shape, reactphysics3d::Transform::identity());
 
-    rigidBody->addCollider(collision_shape,
-                           reactphysics3d::Transform::identity());
-    rigidBody->getCollider(0)->getMaterial().setBounciness(0.8);
-    rigidBody->setType(reactphysics3d::BodyType::DYNAMIC);
+   // collider->getMaterial().setBounciness(0.8);
+    rigidBody->setType(reactphysics3d::BodyType::KINEMATIC);
     rigidBody->enableGravity(true);
     rigidBody->setIsActive(true);
   };
