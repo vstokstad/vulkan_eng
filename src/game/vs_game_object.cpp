@@ -113,10 +113,9 @@ rigid_body_component::rigid_body_component(
 
 
     rigidBody = physicssystem->physics_world->createRigidBody(transform);
-   // reactphysics3d::Collider *collider = rigidBody->addCollider(
-     //   collision_shape, reactphysics3d::Transform::identity());
+    reactphysics3d::Collider *collider = rigidBody->addCollider(collision_shape, reactphysics3d::Transform::identity());
 
-   // collider->getMaterial().setBounciness(0.8);
+    collider->getMaterial().setBounciness(0.8);
     rigidBody->setType(reactphysics3d::BodyType::KINEMATIC);
     rigidBody->enableGravity(true);
     rigidBody->setIsActive(true);

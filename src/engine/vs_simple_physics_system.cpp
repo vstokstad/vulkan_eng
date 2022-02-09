@@ -42,7 +42,7 @@ void vs_simple_physics_system::update(const frame_info &frame_info) {
     if (obj.rigid_body_comp == nullptr)
       continue;
 
-    obj.rigid_body_comp->rigidBody->updateMassPropertiesFromColliders();
+   // obj.rigid_body_comp->rigidBody->updateMassPropertiesFromColliders();
 
     reactphysics3d::Transform t = obj.rigid_body_comp->rigidBody->getTransform();
 
@@ -50,11 +50,11 @@ void vs_simple_physics_system::update(const frame_info &frame_info) {
                              t.getPosition().z};
 
     /** THANKS TO Magnus Auvinen @ MachineGames for helping see this clearly! **/
-    glm::quat rb_quatRot = glm::quat(t.getOrientation().w, t.getOrientation().y,
-                                     t.getOrientation().x, t.getOrientation().z);
+    glm::quat rb_quatRot = glm::quat(t.getOrientation().w, t.getOrientation().x,
+                                     t.getOrientation().y, t.getOrientation().z);
 
 
-    obj.transform_comp.rotation = eulerAngles(normalize(rb_quatRot));;
+    obj.transform_comp.rotation = eulerAngles(rb_quatRot);
     obj.transform_comp.translation = rb_position;
   }
 }

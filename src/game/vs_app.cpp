@@ -169,14 +169,14 @@ void vs_app::run() {
       ubo_buffers[frame_index]->flush();
 
       // Render
-      //Begin
+      // Begin
       renderer_.beginSwapChainRenderPass(command_buffer);
 
       // my frame rendering
       simple_render_system.renderGameObjects(frame);
       point_light_render_system.render(frame);
 
-      //END
+      // END
       renderer_.endSwapChainRenderPass(command_buffer);
       renderer_.endFrame();
     }
@@ -187,7 +187,7 @@ void vs_app::run() {
 void vs_app::createWorld(vs_simple_physics_system *physicssystem) {
   {
     auto floor = asset_manager.spawnGameObject("cube.obj", {0.0f, 5.f, 0.0f},
-                                               {0.f, 0, 0}, {20.f, 1.f, 20.f});
+                                               {0.f, 0.f, 0.f}, {20.f, 1.f, 20.f});
     floor.addPhysicsComponent(physicssystem,
                               reactphysics3d::CollisionShapeName::BOX);
 
@@ -200,24 +200,12 @@ void vs_app::createWorld(vs_simple_physics_system *physicssystem) {
 }
 void vs_app::loadGameObjects() {
 
-  //  createHairballScene();
-  // { glm::radians(90.f), glm::radians(180.f), glm::radians(45.f) }
+
   auto game_object = asset_manager.spawnGameObject(
-      "viking_room.obj", {0.f, 2.f, 0.f},
-      {1.2f,0.f, 0.f},
-      {5.f, 5.f, 5.f});
+      "viking_room.obj", {0.f, 3.f, 0.f}, glm::vec3(glm::radians(0.f), glm::radians(72.f), glm::radians(-72.f)), {5.f, 5.f, 5.f});
 
   game_objects_.emplace(game_object.getId(), std::move(game_object));
 
-  /*** ROW OF VASES******/
-  /*
-    for (int i = 0; i < 10; ++i) {
-      auto game_object = asset_manager.spawnGameObject("flat_vase.obj");
-      game_object.transform_comp.translation = {i - 2.f, 5.f, 0.f};
-      game_object.transform_comp.scale = glm::vec3(.5f, .5f, .5f);
-      game_objects_.emplace(game_object.getId(), std::move(game_object));
-    }
-    */
   /** SPINNING POINT LIGHTS **/
   createSpinningPointLights();
 }
