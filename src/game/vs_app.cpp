@@ -16,6 +16,7 @@
 #include <stdexcept>
 
 namespace vs {
+
 vs_app::vs_app() {
   global_descriptor_pool_ =
       vs_descriptor_pool::vs_builder(device_)
@@ -94,6 +95,7 @@ void vs_app::run() {
     auto &obj = kv.second;
     if (obj.model_comp == nullptr)
       continue;
+
     obj.addPhysicsComponent(&physics_system,
                             reactphysics3d::CollisionShapeName::BOX);
   }
@@ -186,8 +188,8 @@ void vs_app::run() {
 }
 void vs_app::createWorld(vs_simple_physics_system *physicssystem) {
   {
-    auto floor = asset_manager.spawnGameObject("cube.obj", {0.0f, 5.f, 0.0f},
-                                               {0.f, 0.f, 0.f}, {20.f, 1.f, 20.f});
+    auto floor = asset_manager.spawnGameObject(
+        "cube.obj", {0.0f, 5.f, 0.0f}, {0.f, 0.f, 0.f}, {10.f, 1.f, 10.f});
     floor.addPhysicsComponent(physicssystem,
                               reactphysics3d::CollisionShapeName::BOX);
 
@@ -200,9 +202,9 @@ void vs_app::createWorld(vs_simple_physics_system *physicssystem) {
 }
 void vs_app::loadGameObjects() {
 
-
   auto game_object = asset_manager.spawnGameObject(
-      "viking_room.obj", {0.f, 3.f, 0.f}, glm::vec3(glm::radians(0.f), glm::radians(72.f), glm::radians(-72.f)), {5.f, 5.f, 5.f});
+      "viking_room.obj", {1.f, 0.2f, 0.f},
+      glm::vec3(glm::radians(72.f), glm::radians(0.f), glm::radians(0.f)));
 
   game_objects_.emplace(game_object.getId(), std::move(game_object));
 
@@ -216,59 +218,16 @@ void vs_app::createSpinningPointLights() {
   };
 
   for (int i = 0; i < lightColors.size(); ++i) {
-    auto point_light = vs_game_object::createPointLight(5.f);
-    point_light.color = lightColors[i];
-    auto rotate_light = glm::rotate(
-        glm::mat4(1.f), (i * glm::two_pi<float>()) / lightColors.size(),
-        {0.f, -1.f, 0.f});
-
-    point_light.transform_comp.translation =
-        glm::vec3{0.f, -2.f, 0.f} +
-        glm::vec3(rotate_light * glm::vec4(-1.f, -1.f, -1.f, 1.f));
-
-    lights_.emplace(point_light.getId(), std::move(point_light));
-  }
-}
-void vs_app::createHairballScene() {
-  std::vector<glm::vec3> lightColors{
-      {1.f, .1f, .1f}, {.1f, .1f, 1.f}, {.1f, 1.f, .1f},
-      {1.f, 1.f, .1f}, {.1f, 1.f, 1.f}, {1.f, 1.f, 1.f} //
-  };
-  /*
-    auto spawned =
-        asset_manager.spawnGameObject("smooth_vase.obj", {1.f, 0.5f, 2.5f});
-    game_objects_.emplace(spawned.getId(), std::move(spawned));
-  */
-  {
-    for (int i = 0; i < 50; ++i) {
-      auto rotate = glm::rotate(glm::mat4(1.f), (i * glm::two_pi<float>()) / 50,
-                                {0.1f, -1.f, 0.2f});
-      auto color_cube =
-          asset_manager.spawnGameObject("colored_cube.obj", {0.f, -5.f, 0.f},
-                                        {i * 1.f, -1.f, 0}, {0.2f, 0.2f, 0.2f});
-
-      color_cube.transform_comp.translation =
-          glm::vec3(rotate * glm::vec4(-3.f, -5.f, -1.5f, 1.f));
-
-      game_objects_.emplace(color_cube.getId(), std::move(color_cube));
-    }
-  }
-  if (asset_manager.isModelLoaded("hairball.obj")) {
-    auto hairball = asset_manager.spawnGameObject(
-        "hairball.obj", {0.0f, -20.f, 0.0f}, {0.f, 0.f, 0.f}, {5.f, 5.f, 5.f});
-    game_objects_.emplace(hairball.getId(), std::move(hairball));
-  }
-
-  for (int i = 0; i < lightColors.size(); ++i) {
-
     auto point_light = vs_game_object::createPointLight(10.f);
     point_light.color = lightColors[i];
     auto rotate_light = glm::rotate(
         glm::mat4(1.f), (i * glm::two_pi<float>()) / lightColors.size(),
-        {0.f, -1.f, 0.f});
+        {0.f, -2.f, 0.f});
 
     point_light.transform_comp.translation =
-        glm::vec3(rotate_light * glm::vec4(-3.f, -0.5f, -1.5f, 1.f));
+        glm::vec3{0.f, -1.f, 0.f} +
+        glm::vec3(rotate_light * glm::vec4(-8.f, -1.f, -1.f, 1.f));
+
     lights_.emplace(point_light.getId(), std::move(point_light));
   }
 }

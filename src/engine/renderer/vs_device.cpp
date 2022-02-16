@@ -132,14 +132,11 @@ void vs_device::pickPhysicalDevice() {
               << std::endl;
     if (isPreferredDevice(device)) {
       physicalDevice = device;
+      msaa_samples = getMaxUsableSampleCount();
+      std::cout << "selected physical device: " << properties.deviceName
+                << std::endl;
+      return;
     }
-  }
-  //extracted this from the loop above just to list all devices before printing which one we picked.
-  if (physicalDevice != nullptr) {
-    vkGetPhysicalDeviceProperties(physicalDevice, &properties);
-    std::cout << "selected physical device: " << properties.deviceName
-              << std::endl;
-    return;
   }
 
   for (const auto &device : devices) {
@@ -569,7 +566,8 @@ void vs_device::createImageWithInfo(const VkImageCreateInfo &imageInfo,
 }
 void vs_device::transitionImageLayout(VkImage image, VkFormat format,
                                       VkImageLayout oldLayout,
-                                      VkImageLayout newLayout) {
+                                      VkImageLayout newLayout,
+                                      uint32_t mipLevels) {
 
   VkCommandBuffer commandbuffer = beginSingleTimeCommands();
   VkImageMemoryBarrier barrier{};
@@ -586,7 +584,7 @@ void vs_device::transitionImageLayout(VkImage image, VkFormat format,
   barrier.image = image;
   barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
   barrier.subresourceRange.baseMipLevel = 0;
-  barrier.subresourceRange.levelCount = 1;
+  barrier.subresourceRange.levelCount = mipLevels;
   barrier.subresourceRange.baseArrayLayer = 0;
   barrier.subresourceRange.layerCount = 1;
 
@@ -615,5 +613,28 @@ void vs_device::transitionImageLayout(VkImage image, VkFormat format,
                        nullptr, 1, &barrier);
 
   endSingleTimeCommands(commandbuffer);
+}
+VkSampleCountFlagBits vs_device::getMaxUsableSampleCount() {
+  VkSampleCountFlags counts = properties.limits.framebufferColorSampleCounts &
+                              properties.limits.framebufferDepthSampleCounts;
+  if (counts & VK_SAMPLE_COUNT_64_BIT)
+    return VK_SAMPLE_COUNT_64_BIT;
+
+  if (counts & VK_SAMPLE_COUNT_32_BIT)
+    return VK_SAMPLE_COUNT_32_BIT;
+
+  if (counts & VK_SAMPLE_COUNT_16_BIT)
+    return VK_SAMPLE_COUNT_16_BIT;
+
+  if (counts & VK_SAMPLE_COUNT_8_BIT)
+    return VK_SAMPLE_COUNT_8_BIT;
+
+  if (counts & VK_SAMPLE_COUNT_4_BIT)
+    return VK_SAMPLE_COUNT_4_BIT;
+
+  if (counts & VK_SAMPLE_COUNT_2_BIT)
+    return VK_SAMPLE_COUNT_2_BIT;
+
+  return VK_SAMPLE_COUNT_1_BIT;
 }
 } // namespace vs

@@ -108,9 +108,12 @@ void vs_asset_manager::loadModelFromFileEnty(
 
   std::shared_ptr<vs_model_component> model =
       vs_model_component::createModelFromFile(device_, rel_path, rel_path);
+
   model->string_name =
       static_cast<std::string>(entry.path().filename().string());
+
   loaded_models.emplace(entry.path().filename().string(), std::move(model));
+
   std::cout << "loaded model: " << rel_path << std::endl;
 }
 

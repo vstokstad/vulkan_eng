@@ -79,8 +79,8 @@ namespace vs
 	{
 		auto rotate_light = glm::rotate(
 			glm::mat4(1.f),
-			frame_info.frame_time * glm::pi<float>(),
-			{0.1f, -1.f, .1f}
+			frame_info.frame_time * glm::half_pi<float>(),
+			{0.f, -1.f, .0f}
 		);
 
 

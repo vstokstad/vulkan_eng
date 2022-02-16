@@ -90,6 +90,7 @@ rigid_body_component::rigid_body_component(
           collider_size.x, collider_size.y);
       break;
     case reactphysics3d::CollisionShapeName::BOX:
+      collider_size *= 0.5f;
       collision_shape =
           physicssystem->physics_common.createBoxShape(reactphysics3d::Vector3(
               collider_size.x, collider_size.y, collider_size.z));
@@ -101,22 +102,24 @@ rigid_body_component::rigid_body_component(
       break;
     }
 
-    transform = reactphysics3d::Transform();
-    transform.setToIdentity();
     glm::quat rot_quat = glm::quat_cast(transform_comp.mat4());
-   // rot_quat = normalize(rot_quat);
-    transform.setOrientation({rot_quat.y, rot_quat.x, rot_quat.z, rot_quat.w});
+    transform = reactphysics3d::Transform(
+        {transform_comp.translation.x, transform_comp.translation.y-0.1f,
+         transform_comp.translation.z},
+        {rot_quat.x, rot_quat.y, rot_quat.z, rot_quat.w});
+
+    rigidBody = physicssystem->physics_world->createRigidBody(transform);
+    reactphysics3d::Collider *collider = rigidBody->addCollider(
+        collision_shape, reactphysics3d::Transform::identity());
+
+    transform.setOrientation({rot_quat.x, rot_quat.y, rot_quat.z, rot_quat.w});
 
     transform.setPosition({transform_comp.translation.x,
                            transform_comp.translation.y,
                            transform_comp.translation.z});
 
-
-    rigidBody = physicssystem->physics_world->createRigidBody(transform);
-    reactphysics3d::Collider *collider = rigidBody->addCollider(collision_shape, reactphysics3d::Transform::identity());
-
-    collider->getMaterial().setBounciness(0.8);
-    rigidBody->setType(reactphysics3d::BodyType::KINEMATIC);
+    collider->getMaterial().setBounciness(0);
+    rigidBody->setType(reactphysics3d::BodyType::DYNAMIC);
     rigidBody->enableGravity(true);
     rigidBody->setIsActive(true);
   };

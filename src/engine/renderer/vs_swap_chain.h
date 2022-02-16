@@ -56,13 +56,15 @@ private:
   void createFramebuffers();
   void createSyncObjects();
 
-  VkImageView createImageView(VkImage image, VkFormat format);
+  VkImageView createImageView(VkImage image, VkFormat format,
+                              uint32_t mipLevels);
+
   //** TEXTURES **//
   void createTextureImage(const std::string &path);
   void createImage(uint32_t width, uint32_t height, VkFormat format,
                    VkImageTiling tiling, VkImageUsageFlags usage,
                    VkMemoryPropertyFlags properties, VkImage &image,
-                   VkDeviceMemory &imageMemory);
+                   VkDeviceMemory &imageMemory, uint32_t mipLevels);
 
   void createTextureImageView();
   void createTextureSampler();
@@ -91,7 +93,7 @@ public:
 
   VkImageView getSwapChainTextureImageView() { return textureImageView; }
   VkSampler getSwapChainTextureSampler() { return textureSampler; }
-
+  uint32_t mip_levels;
   VkImage textureImage;
   VkDeviceMemory textureImageMemory;
   VkImageView textureImageView;
@@ -111,5 +113,7 @@ private:
   std::vector<VkFence> inFlightFences;
   std::vector<VkFence> imagesInFlight;
   size_t currentFrame = 0;
+  void generateMipmaps(VkImage image, VkFormat image_format, int32_t texWidth,
+                       int32_t texHeight, uint32_t mipLevels);
 };
 } // namespace vs

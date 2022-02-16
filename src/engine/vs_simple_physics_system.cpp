@@ -42,7 +42,6 @@ void vs_simple_physics_system::update(const frame_info &frame_info) {
     if (obj.rigid_body_comp == nullptr)
       continue;
 
-   // obj.rigid_body_comp->rigidBody->updateMassPropertiesFromColliders();
 
     reactphysics3d::Transform t = obj.rigid_body_comp->rigidBody->getTransform();
 

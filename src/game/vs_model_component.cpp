@@ -28,6 +28,7 @@ namespace vs {
 vs_model_component::vs_model_component(
     vs_device &device, const vs_model_component::builder &builder)
     : device_(device) {
+
   createVertexBuffers(builder.vertices);
   createIndexBuffers(builder.indices);
   string_name = builder.name;
@@ -42,6 +43,7 @@ vs_model_component::createModelFromFile(vs_device &device,
   builder builder{};
 
   builder.loadModel(obj_file, mtl_path);
+
   return std::make_unique<vs_model_component>(device, builder);
 }
 
@@ -153,7 +155,7 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
   std::string err, warn;
   // TODO LOAD IMAGES WITH STBI AND SAMPLE TEXTURES;
   if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err,
-                        obj_file.c_str(),NULL, false)) {
+                        obj_file.c_str(), NULL, false)) {
     throw std::runtime_error(warn + err);
   }
 
@@ -173,6 +175,7 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
         _vertex.position = {attrib.vertices[3 * index.vertex_index + 0],
                             attrib.vertices[3 * index.vertex_index + 1],
                             attrib.vertices[3 * index.vertex_index + 2]};
+
         if (normalize_scale) {
 
           bmin[0] = std::min(_vertex.position.x, bmin[0]);
@@ -221,10 +224,9 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
 
     float relative_scale = 1.0f / maxExtent;
 
-     for (auto &v : vertices) {
-       v.position *= relative_scale;
-     }
-
+    for (auto &v : vertices) {
+      v.position *= relative_scale;
+    }
   }
 }
 } // namespace vs
