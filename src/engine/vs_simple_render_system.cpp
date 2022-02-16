@@ -57,7 +57,8 @@ void vs_simple_render_system::createPipeline(VkRenderPass render_pass) {
 
   pipeline_config_info pipeline_config{};
 
-  vs_pipeline::defaultPipelineConfigInfo(pipeline_config);
+  vs_pipeline::defaultPipelineConfigInfo(pipeline_config, device_.msaa_samples,
+                                         true);
   pipeline_config.render_pass = render_pass;
   pipeline_config.pipeline_layout = pipeline_layout_;
   pipeline = std::make_unique<vs_pipeline>(

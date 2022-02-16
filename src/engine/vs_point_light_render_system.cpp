@@ -61,7 +61,8 @@ namespace vs
 
 		pipeline_config_info pipeline_config{};
 
-		vs_pipeline::defaultPipelineConfigInfo(pipeline_config);
+                vs_pipeline::defaultPipelineConfigInfo(
+                    pipeline_config, device_.msaa_samples, true);
 		pipeline_config.attribute_descriptions.clear();
 		pipeline_config.binding_descriptions.clear();
 		pipeline_config.render_pass = render_pass;

@@ -1,4 +1,0 @@
-install
-glm
-tinyobjectloader
-glfw3

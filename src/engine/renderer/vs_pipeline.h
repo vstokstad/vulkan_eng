@@ -46,7 +46,10 @@ namespace vs
 
 		void bind(VkCommandBuffer command_buffer);
 
-		static void defaultPipelineConfigInfo(pipeline_config_info& config_info);
+		static void
+                defaultPipelineConfigInfo(pipeline_config_info &config_info,
+                                          VkSampleCountFlagBits msaa_samples,
+                                          bool enable_sample_shading);
 
 	private:
 		static std::vector<char> readFile(const std::string& path);

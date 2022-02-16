@@ -71,9 +71,9 @@ void vs_device::createInstance() {
 
   VkApplicationInfo appInfo = {};
   appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-  appInfo.pApplicationName = "vs_vulkan_eng_test";
+  appInfo.pApplicationName = "vs_vulkan_tester";
   appInfo.applicationVersion = VK_API_VERSION_1_2;
-  appInfo.pEngineName = "No Engine";
+  appInfo.pEngineName = "vs_vulkan_eng";
   appInfo.engineVersion = VK_API_VERSION_1_2;
   appInfo.apiVersion = VK_API_VERSION_1_2;
 
@@ -134,7 +134,8 @@ void vs_device::pickPhysicalDevice() {
       physicalDevice = device;
       msaa_samples = getMaxUsableSampleCount();
       std::cout << "selected physical device: " << properties.deviceName
-                << std::endl;
+                << "\nmax msaa samples: " << msaa_samples << std::endl;
+
       return;
     }
   }
@@ -171,6 +172,7 @@ void vs_device::createLogicalDevice() {
 
   VkPhysicalDeviceFeatures deviceFeatures = {};
   deviceFeatures.samplerAnisotropy = VK_TRUE;
+  deviceFeatures.sampleRateShading = VK_TRUE; // enable sample shading
 
   VkDeviceCreateInfo createInfo = {};
   createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
@@ -238,7 +240,8 @@ bool vs_device::isSuitableDevice(VkPhysicalDevice device) {
   vkGetPhysicalDeviceFeatures(device, &supportedFeatures);
 
   return indices.isComplete() && extensionsSupported && swapChainAdequate &&
-         supportedFeatures.samplerAnisotropy;
+         supportedFeatures.samplerAnisotropy &&
+         supportedFeatures.sampleRateShading;
 }
 
 void vs_device::populateDebugMessengerCreateInfo(

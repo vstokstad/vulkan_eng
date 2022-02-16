@@ -51,23 +51,28 @@ private:
   void init();
   void createSwapChain();
   void createImageViews();
+
+  void createColorResources(); //msaa
   void createDepthResources();
   void createRenderPass();
   void createFramebuffers();
   void createSyncObjects();
 
-  VkImageView createImageView(VkImage image, VkFormat format,
-                              uint32_t mipLevels);
+  VkImageView createImageView(VkImage image, VkImageAspectFlags aspect_mask,
+                              VkFormat format, uint32_t mipLevels);
 
   //** TEXTURES **//
   void createTextureImage(const std::string &path);
-  void createImage(uint32_t width, uint32_t height, VkFormat format,
+  void createImage(uint32_t width, uint32_t height, uint32_t mip_levels,
+                   VkSampleCountFlagBits num_samples, VkFormat format,
                    VkImageTiling tiling, VkImageUsageFlags usage,
                    VkMemoryPropertyFlags properties, VkImage &image,
-                   VkDeviceMemory &imageMemory, uint32_t mipLevels);
+                   VkDeviceMemory &imageMemory);
 
   void createTextureImageView();
   void createTextureSampler();
+
+
 
   // Helper functions
   VkSurfaceFormatKHR chooseSwapSurfaceFormat(
@@ -87,6 +92,10 @@ private:
   std::vector<VkImageView> depthImageViews;
   std::vector<VkImage> swapChainImages;
   std::vector<VkImageView> swapChainImageViews;
+
+  VkImage colorImage;
+  VkDeviceMemory colorImageMemory;
+  VkImageView colorImageView;
 
 public:
   // TEXTURES//
