@@ -24,8 +24,8 @@ public:
 private:
   void loadModelsFromFolder(const std::string &models_folder_path,
                             vs_device &device_);
-  void loadModelFromFileEnty(vs_device &device_,
-                             const std::filesystem::directory_entry &entry);
+  void loadModelFromPath(vs_device &device_, const std::string path,
+                         const std::string texture_path);
 
 
   void cleanup();

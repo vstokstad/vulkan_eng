@@ -33,9 +33,9 @@
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
 ###############################################################################
-# behavior for image files
+# behavior for image_ files
 #
-# image files are treated as binary by default.
+# image_ files are treated as binary by default.
 ###############################################################################
 #*.jpg   binary
 #*.png   binary

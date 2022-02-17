@@ -20,7 +20,7 @@ class vs_model_component;
 class vs_app {
 public:
   static constexpr float aspect_ratio = 16.f / 9.f;
-  static constexpr int HEIGHT = 1280;
+  static constexpr int HEIGHT = 720;
   static constexpr int WIDTH = HEIGHT*aspect_ratio;
 
   vs_app();
@@ -37,7 +37,7 @@ private:
   vs_window window_{WIDTH, HEIGHT, "Vulkan App"};
   vs_device device_{window_};
   vs_renderer renderer_{window_, device_};
-  vs_asset_manager asset_manager{device_};
+//  vs_asset_manager asset_manager{device_}; // remove this until texture mapping is working properly. //TODO asset manager with texture per model.
 
   // order of declaration matters (pool need to be constructed after device and
   // destroyed before device.)
@@ -45,8 +45,8 @@ private:
   std::unique_ptr<vs_descriptor_pool> global_descriptor_pool_{};
   vs_game_object::map game_objects_;
   vs_game_object::map lights_;
-  void createWorld(vs_simple_physics_system *physicssystem);
-  void createHairballScene();
+
+  void createWorld();
   void createSpinningPointLights();
 };
 } // namespace vs

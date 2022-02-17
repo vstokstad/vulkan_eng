@@ -15,9 +15,9 @@ struct global_ubo {
   glm::mat4 projection{1.f};
   glm::mat4 view{1.f};
   glm::vec4 ambient_light_color{1.f, 1.f, 1.f, 0.1f}; // w is intensity
+  glm::vec4 cam_pos{0};
   point_light point_lights[MAX_LIGHTS];
   int num_lights;
-  glm::vec4 cam_pos;
 };
 
 struct frame_info {

@@ -68,7 +68,7 @@ public:
   std::shared_ptr<vs_model_component> model_comp;
   std::shared_ptr<point_light_component> point_light_comp;
   std::shared_ptr<rigid_body_component> rigid_body_comp;
-
+  std::shared_ptr<vs_texture> model_texture;
   void addPhysicsComponent(vs_simple_physics_system *physicssystem,
                            reactphysics3d::CollisionShapeName shape =
                                reactphysics3d::CollisionShapeName::BOX);

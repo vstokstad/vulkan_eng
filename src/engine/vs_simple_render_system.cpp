@@ -59,6 +59,7 @@ void vs_simple_render_system::createPipeline(VkRenderPass render_pass) {
 
   vs_pipeline::defaultPipelineConfigInfo(pipeline_config, device_.msaa_samples,
                                          true);
+
   pipeline_config.render_pass = render_pass;
   pipeline_config.pipeline_layout = pipeline_layout_;
   pipeline = std::make_unique<vs_pipeline>(
@@ -78,15 +79,18 @@ void vs_simple_render_system::renderGameObjects(frame_info &frame_info) {
     if (object.model_comp == nullptr)
       continue;
 
-    simple_push_constant_data push{};
 
+    VkDescriptorImageInfo img_info = object.model_texture->getTextureImageInfo();
+
+   // vkCmdBindDescriptorSets(frame_info.command_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline_layout_, 1, 1, &img_info, 0, nullptr);
+    simple_push_constant_data push{};
     push.model_matrix = object.transform_comp.mat4();
     push.normal_matrix = object.transform_comp.normal_matrix();
-
     vkCmdPushConstants(frame_info.command_buffer, pipeline_layout_,
                        VK_SHADER_STAGE_VERTEX_BIT |
                            VK_SHADER_STAGE_FRAGMENT_BIT,
                        0, sizeof(simple_push_constant_data), &push);
+
     object.model_comp->bind(frame_info.command_buffer);
     object.model_comp->draw(frame_info.command_buffer);
   }

@@ -2,7 +2,8 @@
 
 #include "vs_device.h"
 
-// std lib headers
+
+// std
 #include <memory>
 #include <string>
 #include <vector>
@@ -24,7 +25,7 @@ public:
     return swapChainFramebuffers[index];
   }
   VkRenderPass getRenderPass() { return renderPass; }
-  VkImageView getImageView(int index) { return swapChainImageViews[index]; }
+  VkImageView getImageView(int index) { return swap_chain_image_views[index]; }
   size_t imageCount() { return swapChainImages.size(); }
   VkFormat getSwapChainImageFormat() { return swapChainImageFormat; }
   VkExtent2D getSwapChainExtent() { return swapChainExtent; }
@@ -46,13 +47,15 @@ public:
     return swap_chain.swapChainDepthFormat == swapChainDepthFormat &&
            swap_chain.swapChainImageFormat == swapChainImageFormat;
   }
+  uint32_t getMipLevels(){return mip_levels;};
 
 private:
+
   void init();
   void createSwapChain();
   void createImageViews();
 
-  void createColorResources(); //msaa
+  void createColorResources(); // msaa
   void createDepthResources();
   void createRenderPass();
   void createFramebuffers();
@@ -61,19 +64,15 @@ private:
   VkImageView createImageView(VkImage image, VkImageAspectFlags aspect_mask,
                               VkFormat format, uint32_t mipLevels);
 
-  //** TEXTURES **//
-  void createTextureImage(const std::string &path);
+
   void createImage(uint32_t width, uint32_t height, uint32_t mip_levels,
                    VkSampleCountFlagBits num_samples, VkFormat format,
                    VkImageTiling tiling, VkImageUsageFlags usage,
                    VkMemoryPropertyFlags properties, VkImage &image,
                    VkDeviceMemory &imageMemory);
 
-  void createTextureImageView();
-  void createTextureSampler();
 
-
-
+;
   // Helper functions
   VkSurfaceFormatKHR chooseSwapSurfaceFormat(
       const std::vector<VkSurfaceFormatKHR> &availableFormats);
@@ -86,31 +85,21 @@ private:
   VkExtent2D swapChainExtent;
   std::vector<VkFramebuffer> swapChainFramebuffers;
   VkRenderPass renderPass;
-
-  std::vector<VkImage> depthImages;
-  std::vector<VkDeviceMemory> depthImageMemorys;
-  std::vector<VkImageView> depthImageViews;
+//depth
+  std::vector<VkImage> depth_images;
+  std::vector<VkDeviceMemory> depth_image_memory;
+  std::vector<VkImageView> depth_image_views;
+//swapImg
   std::vector<VkImage> swapChainImages;
-  std::vector<VkImageView> swapChainImageViews;
-
-  VkImage colorImage;
-  VkDeviceMemory colorImageMemory;
-  VkImageView colorImageView;
-
-public:
-  // TEXTURES//
-
-  VkImageView getSwapChainTextureImageView() { return textureImageView; }
-  VkSampler getSwapChainTextureSampler() { return textureSampler; }
+  std::vector<VkImageView> swap_chain_image_views;
   uint32_t mip_levels;
-  VkImage textureImage;
-  VkDeviceMemory textureImageMemory;
-  VkImageView textureImageView;
-  VkSampler textureSampler;
-  std::vector<VkImage> swapChainTextureImage;
-  std::vector<VkImageView> swapChainTextureImageViews;
+//color/msaa
+  std::vector<VkImage> color_images;
+  std::vector<VkImageView> color_image_views;
+  std::vector<VkDeviceMemory> color_image_memory;
 
-private:
+
+  //main
   vs_device &device;
   VkExtent2D windowExtent;
 
@@ -122,7 +111,8 @@ private:
   std::vector<VkFence> inFlightFences;
   std::vector<VkFence> imagesInFlight;
   size_t currentFrame = 0;
-  void generateMipmaps(VkImage image, VkFormat image_format, int32_t texWidth,
-                       int32_t texHeight, uint32_t mipLevels);
+
+
+
 };
 } // namespace vs

@@ -38,12 +38,10 @@ vs_model_component::~vs_model_component() {}
 
 std::unique_ptr<vs_model_component>
 vs_model_component::createModelFromFile(vs_device &device,
-                                        const std::string &obj_file,
-                                        const std::string &mtl_path) {
+                                        const std::string &obj_file) {
   builder builder{};
 
-  builder.loadModel(obj_file, mtl_path);
-
+  builder.loadModel(obj_file, true);
   return std::make_unique<vs_model_component>(device, builder);
 }
 
@@ -141,21 +139,19 @@ vs_model_component::vertex::getAttributeDescriptions() {
       {2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(vertex, normal)});
   attribute_descriptions.push_back(
       {3, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(vertex, uv)});
-
   return attribute_descriptions;
 }
 #pragma clang diagnostic pop
 
 void vs_model_component::builder::loadModel(const std::string &obj_file,
-                                            const std::string &mtr_path = "",
                                             bool normalize_scale) {
   tinyobj::attrib_t attrib;
   std::vector<tinyobj::shape_t> shapes;
   std::vector<tinyobj::material_t> materials;
   std::string err, warn;
-  // TODO LOAD IMAGES WITH STBI AND SAMPLE TEXTURES;
+
   if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err,
-                        obj_file.c_str(), NULL, false)) {
+                        obj_file.c_str(), NULL, true)) {
     throw std::runtime_error(warn + err);
   }
 
@@ -163,7 +159,7 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
   indices.clear();
 
   std::unordered_map<vertex, uint32_t> unique_vertices{};
-  // USED FOR NORMALIZING SCALE
+  // USED FOR NORMALIZING SCALE //
   float bmin[3], bmax[3];
   bmin[0] = bmin[1] = bmin[2] = std::numeric_limits<float>::max();
   bmax[0] = bmax[1] = bmax[2] = -std::numeric_limits<float>::max();

@@ -48,6 +48,10 @@ void vs_asset_manager::loadModelsFromFolder(
 
   for (auto &entry :
        std::filesystem::recursive_directory_iterator(models_folder_path)) {
+    std::string mtl_path;
+    if (entry.path().extension().string() == ".png") {
+      mtl_path = entry.path().relative_path().string();
+    }
     if (entry.path().extension().string() == ".obj") {
       std::string path = entry.path().relative_path().string();
       std::string name = entry.path().filename().string();
@@ -62,7 +66,7 @@ void vs_asset_manager::loadModelsFromFolder(
                                                        std::string path)>
             task([](std::string name, std::string path) {
               vs_model_component::builder builder{};
-              builder.loadModel(path, path);
+              builder.loadModel(path, false);
 
               assert(!builder.vertices.empty() && "builder failed");
 
@@ -74,7 +78,7 @@ void vs_asset_manager::loadModelsFromFolder(
         threads.emplace_back(std::thread(std::move(task), name, path));
       } else {
 
-        loadModelFromFileEnty(device_, entry);
+        loadModelFromPath(device_, path, mtl_path);
       }
     }
   }
@@ -98,23 +102,21 @@ void vs_asset_manager::loadModelsFromFolder(
   // 25002 without threading
   // 24489 with. but only 1 heavy object.
   std::cout << "done loading model assets in: " << timer_.get_time()
-            <<" seconds." <<std::endl;
+            << " seconds." << std::endl;
 }
 
-void vs_asset_manager::loadModelFromFileEnty(
-    vs_device &device_, const std::filesystem::directory_entry &entry) {
-
-  std::string rel_path = entry.path().relative_path().string();
+void vs_asset_manager::loadModelFromPath(vs_device &device_,
+                                         const std::string path,
+                                         const std::string texture_path) {
 
   std::shared_ptr<vs_model_component> model =
-      vs_model_component::createModelFromFile(device_, rel_path, rel_path);
+      vs_model_component::createModelFromFile(device_, path);
 
-  model->string_name =
-      static_cast<std::string>(entry.path().filename().string());
+  model->string_name = static_cast<std::string>(path);
 
-  loaded_models.emplace(entry.path().filename().string(), std::move(model));
+  loaded_models.emplace(path, std::move(model));
 
-  std::cout << "loaded model: " << rel_path << std::endl;
+  std::cout << "loaded model: " << path << std::endl;
 }
 
 bool vs_asset_manager::isModelLoaded(const std::string &model_name) {

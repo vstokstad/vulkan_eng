@@ -25,6 +25,8 @@ vs_app::vs_app() {
                        vs_swap_chain::MAX_FRAMES_IN_FLIGHT)
           .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
                        vs_swap_chain::MAX_FRAMES_IN_FLIGHT)
+          .addPoolSize(VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE,
+                       vs_swap_chain::MAX_FRAMES_IN_FLIGHT)
           .build();
 }
 
@@ -57,21 +59,25 @@ void vs_app::run() {
                       VK_SHADER_STAGE_FRAGMENT_BIT)
           .build();
 
-  VkDescriptorImageInfo imageInfo{};
-
-  imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-  imageInfo.imageView =
-      renderer_.getSwapChain()->getSwapChainTextureImageView();
-  imageInfo.sampler = renderer_.getSwapChain()->getSwapChainTextureSampler();
-
   std::vector<VkDescriptorSet> global_descriptor_sets(
       vs_swap_chain::MAX_FRAMES_IN_FLIGHT);
+  vs_descriptor_writer writer =
+      vs_descriptor_writer(*global_set_layout, *global_descriptor_pool_);
+
   for (int i = 0; i < global_descriptor_sets.size(); ++i) {
     auto buffer_info = ubo_buffers[i]->descriptorInfo();
-    vs_descriptor_writer(*global_set_layout, *global_descriptor_pool_)
-        .writeBuffer(0, &buffer_info)
-        .writeImage(1, &imageInfo)
-        .build(global_descriptor_sets[i]);
+    writer.writeBuffer(0, &buffer_info).build(global_descriptor_sets[i]);
+    int index_ = 1;
+    for (auto &object : game_objects_) {
+      auto &o = object.second;
+      if (o.model_texture == nullptr)
+        continue;
+      VkDescriptorImageInfo img_info = o.model_texture->getTextureImageInfo();
+      writer.writeImage(1, &img_info)
+          .build(global_descriptor_sets[i]);
+      index_++;
+    }
+    writer.build(global_descriptor_sets[i]);
   }
 
   /* RENDER SYSTEMS
@@ -88,19 +94,8 @@ void vs_app::run() {
       device_, renderer_.getSwapChainRenderPass(),
       global_set_layout->getDescriptorSetLayout()};
 
-  // phyics system
-  vs_simple_physics_system physics_system{};
-  // set up some rigid bodies
-  for (auto &kv : game_objects_) {
-    auto &obj = kv.second;
-    if (obj.model_comp == nullptr)
-      continue;
-
-    obj.addPhysicsComponent(&physics_system,
-                            reactphysics3d::CollisionShapeName::BOX);
-  }
   // spawn a floor
-  createWorld(&physics_system);
+  createWorld();
 
   /*CAMERA & PLAYER/VIEWER OBJECTS*********************************************/
   /****************************************************************************/
@@ -158,13 +153,13 @@ void vs_app::run() {
       global_ubo ubo{};
       ubo.projection = camera.getProjection();
       ubo.view = camera.getView();
-      ubo.ambient_light_color = {.8f, .8f, .8f, .2f};
+      ubo.ambient_light_color = {.8f, .8f, .0f, .4f};
       ubo.cam_pos = glm::vec4(camera_objet.transform_comp.translation, 1.0f);
 
       point_light_render_system.update(frame, ubo);
 
       // physics
-      physics_system.update(frame);
+      //  physics_system.update(frame);
 
       // write updates to buffer
       ubo_buffers[frame_index]->writeToIndex(&ubo, frame_index);
@@ -186,26 +181,29 @@ void vs_app::run() {
 
   vkDeviceWaitIdle(device_.device());
 }
-void vs_app::createWorld(vs_simple_physics_system *physicssystem) {
+void vs_app::createWorld() {
   {
-    auto floor = asset_manager.spawnGameObject(
-        "cube.obj", {0.0f, 5.f, 0.0f}, {0.f, 0.f, 0.f}, {10.f, 1.f, 10.f});
-    floor.addPhysicsComponent(physicssystem,
-                              reactphysics3d::CollisionShapeName::BOX);
-
-    floor.rigid_body_comp->rigidBody->enableGravity(false);
-    floor.rigid_body_comp->rigidBody->setType(reactphysics3d::BodyType::STATIC);
-    floor.rigid_body_comp->rigidBody->setIsActive(true);
+    auto floor = vs_game_object::createGameObject();
+    floor.model_comp =
+        vs_model_component::createModelFromFile(device_, "models/cube.obj");
+    /*  asset_manager.spawnGameObject(
+          "cube.obj", {0.0f, 5.f, 0.0f}, {0.f, 0.f, 0.f}, {10.f, 1.f, 10.f});
+                                */
 
     game_objects_.emplace(floor.getId(), std::move(floor));
   }
 }
 void vs_app::loadGameObjects() {
 
-  auto game_object = asset_manager.spawnGameObject(
+  auto game_object = vs_game_object::createGameObject();
+  game_object.model_comp = vs_model_component::createModelFromFile(
+      device_, "models/viking_room.obj");
+  game_object.model_texture =
+      vs_texture::createTexture(device_, "models/textures/viking_room.png");
+  /*asset_manager.spawnGameObject(
       "viking_room.obj", {1.f, 0.2f, 0.f},
       glm::vec3(glm::radians(72.f), glm::radians(0.f), glm::radians(0.f)));
-
+*/
   game_objects_.emplace(game_object.getId(), std::move(game_object));
 
   /** SPINNING POINT LIGHTS **/

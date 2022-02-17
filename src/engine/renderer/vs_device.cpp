@@ -545,7 +545,9 @@ void vs_device::createImageWithInfo(const VkImageCreateInfo &imageInfo,
                                     VkMemoryPropertyFlags properties,
                                     VkImage &image,
                                     VkDeviceMemory &imageMemory) {
-  if (vkCreateImage(device_, &imageInfo, nullptr, &image) != VK_SUCCESS) {
+  auto result =
+      vkCreateImage(device_, &imageInfo, nullptr, &image);
+  if (result != VK_SUCCESS) {
     throw std::runtime_error("failed to create image!");
   }
 
