@@ -10,36 +10,26 @@
 // lib
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include "vs_buffer.h"
+#include "vs_descriptors.h"
 
 using namespace vs;
 
 vs_texture::vs_texture(vs_device &device, const std::string &path)
     : device_(device) {
   {
-    image_info.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     createTextureImage(path);
-    texture_view_ = createImageView(texture_image_, VK_IMAGE_ASPECT_COLOR_BIT,
-                                    VK_FORMAT_B8G8R8A8_SRGB);
-    texture_sampler_ = createTextureSampler();
-    image_info.imageView = texture_view_;
-    image_info.sampler = texture_sampler_;
   };
 }
 
-std::shared_ptr<vs_texture> vs_texture::createTexture(vs_device &device,
+std::unique_ptr<vs_texture> vs_texture::createTexture(vs_device &device,
                                                       const std::string &path) {
   return std::make_unique<vs_texture>(device, path);
 }
 vs_texture::~vs_texture() {
-  /*  vkDestroyImageView(device_.device(), texture_view_, nullptr);
-    vkDestroyImage(device_.device(), texture_image_, nullptr);
-    vkDestroySampler(device_.device(), texture_sampler_, nullptr);
-    vkFreeMemory(device_.device(), texture_memory_, nullptr);*/
+  vkDestroyImage(device_.device(), texture_image_, nullptr);
+  vkFreeMemory(device_.device(), texture_memory_, nullptr);
 }
-
-VkImageView vs_texture::getImageView() const { return texture_view_; }
-VkSampler vs_texture::getSampler() const { return texture_sampler_; }
-VkImage vs_texture::getImage() const { return texture_image_; }
 
 void vs_texture::createTextureImage(const std::string &path) {
   int texWidth, texHeight, texChannels;
@@ -52,17 +42,14 @@ void vs_texture::createTextureImage(const std::string &path) {
   if (!pixels) {
     std::runtime_error("failed to load texture image");
   }
-  VkBuffer stagingBuffer;
-  VkDeviceMemory stagingBufferMemory;
-  device_.createBuffer(image_size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
-                       VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
-                           VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-                       stagingBuffer, stagingBufferMemory);
-  void *data;
-  vkMapMemory(device_.device(), stagingBufferMemory, 0, image_size, 0, &data);
-  memcpy(data, pixels, static_cast<size_t>(image_size));
-  vkUnmapMemory(device_.device(), stagingBufferMemory);
-  stbi_image_free(pixels);
+  auto staging_buffer =
+      vs_buffer(device_, image_size, 1, VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+                VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
+                    VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+
+  staging_buffer.map();
+  staging_buffer.writeToBuffer((void *)pixels);
+VkFormat format = VK_FORMAT_R8G8B8A8_SRGB;
   VkImageCreateInfo img_create_info{};
   img_create_info.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
   img_create_info.imageType = VK_IMAGE_TYPE_2D;
@@ -72,7 +59,7 @@ void vs_texture::createTextureImage(const std::string &path) {
   img_create_info.extent.depth = 1;
   img_create_info.mipLevels = mip_levels;
   img_create_info.arrayLayers = 1;
-  img_create_info.format = VK_FORMAT_B8G8R8A8_SRGB;
+  img_create_info.format = format;
   img_create_info.tiling = VK_IMAGE_TILING_OPTIMAL;
   img_create_info.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
   img_create_info.usage =
@@ -84,18 +71,15 @@ void vs_texture::createTextureImage(const std::string &path) {
                               VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                               texture_image_, texture_memory_);
 
-  device_.transitionImageLayout(
-      texture_image_, VK_FORMAT_B8G8R8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED,
-      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1);
+  device_.transitionImageLayout(texture_image_, format,
+                                img_create_info.initialLayout,
+                                VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1);
 
-  device_.copyBufferToImage(stagingBuffer, texture_image_,
+  device_.copyBufferToImage(staging_buffer.getBuffer(), texture_image_,
                             static_cast<uint32_t>(texWidth),
                             static_cast<uint32_t>(texHeight), 1);
 
-  vkDestroyBuffer(device_.device(), stagingBuffer, nullptr);
-  vkFreeMemory(device_.device(), stagingBufferMemory, nullptr);
-
-  generateMipmaps(texture_image_, VK_FORMAT_B8G8R8A8_SRGB, texWidth, texHeight,
+  generateMipmaps(texture_image_, format, texWidth, texHeight,
                   mip_levels);
 }
 void vs_texture::generateMipmaps(VkImage image, VkFormat image_format,
@@ -141,15 +125,12 @@ void vs_texture::generateMipmaps(VkImage image, VkFormat image_format,
     blit.dstOffsets[0] = {0, 0, 0};
     blit.dstOffsets[1] = {mipWidth > 1 ? mipWidth / 2 : 1,
                           mipHeight > 1 ? mipHeight / 2 : 1, 1};
-    blit.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-    blit.dstSubresource.mipLevel = i;
-    blit.dstSubresource.baseArrayLayer = 0;
-    blit.dstSubresource.layerCount = 1;
+
     vkCmdBlitImage(commandBuffer, image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
                    image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &blit,
                    VK_FILTER_LINEAR);
 
-    barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+    barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
     barrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     barrier.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
     barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
@@ -203,15 +184,13 @@ VkSampler vs_texture::createTextureSampler() {
   }
   return sampler;
 }
-VkImageView vs_texture::createImageView(VkImage image,
-                                        VkImageAspectFlags aspect_mask,
-                                        VkFormat format) {
+VkImageView vs_texture::createImageView() {
   VkImageViewCreateInfo viewInfo{};
   viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-  viewInfo.image = image;
+  viewInfo.image = texture_image_;
   viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-  viewInfo.format = format;
-  viewInfo.subresourceRange.aspectMask = aspect_mask;
+  viewInfo.format = VK_FORMAT_R8G8B8A8_SRGB;
+  viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
   viewInfo.subresourceRange.baseMipLevel = 0;
   viewInfo.subresourceRange.levelCount = mip_levels;
   viewInfo.subresourceRange.baseArrayLayer = 0;
@@ -224,5 +203,22 @@ VkImageView vs_texture::createImageView(VkImage image,
     throw std::runtime_error("failed to create texture image view!");
   }
 
-  return std::move(imageView);
+  return imageView;
+}
+VkDescriptorSet
+vs_texture::getDescriptorset(vs_descriptor_set_layout &setLayout,
+                             vs_descriptor_pool &pool) {
+  VkDescriptorSet set{};
+  vs_descriptor_writer(setLayout, pool)
+      .writeImage(1, getImageInfo())
+      .build(set);
+
+  return set;
+}
+VkDescriptorImageInfo* vs_texture::getImageInfo() {
+  image_info = std::make_unique<VkDescriptorImageInfo>();
+  image_info->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+  image_info->imageView = createImageView();
+  image_info->sampler = createTextureSampler();
+  return image_info.get();
 }

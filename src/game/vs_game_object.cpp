@@ -75,6 +75,7 @@ void vs_game_object::addPhysicsComponent(
       transform_comp, physicssystem, shape, transform_comp.scale);
 }
 
+
 rigid_body_component::rigid_body_component(
     transform_component transform_comp, vs_simple_physics_system *physicssystem,
     reactphysics3d::CollisionShapeName shape, glm::vec3 collider_size) {

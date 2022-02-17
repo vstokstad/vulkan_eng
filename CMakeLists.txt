@@ -33,6 +33,7 @@ FetchContent_Declare(
 FetchContent_Declare(
 		glfw3
 		GIT_REPOSITORY https://github.com/glfw/glfw.git
+		GIT_TAG latest
 )
 FetchContent_Declare(
 		glm
@@ -64,13 +65,13 @@ find_package(Vulkan REQUIRED)
 target_link_libraries(vulkan_eng PRIVATE Vulkan::Vulkan)
 
 
-## copy over models folder
+## copy over assets folder
 add_custom_command(
 		TARGET vulkan_eng POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
-		${CMAKE_SOURCE_DIR}/models
-		${CMAKE_CURRENT_BINARY_DIR}/models
-		COMMENT "copying models folder")
+		${CMAKE_SOURCE_DIR}/assets
+		${CMAKE_CURRENT_BINARY_DIR}/assets
+		COMMENT "copying assets folder")
 
 
 

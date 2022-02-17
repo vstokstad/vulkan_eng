@@ -15,7 +15,7 @@ namespace vs
 		class vs_builder
 		{
 		public:
-			vs_builder(vs_device& device) : device_{device}
+			explicit vs_builder(vs_device& device) : device_{device}
 			{
 			}
 
@@ -24,6 +24,7 @@ namespace vs
 				VkDescriptorType descriptorType,
 				VkShaderStageFlags stageFlags,
 				uint32_t count = 1);
+
 			std::unique_ptr<vs_descriptor_set_layout> build() const;
 
 		private:

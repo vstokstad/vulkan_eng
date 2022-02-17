@@ -31,6 +31,7 @@ private:
   void cleanup();
 
   std::map<std::string, std::shared_ptr<vs_model_component>> loaded_models;
+  std::map<std::string, std::shared_ptr<vs_texture>> textures;
 
   vs_device &device_;
 };

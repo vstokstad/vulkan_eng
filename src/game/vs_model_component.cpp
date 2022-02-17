@@ -109,7 +109,6 @@ void vs_model_component::bind(VkCommandBuffer command_buffer) {
   VkBuffer buffers[] = {vertex_buffer_->getBuffer()};
   VkDeviceSize offsets[] = {0};
   vkCmdBindVertexBuffers(command_buffer, 0, 1, buffers, offsets);
-
   if (has_index_buffer_) {
     vkCmdBindIndexBuffer(command_buffer, index_buffer_->getBuffer(), 0,
                          VK_INDEX_TYPE_UINT32);
@@ -151,7 +150,7 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
   std::string err, warn;
 
   if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err,
-                        obj_file.c_str(), NULL, true)) {
+                        obj_file.c_str(), "assets/textures", true)) {
     throw std::runtime_error(warn + err);
   }
 

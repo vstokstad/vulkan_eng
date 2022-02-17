@@ -25,8 +25,7 @@ vs_app::vs_app() {
                        vs_swap_chain::MAX_FRAMES_IN_FLIGHT)
           .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
                        vs_swap_chain::MAX_FRAMES_IN_FLIGHT)
-          .addPoolSize(VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE,
-                       vs_swap_chain::MAX_FRAMES_IN_FLIGHT)
+
           .build();
 }
 
@@ -61,23 +60,25 @@ void vs_app::run() {
 
   std::vector<VkDescriptorSet> global_descriptor_sets(
       vs_swap_chain::MAX_FRAMES_IN_FLIGHT);
-  vs_descriptor_writer writer =
-      vs_descriptor_writer(*global_set_layout, *global_descriptor_pool_);
 
+  std::vector<VkDescriptorImageInfo> image_infos;
+  for (auto& t : game_objects_) {
+   auto& tex = t.second.model_texture;
+   if (tex==nullptr)continue;
+   VkDescriptorImageInfo image;
+   image.sampler = tex->createTextureSampler();
+   image.imageView = tex->createImageView();
+   image.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+   image_infos.push_back(image);
+  }
   for (int i = 0; i < global_descriptor_sets.size(); ++i) {
     auto buffer_info = ubo_buffers[i]->descriptorInfo();
-    writer.writeBuffer(0, &buffer_info).build(global_descriptor_sets[i]);
-    int index_ = 1;
-    for (auto &object : game_objects_) {
-      auto &o = object.second;
-      if (o.model_texture == nullptr)
-        continue;
-      VkDescriptorImageInfo img_info = o.model_texture->getTextureImageInfo();
-      writer.writeImage(1, &img_info)
-          .build(global_descriptor_sets[i]);
-      index_++;
-    }
-    writer.build(global_descriptor_sets[i]);
+   auto w = vs_descriptor_writer(*global_set_layout, *global_descriptor_pool_)
+        .writeBuffer(0, &buffer_info);
+   for (int j = 0; j < image_infos.size(); ++j){
+		  w.writeImage(1,&image_infos[j]);
+        }
+        w.build(global_descriptor_sets[i]);
   }
 
   /* RENDER SYSTEMS
@@ -153,7 +154,7 @@ void vs_app::run() {
       global_ubo ubo{};
       ubo.projection = camera.getProjection();
       ubo.view = camera.getView();
-      ubo.ambient_light_color = {.8f, .8f, .0f, .4f};
+      ubo.ambient_light_color = {.8f, .8f, .8f, 0.5f};
       ubo.cam_pos = glm::vec4(camera_objet.transform_comp.translation, 1.0f);
 
       point_light_render_system.update(frame, ubo);
@@ -186,6 +187,7 @@ void vs_app::createWorld() {
     auto floor = vs_game_object::createGameObject();
     floor.model_comp =
         vs_model_component::createModelFromFile(device_, "models/cube.obj");
+    floor.transform_comp.scale = {20.f,1.f,20.f};
     /*  asset_manager.spawnGameObject(
           "cube.obj", {0.0f, 5.f, 0.0f}, {0.f, 0.f, 0.f}, {10.f, 1.f, 10.f});
                                 */

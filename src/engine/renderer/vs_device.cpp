@@ -80,7 +80,6 @@ void vs_device::createInstance() {
   VkInstanceCreateInfo createInfo = {};
   createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
   createInfo.pApplicationInfo = &appInfo;
-
   auto extensions = getRequiredExtensions();
   createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
   createInfo.ppEnabledExtensionNames = extensions.data();
@@ -131,6 +130,7 @@ void vs_device::pickPhysicalDevice() {
     std::cout << "physical device found: " << properties.deviceName
               << std::endl;
     if (isPreferredDevice(device)) {
+
       physicalDevice = device;
       msaa_samples = getMaxUsableSampleCount();
       std::cout << "selected physical device: " << properties.deviceName
@@ -545,8 +545,7 @@ void vs_device::createImageWithInfo(const VkImageCreateInfo &imageInfo,
                                     VkMemoryPropertyFlags properties,
                                     VkImage &image,
                                     VkDeviceMemory &imageMemory) {
-  auto result =
-      vkCreateImage(device_, &imageInfo, nullptr, &image);
+  auto result = vkCreateImage(device_, &imageInfo, nullptr, &image);
   if (result != VK_SUCCESS) {
     throw std::runtime_error("failed to create image!");
   }
