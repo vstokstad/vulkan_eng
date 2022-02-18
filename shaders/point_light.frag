@@ -12,10 +12,10 @@ struct point_light {
 layout(set=0, binding=0) uniform global_ubo {
     mat4 projection;
     mat4 view;
+    mat4 inv_view_mat;
     vec4 ambient_light_color;
-    vec4 cam_pos;
-    point_light point_lights[10];// value could be dynamically but is hardcoded for now.
     int num_lights;
+    point_light point_lights[10];// value could be dynamically but is hardcoded for now.
 } ubo;
 
 layout(push_constant) uniform Push {
@@ -25,14 +25,10 @@ layout(push_constant) uniform Push {
 
 } push;
 
-
 void main(){
-
-    float dis = sqrt(dot(fragOffset, fragOffset));
-    if (dis>=1.0){
+    float alpha = 1.0 - sqrt(dot(fragOffset, fragOffset));
+    if (alpha <= 0.0) {
         discard;
     }
-
-    outColor = vec4(push.color.xyz, 1.0);
-
+    outColor = vec4(2.0 * push.color.xyz * push.color.w, alpha);
 }

@@ -15,9 +15,9 @@ file(GLOB_RECURSE src_files
 	 )
 
 #### TARGET ###
-add_executable(vulkan_eng ${src_files} src/game/profiler.h)
+add_executable(vulkan_eng ${src_files} src/game/profiler.h src/game/ecs/vs_component.h)
 
-target_include_directories(vulkan_eng PRIVATE src src/engine src/engine/renderer src/game external/stbi)
+target_include_directories(vulkan_eng PRIVATE src src/engine src/engine/renderer src/game src/assetlib src/game/ecs)
 
 ####### LINK DEPENDENCY LIBS
 # FetchContent added in CMake 3.11, downloads during the configure step
@@ -25,41 +25,40 @@ include(FetchContent)
 
 set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL ON)
 
-FetchContent_Declare(
-		tinyobjloader
-		GIT_REPOSITORY https://github.com/tinyobjloader/tinyobjloader.git
-
-)
+#FetchContent_Declare(
+#		tinyobjloader
+#		GIT_REPOSITORY https://github.com/tinyobjloader/tinyobjloader.git
+#
+#)
 FetchContent_Declare(
 		glfw3
 		GIT_REPOSITORY https://github.com/glfw/glfw.git
 		GIT_TAG latest
 )
-FetchContent_Declare(
-		glm
-		GIT_REPOSITORY https://github.com/g-truc/glm.git
-)
+#FetchContent_Declare(
+#		glm
+#		GIT_REPOSITORY https://github.com/g-truc/glm.git
+#)
 FetchContent_Declare(
 		reactphysics3d
 		GIT_REPOSITORY https://github.com/DanielChappuis/reactphysics3d.git
 		GIT_TAG v0.9.0
 )
-FetchContent_MakeAvailable(tinyobjloader glfw3 glm reactphysics3d)
+FetchContent_MakeAvailable(glfw3 reactphysics3d)
 
 ##STBI IMAGE##
 target_include_directories(vulkan_eng PRIVATE external/stbi)
 ######## reactPhysics ######
 target_link_libraries(vulkan_eng PRIVATE reactphysics3d)
 ######## tiny #######
-#set(tinyobjloader_DIR ${tinyobjloader_BINARY_DIR})
-#find_package(tinyobjloader CONFIG REQUIRED)
-target_link_libraries(vulkan_eng PRIVATE tinyobjloader)
+target_include_directories(vulkan_eng PRIVATE external/tinyobjloader)
 ##########glfw3#############
 #find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(vulkan_eng PRIVATE glfw)
 ###########glm###############
 #find_package(glm CONFIG REQUIRED)
-target_link_libraries(vulkan_eng PRIVATE glm::glm)
+#target_link_libraries(vulkan_eng PRIVATE glm::glm)
+target_include_directories(vulkan_eng PRIVATE external/glm)
 ###############vulkan###########
 find_package(Vulkan REQUIRED)
 target_link_libraries(vulkan_eng PRIVATE Vulkan::Vulkan)

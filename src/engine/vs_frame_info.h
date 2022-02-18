@@ -14,12 +14,19 @@ struct point_light {
 struct global_ubo {
   glm::mat4 projection{1.f};
   glm::mat4 view{1.f};
+  glm::mat4 inv_view_mat{0};
   glm::vec4 ambient_light_color{1.f, 1.f, 1.f, 0.1f}; // w is intensity
-  glm::vec4 cam_pos{0};
-  point_light point_lights[MAX_LIGHTS];
   int num_lights;
+  point_light point_lights[MAX_LIGHTS];
 };
-
+//below is just a better struct when we are using more ubo than the global, sort of.
+struct vs_scene_data{
+  glm::vec4 fog_color; //w is exponent;
+  glm::vec4 fog_distances; // x for min, y for max, zw unused
+  glm::vec4 ambient_color;
+  glm::vec4 sunlight_direction; //w for power/strength
+  glm::vec4 sunlight_color;
+};
 struct frame_info {
   int frame_index;
   float frame_time;

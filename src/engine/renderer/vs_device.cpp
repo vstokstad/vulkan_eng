@@ -134,7 +134,9 @@ void vs_device::pickPhysicalDevice() {
       physicalDevice = device;
       msaa_samples = getMaxUsableSampleCount();
       std::cout << "selected physical device: " << properties.deviceName
-                << "\nmax msaa samples: " << msaa_samples << std::endl;
+                << "\nmax msaa samples: " << msaa_samples
+                <<"\nGPU minimum Uniform buffer alignment: " << properties.limits.minUniformBufferOffsetAlignment
+                << std::endl;
 
       return;
     }

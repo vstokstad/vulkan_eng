@@ -151,8 +151,8 @@ void vs_pipeline::defaultPipelineConfigInfo(pipeline_config_info &config_info,
   config_info.rasterization_info.rasterizerDiscardEnable = VK_FALSE;
   config_info.rasterization_info.polygonMode = VK_POLYGON_MODE_FILL;
   config_info.rasterization_info.lineWidth = 1.0f;
-  config_info.rasterization_info.cullMode = VK_CULL_MODE_NONE;
-  config_info.rasterization_info.frontFace = VK_FRONT_FACE_CLOCKWISE;
+  config_info.rasterization_info.cullMode = VK_CULL_MODE_NONE; //TODO for culling to work properly it needs to update when camera changes.
+  config_info.rasterization_info.frontFace = VK_FRONT_FACE_CLOCKWISE; //TODO vulkan-tutorial has this to clockwise.
   config_info.rasterization_info.depthBiasEnable = VK_FALSE;
   config_info.rasterization_info.depthBiasConstantFactor = 0.0f;
   config_info.rasterization_info.depthBiasClamp = 0.0f;
@@ -169,7 +169,7 @@ void vs_pipeline::defaultPipelineConfigInfo(pipeline_config_info &config_info,
   config_info.multisample_info.pSampleMask = nullptr;
   config_info.multisample_info.alphaToCoverageEnable = VK_FALSE;
   config_info.multisample_info.alphaToOneEnable = VK_FALSE;
-  config_info.color_blend_attachment = {
+  config_info.color_blend_attachment= {
       VK_FALSE,
       VK_BLEND_FACTOR_ONE,
       VK_BLEND_FACTOR_ZERO,
@@ -205,7 +205,7 @@ void vs_pipeline::defaultPipelineConfigInfo(pipeline_config_info &config_info,
   config_info.depth_stencil_info.back = {};
 
   config_info.dynamic_state_enables = {VK_DYNAMIC_STATE_VIEWPORT,
-                                       VK_DYNAMIC_STATE_SCISSOR};
+                                       VK_DYNAMIC_STATE_SCISSOR, VK_DYNAMIC_STATE_LINE_WIDTH}; //TODO dynamic culling, need to enable extended dynamic states in  ?
 
   config_info.dynamic_state_info.sType =
       VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;

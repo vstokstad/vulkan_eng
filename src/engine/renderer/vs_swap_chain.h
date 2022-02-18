@@ -2,7 +2,6 @@
 
 #include "vs_device.h"
 
-
 // std
 #include <memory>
 #include <string>
@@ -47,10 +46,9 @@ public:
     return swap_chain.swapChainDepthFormat == swapChainDepthFormat &&
            swap_chain.swapChainImageFormat == swapChainImageFormat;
   }
-  uint32_t getMipLevels(){return mip_levels;};
+
 
 private:
-
   void init();
   void createSwapChain();
   void createImageViews();
@@ -64,15 +62,12 @@ private:
   VkImageView createImageView(VkImage image, VkImageAspectFlags aspect_mask,
                               VkFormat format, uint32_t mipLevels);
 
-
   void createImage(uint32_t width, uint32_t height, uint32_t mip_levels,
                    VkSampleCountFlagBits num_samples, VkFormat format,
                    VkImageTiling tiling, VkImageUsageFlags usage,
                    VkMemoryPropertyFlags properties, VkImage &image,
                    VkDeviceMemory &imageMemory);
 
-
-;
   // Helper functions
   VkSurfaceFormatKHR chooseSwapSurfaceFormat(
       const std::vector<VkSurfaceFormatKHR> &availableFormats);
@@ -85,21 +80,22 @@ private:
   VkExtent2D swapChainExtent;
   std::vector<VkFramebuffer> swapChainFramebuffers;
   VkRenderPass renderPass;
-//depth
+
+  // depth
   std::vector<VkImage> depth_images;
   std::vector<VkDeviceMemory> depth_image_memory;
   std::vector<VkImageView> depth_image_views;
-//swapImg
+
+  // swapImg
   std::vector<VkImage> swapChainImages;
   std::vector<VkImageView> swap_chain_image_views;
-  uint32_t mip_levels;
-//color/msaa
+
+  // color/msaa
   std::vector<VkImage> color_images;
   std::vector<VkImageView> color_image_views;
   std::vector<VkDeviceMemory> color_image_memory;
 
-
-  //main
+  // main
   vs_device &device;
   VkExtent2D windowExtent;
 
@@ -111,8 +107,5 @@ private:
   std::vector<VkFence> inFlightFences;
   std::vector<VkFence> imagesInFlight;
   size_t currentFrame = 0;
-
-
-
 };
 } // namespace vs

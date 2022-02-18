@@ -25,15 +25,15 @@ vs_app::vs_app() {
                        vs_swap_chain::MAX_FRAMES_IN_FLIGHT)
           .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
                        vs_swap_chain::MAX_FRAMES_IN_FLIGHT)
+          .setPoolFlags(VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT)
 
           .build();
+  createWorld();
 }
 
 vs_app::~vs_app() {}
 
 void vs_app::run() {
-
-  loadGameObjects();
 
   /* UBO BUFFERS
    * *****************************************************************************/
@@ -66,11 +66,13 @@ void vs_app::run() {
     auto &tex = t.second.model_texture;
     if (tex == nullptr)
       continue;
-    VkDescriptorImageInfo image;
-    image.sampler = tex->createTextureSampler();
-    image.imageView = tex->createImageView();
-    image.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-    image_infos.push_back(image);
+    VkImage image = tex->createImage();
+    VkDescriptorImageInfo info;
+    info.sampler =
+        vs::vs_texture::createTextureSampler(device_, tex->getMipLevels());
+    info.imageView = tex->createImageView(image);
+    info.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    image_infos.push_back(info);
   }
   for (int i = 0; i < global_descriptor_sets.size(); ++i) {
     auto buffer_info = ubo_buffers[i]->descriptorInfo();
@@ -95,9 +97,6 @@ void vs_app::run() {
   vs_point_light_render_system point_light_render_system{
       device_, renderer_.getSwapChainRenderPass(),
       global_set_layout->getDescriptorSetLayout()};
-
-  // spawn a floor
-  createWorld();
 
   /*CAMERA & PLAYER/VIEWER OBJECTS*********************************************/
   /****************************************************************************/
@@ -155,8 +154,8 @@ void vs_app::run() {
       global_ubo ubo{};
       ubo.projection = camera.getProjection();
       ubo.view = camera.getView();
-      ubo.ambient_light_color = {1.f, 1.f, 1.f, 0.5f};
-      ubo.cam_pos = glm::vec4(camera_objet.transform_comp.translation, 1.0f);
+      ubo.inv_view_mat = frame.camera.getInverseView();
+      ubo.ambient_light_color = {0.2f, .2f, .2f, 0.2f};
 
       point_light_render_system.update(frame, ubo);
 
@@ -171,9 +170,9 @@ void vs_app::run() {
       // Begin
       renderer_.beginSwapChainRenderPass(command_buffer);
 
-      // my frame rendering
-      simple_render_system.renderGameObjects(frame);
+      //  rendering
       point_light_render_system.render(frame);
+      simple_render_system.renderGameObjects(frame);
 
       // END
       renderer_.endSwapChainRenderPass(command_buffer);
@@ -184,37 +183,43 @@ void vs_app::run() {
   vkDeviceWaitIdle(device_.device());
 }
 void vs_app::createWorld() {
-  {
-    auto floor = vs_game_object::createGameObject();
-    floor.model_comp =
-        vs_model_component::createModelFromFile(device_, "models/cube.obj");
-    floor.transform_comp.scale = {20.f, 1.f, 20.f};
-    floor.transform_comp.translation = {0.f, 2.f, 0.f};
-    /*  asset_manager.spawnGameObject(
-          "cube.obj", {0.0f, 5.f, 0.0f}, {0.f, 0.f, 0.f}, {10.f, 1.f, 10.f});
-                                */
 
-    game_objects_.emplace(floor.getId(), std::move(floor));
+  auto floor = vs_game_object::createGameObject();
+  floor.model_comp = vs_model_component::createModelFromFile(
+      device_, "assets/models/quad.obj");
+  floor.transform_comp.scale = {20.f, 1.f, 20.f};
+  floor.transform_comp.translation = {0.f, 2.f, 0.f};
+  /*  asset_manager.spawnGameObject(
+        "cube.obj", {0.0f, 5.f, 0.0f}, {0.f, 0.f, 0.f}, {10.f, 1.f, 10.f});
+                              */
+  game_objects_.emplace(floor.getId(), std::move(floor));
+  for (int i = 0; i < 10; ++i) {
+
+    auto vase = vs_game_object::createGameObject();
+    vase.model_comp = vs_model_component::createModelFromFile(
+        device_, "assets/models/smooth_vase.obj");
+    vase.transform_comp.translation = {i + 1.f, 0.f, i - 1.f};
+    game_objects_.emplace(vase.getId(), std::move(vase));
   }
+  /** SPINNING POINT LIGHTS **/
+  createSpinningPointLights();
+  loadVikingRoom();
 }
-void vs_app::loadGameObjects() {
+void vs_app::loadVikingRoom() {
 
   auto game_object = vs_game_object::createGameObject();
   game_object.model_comp = vs_model_component::createModelFromFile(
-      device_, "models/viking_room.obj");
+      device_, "assets/models/viking_room.obj");
   game_object.transform_comp.rotation = {glm::half_pi<float>(),
                                          glm::half_pi<float>(), 0.0f};
   game_object.transform_comp.translation = {0, 1.f, 0};
-  game_object.model_texture =
-      vs_texture::createTexture(device_, "models/textures/viking_room.png");
+  game_object.model_texture = vs_texture::createTextureFromFile(
+      device_, "assets/textures/viking_room.png");
   /*asset_manager.spawnGameObject(
       "viking_room.obj", {1.f, 0.2f, 0.f},
       glm::vec3(glm::radians(72.f), glm::radians(0.f), glm::radians(0.f)));
 */
   game_objects_.emplace(game_object.getId(), std::move(game_object));
-
-  /** SPINNING POINT LIGHTS **/
-  createSpinningPointLights();
 }
 void vs_app::createSpinningPointLights() {
   std::vector<glm::vec3> lightColors{
@@ -223,16 +228,15 @@ void vs_app::createSpinningPointLights() {
   };
 
   for (int i = 0; i < lightColors.size(); ++i) {
-    auto point_light = vs_game_object::createPointLight(10.f);
+    auto point_light = vs_game_object::createPointLight(.1f);
     point_light.color = lightColors[i];
     auto rotate_light = glm::rotate(
         glm::mat4(1.f), (i * glm::two_pi<float>()) / lightColors.size(),
-        {0.f, -2.f, 0.f});
+        {0.f, -1.f, 0.f});
 
     point_light.transform_comp.translation =
-        glm::vec3{0.f, -1.f, 0.f} +
-        glm::vec3(rotate_light * glm::vec4(-8.f, -1.f, -1.f, 1.f));
-
+        glm::vec3(rotate_light * glm::vec4(-1.f, -1.f, -1.f, 1.f));
+    point_light.transform_comp.scale = {0.1f, 0.1f, 0.1f};
     lights_.emplace(point_light.getId(), std::move(point_light));
   }
 }

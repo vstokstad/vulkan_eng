@@ -7,8 +7,6 @@
 #include <limits>
 #include <stdexcept>
 
-
-
 namespace vs {
 vs_swap_chain::vs_swap_chain(vs_device &deviceRef, VkExtent2D extent)
     : device{deviceRef}, windowExtent{extent} {
@@ -41,28 +39,24 @@ vs_swap_chain::~vs_swap_chain() {
   }
   swap_chain_image_views.clear();
 
-
   // msaa
-  /*
+
   for (int i = 0; i < color_images.size(); i++) {
     vkDestroyImageView(device.device(), color_image_views[i], nullptr);
     vkDestroyImage(device.device(), color_images[i], nullptr);
     vkFreeMemory(device.device(), color_image_memory[i], nullptr);
-  }
-  color_image_views.clear();
-  color_images.clear();
-  color_image_memory.clear();
-  // end msaa
-   */
 
-  for (int i = 0; i < depth_images.size(); i++) {
     vkDestroyImageView(device.device(), depth_image_views[i], nullptr);
     vkDestroyImage(device.device(), depth_images[i], nullptr);
     vkFreeMemory(device.device(), depth_image_memory[i], nullptr);
   }
+
   depth_image_views.clear();
   depth_images.clear();
   depth_image_memory.clear();
+  color_image_views.clear();
+  color_images.clear();
+  color_image_memory.clear();
 
   if (swapChain != nullptr) {
     vkDestroySwapchainKHR(device.device(), swapChain, nullptr);
@@ -392,7 +386,25 @@ void vs_swap_chain::createFramebuffers() {
     }
   }
 }
+void vs_swap_chain::createColorResources() {
+  VkFormat colorFormat = swapChainImageFormat;
 
+  color_images.resize(imageCount());
+  color_image_memory.resize(imageCount());
+  color_image_views.resize(imageCount());
+
+  for (int i = 0; i < color_images.size(); ++i) {
+
+    createImage(width(), height(), 1, device.msaa_samples, colorFormat,
+                VK_IMAGE_TILING_OPTIMAL,
+                VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT |
+                    VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+                VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, color_images[i],
+                color_image_memory[i]);
+    color_image_views[i] = createImageView(
+        color_images[i], VK_IMAGE_ASPECT_COLOR_BIT, colorFormat, 1);
+  }
+}
 void vs_swap_chain::createDepthResources() {
   VkFormat depthFormat = findDepthFormat();
   swapChainDepthFormat = depthFormat;
@@ -405,29 +417,31 @@ void vs_swap_chain::createDepthResources() {
   for (int i = 0; i < depth_images.size(); i++) {
 
     VkImageCreateInfo imageInfo{};
-      imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-      imageInfo.imageType = VK_IMAGE_TYPE_2D;
-      imageInfo.extent.width = swapChainExtent.width;
-      imageInfo.extent.height = swapChainExtent.height;
-      imageInfo.extent.depth = 1;
-      imageInfo.mipLevels = 1;
-      imageInfo.arrayLayers = 1;
-      imageInfo.format = depthFormat;
-      imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
-      imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-      imageInfo.usage = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
-      imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
-      imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-      imageInfo.flags = 0;
-      device.createImageWithInfo(imageInfo, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-      depth_images[i], depth_image_memory[i]);
+    imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
+    imageInfo.imageType = VK_IMAGE_TYPE_2D;
+    imageInfo.extent.width = swapChainExtent.width;
+    imageInfo.extent.height = swapChainExtent.height;
+    imageInfo.extent.depth = 1;
+    imageInfo.mipLevels = 1;
+    imageInfo.arrayLayers = 1;
+    imageInfo.format = depthFormat;
+    imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
+    imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    imageInfo.usage = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
+    imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
+    imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+    imageInfo.flags = 0;
+    /*   device.createImageWithInfo(imageInfo,
+       VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, depth_images[i],
+       depth_image_memory[i]);
+    */
 
-
-   /* createImage(width(), height(), 1, device.msaa_samples, depthFormat,
+    createImage(width(), height(), 1, device.msaa_samples, depthFormat,
                 VK_IMAGE_TILING_OPTIMAL,
                 VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
                 VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, depth_images[i],
-                depth_image_memory[i]);*/
+                depth_image_memory[i]);
+
 
     VkImageViewCreateInfo viewInfo{};
     viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -502,18 +516,7 @@ VkPresentModeKHR vs_swap_chain::chooseSwapPresentMode(
                 return availablePresentMode;
         }
    }*/
-  for (const auto &availablePresentMode : availablePresentModes) {
-    if (availablePresentMode == VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR) {
-      std::cout << "Present mode: CONTINUOUS REFRESH" << std::endl;
-      return availablePresentMode;
-    }
-  }
-  /* for (const auto &availablePresentMode : availablePresentModes) {
-     if (availablePresentMode == VK_PRESENT_MODE_FIFO_RELAXED_KHR) {
-       std::cout << "Present mode: FIFO RELAXED" << std::endl;
-       return availablePresentMode;
-     }
-   }*/
+
   std::cout << "Present mode: V-Sync/FIFO" << std::endl;
   return VK_PRESENT_MODE_FIFO_KHR;
 }
@@ -542,24 +545,6 @@ VkFormat vs_swap_chain::findDepthFormat() {
        VK_FORMAT_D24_UNORM_S8_UINT},
       VK_IMAGE_TILING_OPTIMAL, VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
 }
-void vs_swap_chain::createColorResources() {
-  VkFormat colorFormat = swapChainImageFormat;
 
-  color_images.resize(imageCount());
-  color_image_memory.resize(imageCount());
-  color_image_views.resize(imageCount());
-
-  for (int i = 0; i < color_images.size(); ++i) {
-
-    createImage(width(), height(), 1, device.msaa_samples, colorFormat,
-                VK_IMAGE_TILING_OPTIMAL,
-                VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT |
-                    VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
-                VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, color_images[i],
-                color_image_memory[i]);
-    color_image_views[i] = createImageView(
-        color_images[i], VK_IMAGE_ASPECT_COLOR_BIT, colorFormat, 1);
-  }
-}
 
 } // namespace vs

@@ -28,6 +28,7 @@ vs_simple_render_system::~vs_simple_render_system() {
 
 void vs_simple_render_system::createPipelineLayout(
     VkDescriptorSetLayout global_set_layout) {
+
   VkPushConstantRange push_constant_range{};
   push_constant_range.stageFlags =
       VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
@@ -79,15 +80,18 @@ void vs_simple_render_system::renderGameObjects(frame_info &frame_info) {
     if (object.model_comp == nullptr)
       continue;
 
-    if (object.model_texture!=nullptr){
-      VkDescriptorImageInfo img_info{};
-      img_info.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-      img_info.imageView =
-          object.model_texture->createImageView();
-      img_info.sampler =object.model_texture->createTextureSampler();
+    /*   if (object.model_texture!=nullptr){
+         VkDescriptorImageInfo img_info{};
+         img_info.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+         img_info.imageView =
+             object.model_texture->createImageView();
+         img_info.sampler =object.model_texture->createTextureSampler();
 
-      vkCmdBindDescriptorSets(frame_info.command_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline_layout_, 0, 1, &frame_info.global_descriptor_set, 0, nullptr);
-    }
+         vkCmdBindDescriptorSets(frame_info.command_buffer,
+       VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline_layout_, 0, 1,
+       &frame_info.global_descriptor_set, 0, nullptr);
+       }
+       */
     simple_push_constant_data push{};
     push.model_matrix = object.transform_comp.mat4();
     push.normal_matrix = object.transform_comp.normal_matrix();

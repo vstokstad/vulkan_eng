@@ -32,7 +32,7 @@ public:
   void run();
 
 private:
-  void loadGameObjects();
+  void loadVikingRoom();
 
   vs_window window_{WIDTH, HEIGHT, "Vulkan App"};
   vs_device device_{window_};
