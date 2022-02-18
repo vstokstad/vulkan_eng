@@ -17,9 +17,7 @@ using namespace vs;
 
 vs_texture::vs_texture(vs_device &device, const std::string &path)
     : device_(device) {
-  {
-    createTextureImage(path);
-  };
+  { createTextureImage(path); };
 }
 
 std::unique_ptr<vs_texture> vs_texture::createTexture(vs_device &device,
@@ -49,7 +47,9 @@ void vs_texture::createTextureImage(const std::string &path) {
 
   staging_buffer.map();
   staging_buffer.writeToBuffer((void *)pixels);
-VkFormat format = VK_FORMAT_R8G8B8A8_SRGB;
+
+  VkFormat format = VK_FORMAT_R8G8B8A8_SRGB;
+
   VkImageCreateInfo img_create_info{};
   img_create_info.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
   img_create_info.imageType = VK_IMAGE_TYPE_2D;
@@ -62,8 +62,9 @@ VkFormat format = VK_FORMAT_R8G8B8A8_SRGB;
   img_create_info.format = format;
   img_create_info.tiling = VK_IMAGE_TILING_OPTIMAL;
   img_create_info.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-  img_create_info.usage =
-      VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
+  img_create_info.usage = VK_IMAGE_USAGE_TRANSFER_SRC_BIT |
+                          VK_IMAGE_USAGE_TRANSFER_DST_BIT |
+                          VK_IMAGE_USAGE_SAMPLED_BIT;
   img_create_info.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
   img_create_info.flags = 0;
 
@@ -71,16 +72,15 @@ VkFormat format = VK_FORMAT_R8G8B8A8_SRGB;
                               VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                               texture_image_, texture_memory_);
 
-  device_.transitionImageLayout(texture_image_, format,
-                                img_create_info.initialLayout,
-                                VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1);
+  device_.transitionImageLayout(
+      texture_image_, format, VK_IMAGE_LAYOUT_UNDEFINED,
+      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, mip_levels);
 
   device_.copyBufferToImage(staging_buffer.getBuffer(), texture_image_,
                             static_cast<uint32_t>(texWidth),
                             static_cast<uint32_t>(texHeight), 1);
 
-  generateMipmaps(texture_image_, format, texWidth, texHeight,
-                  mip_levels);
+  generateMipmaps(texture_image_, format, texWidth, texHeight, mip_levels);
 }
 void vs_texture::generateMipmaps(VkImage image, VkFormat image_format,
                                  int32_t texWidth, int32_t texHeight,
@@ -94,6 +94,7 @@ void vs_texture::generateMipmaps(VkImage image, VkFormat image_format,
         "texture image format does not support linear blitting");
   }
   VkCommandBuffer commandBuffer = device_.beginSingleTimeCommands();
+
   VkImageMemoryBarrier barrier{};
   barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
   barrier.image = image;
@@ -101,7 +102,7 @@ void vs_texture::generateMipmaps(VkImage image, VkFormat image_format,
   barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
   barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
   barrier.subresourceRange.baseArrayLayer = 0;
-  barrier.subresourceRange.layerCount = mipLevels;
+  barrier.subresourceRange.layerCount = 1;
   barrier.subresourceRange.levelCount = 1;
   int32_t mipWidth = texWidth;
   int32_t mipHeight = texHeight;
@@ -111,6 +112,7 @@ void vs_texture::generateMipmaps(VkImage image, VkFormat image_format,
     barrier.newLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
     barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
     barrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+
     vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT,
                          VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 0,
                          nullptr, 1, &barrier);
@@ -125,15 +127,20 @@ void vs_texture::generateMipmaps(VkImage image, VkFormat image_format,
     blit.dstOffsets[0] = {0, 0, 0};
     blit.dstOffsets[1] = {mipWidth > 1 ? mipWidth / 2 : 1,
                           mipHeight > 1 ? mipHeight / 2 : 1, 1};
+    blit.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+    blit.dstSubresource.mipLevel = i;
+    blit.dstSubresource.baseArrayLayer = 0;
+    blit.dstSubresource.layerCount = 1;
 
     vkCmdBlitImage(commandBuffer, image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
                    image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &blit,
                    VK_FILTER_LINEAR);
 
-    barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+    barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
     barrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     barrier.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
     barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+
     vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT,
                          VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0, nullptr,
                          0, nullptr, 1, &barrier);
@@ -152,6 +159,7 @@ void vs_texture::generateMipmaps(VkImage image, VkFormat image_format,
   vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT,
                        VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0, nullptr, 0,
                        nullptr, 1, &barrier);
+
   device_.endSingleTimeCommands(commandBuffer);
 }
 
@@ -215,7 +223,7 @@ vs_texture::getDescriptorset(vs_descriptor_set_layout &setLayout,
 
   return set;
 }
-VkDescriptorImageInfo* vs_texture::getImageInfo() {
+VkDescriptorImageInfo *vs_texture::getImageInfo() {
   image_info = std::make_unique<VkDescriptorImageInfo>();
   image_info->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
   image_info->imageView = createImageView();

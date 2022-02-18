@@ -62,23 +62,24 @@ void vs_app::run() {
       vs_swap_chain::MAX_FRAMES_IN_FLIGHT);
 
   std::vector<VkDescriptorImageInfo> image_infos;
-  for (auto& t : game_objects_) {
-   auto& tex = t.second.model_texture;
-   if (tex==nullptr)continue;
-   VkDescriptorImageInfo image;
-   image.sampler = tex->createTextureSampler();
-   image.imageView = tex->createImageView();
-   image.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-   image_infos.push_back(image);
+  for (auto &t : game_objects_) {
+    auto &tex = t.second.model_texture;
+    if (tex == nullptr)
+      continue;
+    VkDescriptorImageInfo image;
+    image.sampler = tex->createTextureSampler();
+    image.imageView = tex->createImageView();
+    image.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    image_infos.push_back(image);
   }
   for (int i = 0; i < global_descriptor_sets.size(); ++i) {
     auto buffer_info = ubo_buffers[i]->descriptorInfo();
-   auto w = vs_descriptor_writer(*global_set_layout, *global_descriptor_pool_)
-        .writeBuffer(0, &buffer_info);
-   for (int j = 0; j < image_infos.size(); ++j){
-		  w.writeImage(1,&image_infos[j]);
-        }
-        w.build(global_descriptor_sets[i]);
+    auto w = vs_descriptor_writer(*global_set_layout, *global_descriptor_pool_)
+                 .writeBuffer(0, &buffer_info);
+    for (int j = 0; j < image_infos.size(); ++j) {
+      w.writeImage(1, &image_infos[j]);
+    }
+    w.build(global_descriptor_sets[i]);
   }
 
   /* RENDER SYSTEMS
@@ -127,7 +128,7 @@ void vs_app::run() {
  */
     // Camera perspective step (if resizing etc.)
     float aspect = renderer_.getAspectRatio();
-    camera.setPerspectiveProjection(glm::radians(60.f), aspect, 0.1f, 1000.f);
+    camera.setPerspectiveProjection(glm::radians(60.f), aspect, 0.01f, 1000.f);
 
     /*UPDATE & RENDER**********************************************************/
     /**************************************************************************/
@@ -154,7 +155,7 @@ void vs_app::run() {
       global_ubo ubo{};
       ubo.projection = camera.getProjection();
       ubo.view = camera.getView();
-      ubo.ambient_light_color = {.8f, .8f, .8f, 0.5f};
+      ubo.ambient_light_color = {1.f, 1.f, 1.f, 0.5f};
       ubo.cam_pos = glm::vec4(camera_objet.transform_comp.translation, 1.0f);
 
       point_light_render_system.update(frame, ubo);
@@ -187,7 +188,8 @@ void vs_app::createWorld() {
     auto floor = vs_game_object::createGameObject();
     floor.model_comp =
         vs_model_component::createModelFromFile(device_, "models/cube.obj");
-    floor.transform_comp.scale = {20.f,1.f,20.f};
+    floor.transform_comp.scale = {20.f, 1.f, 20.f};
+    floor.transform_comp.translation = {0.f, 2.f, 0.f};
     /*  asset_manager.spawnGameObject(
           "cube.obj", {0.0f, 5.f, 0.0f}, {0.f, 0.f, 0.f}, {10.f, 1.f, 10.f});
                                 */
@@ -200,6 +202,9 @@ void vs_app::loadGameObjects() {
   auto game_object = vs_game_object::createGameObject();
   game_object.model_comp = vs_model_component::createModelFromFile(
       device_, "models/viking_room.obj");
+  game_object.transform_comp.rotation = {glm::half_pi<float>(),
+                                         glm::half_pi<float>(), 0.0f};
+  game_object.transform_comp.translation = {0, 1.f, 0};
   game_object.model_texture =
       vs_texture::createTexture(device_, "models/textures/viking_room.png");
   /*asset_manager.spawnGameObject(
