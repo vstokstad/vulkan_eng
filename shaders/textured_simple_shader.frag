@@ -4,7 +4,11 @@
 layout (location = 0) in vec3 fragColor;
 layout (location = 1) in vec3 fragWorldPos;
 layout (location = 2) in vec3 fragNormal;
+layout (location = 3) in vec2 fragTexCoord;
 
+
+
+layout (binding=1) uniform sampler2D texSampler;
 
 struct point_light {
     vec4 position;// ignore w
@@ -30,7 +34,7 @@ layout (location = 0) out vec4 outColor;
 
 void main() {
 
-    vec3 diffuseLighting = ubo.ambient_light_color.xyz;
+    vec3 diffuseLighting = ubo.ambient_light_color.xyz*ubo.ambient_light_color.w;
     vec3 specularLighting = vec3(0.0);
     vec3 surfaceNormal = normalize(fragNormal);
 
@@ -52,8 +56,8 @@ void main() {
         float blinnTerm = dot(surfaceNormal, halfAngle);
         blinnTerm = clamp(blinnTerm, 0, 1);
         blinnTerm = cosAngIncidence != 0.0 ? blinnTerm : 0.0;
-        blinnTerm = pow(blinnTerm, 32.0);
+        blinnTerm = pow(blinnTerm, 16.0);
         specularLighting += light.color.xyz * attenuation * blinnTerm;
     }
-    outColor = vec4((diffuseLighting+specularLighting), 1.0);
+    outColor = vec4((specularLighting + diffuseLighting+ fragColor)*texture(texSampler,fragTexCoord).rgb, 1.0);
 }

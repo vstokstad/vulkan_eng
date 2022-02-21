@@ -1,14 +1,14 @@
-﻿#include "vs_movement_component.h"
+﻿#include "vs_camera_movement_component.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 
 namespace vs {
-vs_movement_component::vs_movement_component(GLFWwindow *window) {
+vs_camera_movement_component::vs_camera_movement_component(GLFWwindow *window) {
   mouse_speed_scroll_modifier = {0.f};
   init(window);
 }
 
-void vs_movement_component::init(GLFWwindow *window) {
+void vs_camera_movement_component::init(GLFWwindow *window) {
   glfwSetScrollCallback(window, mouse_scroll_callback);
   glfwSetWindowFocusCallback(window, window_in_focus_callback);
 
@@ -22,7 +22,7 @@ void vs_movement_component::init(GLFWwindow *window) {
   }
 }
 
-void vs_movement_component::moveInPlaneXZ(GLFWwindow *window, float dt,
+void vs_camera_movement_component::moveInPlaneXZ(GLFWwindow *window, float dt,
                                           vs_game_object &game_object) {
   glm::vec3 rotate{0};
 
@@ -123,7 +123,7 @@ void vs_movement_component::moveInPlaneXZ(GLFWwindow *window, float dt,
   }*/
 }
 
-void vs_movement_component::window_in_focus_callback(GLFWwindow *window,
+void vs_camera_movement_component::window_in_focus_callback(GLFWwindow *window,
                                                      int focused) {
   if (focused == GLFW_FALSE) {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -138,7 +138,7 @@ void vs_movement_component::window_in_focus_callback(GLFWwindow *window,
   }
 }
 
-void vs_movement_component::mouse_scroll_callback(GLFWwindow *window,
+void vs_camera_movement_component::mouse_scroll_callback(GLFWwindow *window,
                                                   double xoffset,
                                                   double yoffset) {
   // TODO implement this using the getUserWindowPointer to get a ref back to our

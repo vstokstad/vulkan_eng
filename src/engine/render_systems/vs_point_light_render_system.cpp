@@ -62,8 +62,8 @@ void vs_point_light_render_system::createPipeline(VkRenderPass render_pass) {
 
   vs_pipeline::defaultPipelineConfigInfo(pipeline_config, device_.msaa_samples,
                                          false);
-  pipeline_config.attribute_descriptions.clear();
-  pipeline_config.binding_descriptions.clear();
+  pipeline_config.vertex_attribute_descriptions.clear();
+  pipeline_config.vertex_binding_descriptions.clear();
   pipeline_config.render_pass = render_pass;
   pipeline_config.pipeline_layout = pipeline_layout_;
   pipeline = std::make_unique<vs_pipeline>(

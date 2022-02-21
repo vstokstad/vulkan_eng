@@ -51,7 +51,6 @@ public:
 
   [[nodiscard]] id_t getId() const { return id_; }
 
-
   static vs_game_object createPointLight(float intensity = .2f,
                                          float radius = 0.1f,
                                          glm::vec3 color = glm::vec3(1.f));
@@ -76,6 +75,6 @@ public:
 private:
   explicit vs_game_object(id_t obj_id) : id_(obj_id){};
 
-  const id_t id_;
+  id_t id_;
 };
 } // namespace vs

@@ -1,9 +1,9 @@
 #pragma once
 #include "vs_buffer.h"
+#include "vs_component.h"
 #include "vs_device.h"
 #include "vs_simple_physics_system.h"
 #include "vs_texture.h"
-#include "vs_component.h"
 // libs
 #define GLM_FORCE_RADIANS
 #define GLF_FORCE_DEPTH_ZERO_TO_ONE
@@ -15,7 +15,7 @@
 #include <vector>
 
 namespace vs {
-class vs_model_component:vs_component {
+class vs_model_component : vs_component {
 
   using id_t = unsigned int;
   using map = std::unordered_map<id_t, vs_model_component>;
@@ -59,6 +59,8 @@ public:
   void draw(VkCommandBuffer command_buffer);
 
   std::string string_name;
+  bool has_texture = false;
+  uint32_t texture_id = -1;
 
 private:
   void createVertexBuffers(const std::vector<vertex> &vertices);

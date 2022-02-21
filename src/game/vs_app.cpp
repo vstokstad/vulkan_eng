@@ -1,6 +1,6 @@
 #include "vs_app.h"
 #include "vs_camera.h"
-#include "vs_movement_component.h"
+#include "vs_camera_movement_component.h"
 #include "vs_point_light_render_system.h"
 #include "vs_simple_physics_system.h"
 #include "vs_simple_render_system.h"
@@ -54,14 +54,12 @@ void vs_app::run() {
       vs_descriptor_set_layout::vs_builder(device_)
           .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
                       VK_SHADER_STAGE_ALL_GRAPHICS)
-          .addBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
-                      VK_SHADER_STAGE_FRAGMENT_BIT)
           .build();
 
   std::vector<VkDescriptorSet> global_descriptor_sets(
       vs_swap_chain::MAX_FRAMES_IN_FLIGHT);
 
-  std::vector<VkDescriptorImageInfo> image_infos;
+/*  std::vector<VkDescriptorImageInfo> image_infos;
   for (auto &t : game_objects_) {
     auto &tex = t.second.model_texture;
     if (tex == nullptr)
@@ -74,13 +72,14 @@ void vs_app::run() {
     info.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     image_infos.push_back(info);
   }
+  */
   for (int i = 0; i < global_descriptor_sets.size(); ++i) {
     auto buffer_info = ubo_buffers[i]->descriptorInfo();
     auto w = vs_descriptor_writer(*global_set_layout, *global_descriptor_pool_)
                  .writeBuffer(0, &buffer_info);
-    for (int j = 0; j < image_infos.size(); ++j) {
+   /* for (int j = 0; j < image_infos.size(); ++j) {
       w.writeImage(1, &image_infos[j]);
-    }
+    }*/
     w.build(global_descriptor_sets[i]);
   }
 
@@ -103,7 +102,7 @@ void vs_app::run() {
   vs_camera camera{};
   auto camera_objet = vs_game_object::createGameObject();
   camera_objet.transform_comp.translation.z = -8.f;
-  vs_movement_component movement_controller{window_.getGLFWwindow()};
+  vs_camera_movement_component movement_controller{window_.getGLFWwindow()};
 
   /*FRAME TIME*/
   auto currentTime = std::chrono::high_resolution_clock::now();
@@ -155,7 +154,7 @@ void vs_app::run() {
       ubo.projection = camera.getProjection();
       ubo.view = camera.getView();
       ubo.inv_view_mat = frame.camera.getInverseView();
-      ubo.ambient_light_color = {0.2f, .2f, .2f, 0.2f};
+      ubo.ambient_light_color = {0.5f, .5f, .5f, 0.5f};
 
       point_light_render_system.update(frame, ubo);
 
@@ -167,7 +166,6 @@ void vs_app::run() {
       ubo_buffers[frame_index]->flush();
 
       // Render
-      // Begin
       renderer_.beginSwapChainRenderPass(command_buffer);
 
       //  rendering
@@ -186,24 +184,20 @@ void vs_app::createWorld() {
 
   auto floor = vs_game_object::createGameObject();
   floor.model_comp = vs_model_component::createModelFromFile(
-      device_, "assets/models/quad.obj");
-  floor.transform_comp.scale = {20.f, 1.f, 20.f};
-  floor.transform_comp.translation = {0.f, 2.f, 0.f};
-  /*  asset_manager.spawnGameObject(
-        "cube.obj", {0.0f, 5.f, 0.0f}, {0.f, 0.f, 0.f}, {10.f, 1.f, 10.f});
-                              */
+      device_, "assets/models/cube.obj");
+  floor.transform_comp.scale = {10.f, 1.f, 10.f};
+  floor.transform_comp.translation = {0.f, 1.f, 0.f};
   game_objects_.emplace(floor.getId(), std::move(floor));
-  for (int i = 0; i < 10; ++i) {
 
-    auto vase = vs_game_object::createGameObject();
-    vase.model_comp = vs_model_component::createModelFromFile(
-        device_, "assets/models/smooth_vase.obj");
-    vase.transform_comp.translation = {i + 1.f, 0.f, i - 1.f};
-    game_objects_.emplace(vase.getId(), std::move(vase));
-  }
+  auto vase = vs_game_object::createGameObject();
+  vase.model_comp = vs_model_component::createModelFromFile(
+      device_, "assets/models/smooth_vase.obj");
+  vase.transform_comp.translation = {0.f, .0f, 0.f};
+  game_objects_.emplace(vase.getId(), std::move(vase));
+
   /** SPINNING POINT LIGHTS **/
   createSpinningPointLights();
-  loadVikingRoom();
+  // loadVikingRoom();
 }
 void vs_app::loadVikingRoom() {
 
@@ -228,7 +222,7 @@ void vs_app::createSpinningPointLights() {
   };
 
   for (int i = 0; i < lightColors.size(); ++i) {
-    auto point_light = vs_game_object::createPointLight(.1f);
+    auto point_light = vs_game_object::createPointLight();
     point_light.color = lightColors[i];
     auto rotate_light = glm::rotate(
         glm::mat4(1.f), (i * glm::two_pi<float>()) / lightColors.size(),
@@ -236,7 +230,6 @@ void vs_app::createSpinningPointLights() {
 
     point_light.transform_comp.translation =
         glm::vec3(rotate_light * glm::vec4(-1.f, -1.f, -1.f, 1.f));
-    point_light.transform_comp.scale = {0.1f, 0.1f, 0.1f};
     lights_.emplace(point_light.getId(), std::move(point_light));
   }
 }

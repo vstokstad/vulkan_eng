@@ -29,6 +29,8 @@ private:
   void generateMipmaps(VkImage image, VkFormat image_format, int32_t texWidth,
                        int32_t texHeight, uint32_t mipLevels);
 
+  uint32_t texture_id;
+
   stbi_uc *pixel_data;
   int tex_width, tex_height, tex_channels;
   uint32_t mip_levels = 1;

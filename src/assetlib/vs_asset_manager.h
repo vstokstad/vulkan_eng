@@ -23,7 +23,7 @@ public:
   void cleanup();
 
   std::map<std::string, std::shared_ptr<vs_model_component>> loaded_models;
-  std::map<std::string, std::shared_ptr<vs_texture>> loaded_textures;
+  std::map<uint32_t, std::shared_ptr<vs_texture>> loaded_textures;
 
   vs_device &device_;
 };

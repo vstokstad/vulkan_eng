@@ -6,10 +6,9 @@ namespace vs
 {
 	static float mouse_speed_scroll_modifier = 0.f;
 
-	class vs_movement_component
-	{
+	class vs_camera_movement_component {
 	public:
-		vs_movement_component(GLFWwindow* window);
+          vs_camera_movement_component(GLFWwindow* window);
 
 		struct key_mappings
 		{

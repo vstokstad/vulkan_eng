@@ -150,7 +150,7 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
   std::string err, warn;
 
   if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err,
-                        obj_file.c_str(), "assets/textures", true)) {
+                        obj_file.c_str(), "assets/models/mtl", true)) {
     throw std::runtime_error(warn + err);
   }
 
@@ -216,9 +216,7 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
     if (maxExtent < 0.5f * (bmax[2] - bmin[2])) {
       maxExtent = 0.5f * (bmax[2] - bmin[2]);
     }
-
     float relative_scale = 1.0f / maxExtent;
-
     for (auto &v : vertices) {
       v.position *= relative_scale;
     }

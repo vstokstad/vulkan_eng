@@ -95,6 +95,7 @@ void vs_simple_render_system::renderGameObjects(frame_info &frame_info) {
     simple_push_constant_data push{};
     push.model_matrix = object.transform_comp.mat4();
     push.normal_matrix = object.transform_comp.normal_matrix();
+
     vkCmdPushConstants(frame_info.command_buffer, pipeline_layout_,
                        VK_SHADER_STAGE_VERTEX_BIT |
                            VK_SHADER_STAGE_FRAGMENT_BIT,

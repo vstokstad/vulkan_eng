@@ -74,8 +74,8 @@ void vs_pipeline::create_graphics_pipeline(
   shader_stages[1].pNext = nullptr;
   shader_stages[1].pSpecializationInfo = nullptr;
 
-  auto &bindingDescription = config_info.binding_descriptions;
-  auto &attributeDescription = config_info.attribute_descriptions;
+  auto &bindingDescription = config_info.vertex_binding_descriptions;
+  auto &attributeDescription = config_info.vertex_attribute_descriptions;
 
   VkPipelineVertexInputStateCreateInfo vertex_input_info{};
   vertex_input_info.sType =
@@ -152,7 +152,7 @@ void vs_pipeline::defaultPipelineConfigInfo(pipeline_config_info &config_info,
   config_info.rasterization_info.polygonMode = VK_POLYGON_MODE_FILL;
   config_info.rasterization_info.lineWidth = 1.0f;
   config_info.rasterization_info.cullMode = VK_CULL_MODE_NONE; //TODO for culling to work properly it needs to update when camera changes.
-  config_info.rasterization_info.frontFace = VK_FRONT_FACE_CLOCKWISE; //TODO vulkan-tutorial has this to clockwise.
+  config_info.rasterization_info.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE; //TODO vulkan-tutorial has this to clockwise.
   config_info.rasterization_info.depthBiasEnable = VK_FALSE;
   config_info.rasterization_info.depthBiasConstantFactor = 0.0f;
   config_info.rasterization_info.depthBiasClamp = 0.0f;
@@ -215,9 +215,9 @@ void vs_pipeline::defaultPipelineConfigInfo(pipeline_config_info &config_info,
       static_cast<uint32_t>(config_info.dynamic_state_enables.size());
   config_info.dynamic_state_info.flags = 0;
 
-  config_info.binding_descriptions =
+  config_info.vertex_binding_descriptions =
       vs_model_component::vertex::getBindingDescriptions();
-  config_info.attribute_descriptions =
+  config_info.vertex_attribute_descriptions =
       vs_model_component::vertex::getAttributeDescriptions();
 }
 } // namespace vs

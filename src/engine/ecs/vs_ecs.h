@@ -30,13 +30,13 @@ public:
   ///@param entity_id=id of the entity to add the component to.
   ///@param type=component type to create.
   static id_t addComponentToEntity(id_t entity_id, vs_component_type type);
-
+static id_t createComponent(id_t id, vs_component_type type);
 private:
   static vs_ecs *instance;
 
   vs_ecs() { instance = this; }
 
   std::unordered_map<id_t, vs_entity> entities{};
-  std::unordered_map<id_t, vs_component> components{};
+  static std::unordered_map<id_t, vs_component> components{};
 };
 } // namespace vs

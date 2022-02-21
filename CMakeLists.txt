@@ -15,9 +15,9 @@ file(GLOB_RECURSE src_files
 	 )
 
 #### TARGET ###
-add_executable(vulkan_eng ${src_files} src/game/profiler.h src/game/ecs/vs_component.h)
+add_executable(vulkan_eng ${src_files} src/game/profiler.h)
 
-target_include_directories(vulkan_eng PRIVATE src src/engine src/engine/renderer src/game src/assetlib src/game/ecs)
+target_include_directories(vulkan_eng PRIVATE src src/assetlib src/engine src/engine/renderer src/engine/render_systems src/game src/assetlib src/engine/ecs shaders)
 
 ####### LINK DEPENDENCY LIBS
 # FetchContent added in CMake 3.11, downloads during the configure step

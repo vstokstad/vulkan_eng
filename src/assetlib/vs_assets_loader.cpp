@@ -5,7 +5,7 @@
 #include "vs_assets_loader.h"
 #include "profiler.h"
 
-//std
+// std
 #include <future>
 #include <iostream>
 #include <string>
@@ -15,8 +15,7 @@ vs_assets_loader::vs_assets_loader(vs_device &device) : device_(device) {
 }
 void vs_assets_loader::loadModelsFromFolder(
     vs_device &device_, const std::string &models_folder_path) {
-  timer timer_{};
-  timer_.start();
+
   std::vector<std::future<vs::vs_model_component::builder>> futures;
   std::vector<std::thread> threads;
 
@@ -30,7 +29,7 @@ void vs_assets_loader::loadModelsFromFolder(
 
       // DO SOME ASYNC LOADING FOR LARGE FILES //
       if (size > 10000) {
-      //  continue;
+        //  continue;
         // don't load big models right, now, its annoying!
         std::packaged_task<vs_model_component::builder(std::string name,
                                                        std::string path)>
@@ -68,17 +67,13 @@ void vs_assets_loader::loadModelsFromFolder(
   for (auto &t : threads) {
     t.join();
   }
-  timer_.stop();
-  // 25002 without threading
-  // 24489 with. but only 1 heavy object.
-  std::cout << "done loading model assets in: " << timer_.get_time()
-            << " seconds." << std::endl;
+
 }
 void vs_assets_loader::loadTexturesFromFolder(
     vs_device &device, const std::string &textures_folder_path) {}
-//helpers
+// helpers
 void vs_assets_loader::loadModelFromPath(vs_device &device_,
-                                         const std::string& path) {
+                                         const std::string &path) {
 
   std::shared_ptr<vs_model_component> model =
       vs_model_component::createModelFromFile(device_, path);
@@ -95,8 +90,7 @@ bool vs_assets_loader::isModelLoaded(const std::string &model_name) {
   return (model != loaded_models.end());
 }
 void vs_assets_loader::loadTextureFromPath(vs_device &device,
-                                           const std::string& path) {
-  std::shared_ptr<vs_texture> texture = vs_texture::createTextureFromFile(device, path);
-
-
+                                           const std::string &path) {
+  std::shared_ptr<vs_texture> texture =
+      vs_texture::createTextureFromFile(device, path);
 }

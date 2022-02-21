@@ -15,8 +15,11 @@ namespace vs
 		pipeline_config_info(const pipeline_config_info&) = delete;
 		pipeline_config_info& operator=(const pipeline_config_info&) = delete;
 
-		std::vector<VkVertexInputBindingDescription> binding_descriptions{};
-		std::vector<VkVertexInputAttributeDescription> attribute_descriptions{};
+		std::vector<VkVertexInputBindingDescription>
+                    vertex_binding_descriptions{};
+		std::vector<VkVertexInputAttributeDescription>
+                    vertex_attribute_descriptions{};
+                std::vector<VkDescriptorImageInfo> image_descriptor_info;
 		VkPipelineViewportStateCreateInfo viewport_info;
 		VkPipelineInputAssemblyStateCreateInfo input_assembly_info;
 		VkPipelineRasterizationStateCreateInfo rasterization_info;
