@@ -15,7 +15,7 @@
 #include <vector>
 
 namespace vs {
-class vs_model_component : vs_component {
+class vs_model_component {
 
   using id_t = unsigned int;
   using map = std::unordered_map<id_t, vs_model_component>;
@@ -26,6 +26,8 @@ public:
     glm::vec3 color{};
     glm::vec3 normal{};
     glm::vec2 uv{};
+
+    uint32_t texture_id =0;
 
     static std::vector<VkVertexInputBindingDescription>
     getBindingDescriptions();

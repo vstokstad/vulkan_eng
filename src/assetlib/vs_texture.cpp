@@ -12,25 +12,18 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-
 using namespace vs;
 
 vs_texture::vs_texture(vs_device &device, const std::string &path)
     : device_(device) {
-  {
-    loadTextureFromFile(path);
-
-  };
+  { loadTextureFromFile(path); };
 }
 
-std::unique_ptr<vs_texture> vs_texture::createTextureFromFile(vs_device &device,
-                                                      const std::string &path) {
+std::unique_ptr<vs_texture>
+vs_texture::createTextureFromFile(vs_device &device, const std::string &path) {
   return std::make_unique<vs_texture>(device, path);
 }
-vs_texture::~vs_texture() {
-  free(pixel_data);
-
-}
+vs_texture::~vs_texture() { free(pixel_data); }
 
 VkImage vs_texture::createImage() {
 
@@ -222,7 +215,15 @@ void vs_texture::loadTextureFromFile(const std::string &path) {
                    std::floor(std::log2(std::max(tex_width, tex_height)))) +
                1;
   if (!pixels) {
-    std::runtime_error("failed to load texture image");
+    throw std::runtime_error("failed to load texture image");
   }
-  pixel_data = std::move(pixels);
+  pixel_data = pixels;
+}
+VkDescriptorImageInfo vs_texture::generateImageDescriptorInfo(VkSampler sampler, VkImageView imageView) {
+  VkDescriptorImageInfo imageinfo{};
+  imageinfo.sampler = sampler;
+  imageView = imageView;
+  imageinfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+  return imageinfo;
+
 }

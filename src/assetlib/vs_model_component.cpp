@@ -32,6 +32,7 @@ vs_model_component::vs_model_component(
   createVertexBuffers(builder.vertices);
   createIndexBuffers(builder.indices);
   string_name = builder.name;
+
 }
 
 vs_model_component::~vs_model_component() {}
@@ -108,6 +109,7 @@ void vs_model_component::draw(VkCommandBuffer command_buffer) {
 void vs_model_component::bind(VkCommandBuffer command_buffer) {
   VkBuffer buffers[] = {vertex_buffer_->getBuffer()};
   VkDeviceSize offsets[] = {0};
+
   vkCmdBindVertexBuffers(command_buffer, 0, 1, buffers, offsets);
   if (has_index_buffer_) {
     vkCmdBindIndexBuffer(command_buffer, index_buffer_->getBuffer(), 0,
@@ -138,6 +140,7 @@ vs_model_component::vertex::getAttributeDescriptions() {
       {2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(vertex, normal)});
   attribute_descriptions.push_back(
       {3, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(vertex, uv)});
+  attribute_descriptions.push_back({4,0,VK_FORMAT_R8_UINT, offsetof(vertex, texture_id)});
   return attribute_descriptions;
 }
 #pragma clang diagnostic pop

@@ -10,6 +10,16 @@
 #include <memory>
 namespace vs {
 
+struct TextureAsset {
+  VkImage image;
+  VkDeviceMemory deviceMemory;
+  VkImageView view;
+  VkFormat format;
+
+  uint32_t width;
+  uint32_t height;
+  uint32_t numChannels;
+};
 struct vs_texture {
   vs_texture(vs_device &device, const std::string &path);
   ~vs_texture();
@@ -29,6 +39,7 @@ private:
   void generateMipmaps(VkImage image, VkFormat image_format, int32_t texWidth,
                        int32_t texHeight, uint32_t mipLevels);
 
+  VkDescriptorImageInfo generateImageDescriptorInfo(VkSampler sampler, VkImageView image_view);
   uint32_t texture_id;
 
   stbi_uc *pixel_data;

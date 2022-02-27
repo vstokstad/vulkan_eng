@@ -14,7 +14,7 @@ class vs_simple_physics_system;
 struct transform_component {
   glm::vec3 translation{};
   glm::vec3 scale{1.f, 1.f, 1.f};
-  glm::vec3 rotation;
+  glm::vec3 rotation{};
 
   // Matrix corresponds to Translate * Ry * Rx * Rz * Scale
   // Rotations correspond to Tait-bryan angles of Y(1), X(2), Z(3)
