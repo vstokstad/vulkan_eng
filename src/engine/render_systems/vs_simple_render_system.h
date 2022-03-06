@@ -3,9 +3,9 @@
 
 #include <memory>
 
-#include "engine/renderer/vs_device.h"
-#include "engine/renderer/vs_pipeline.h"
-#include "engine/vs_frame_info.h"
+#include "vs_device.h"
+#include "vs_pipeline.h"
+#include "vs_frame_info.h"
 
 
 namespace vs

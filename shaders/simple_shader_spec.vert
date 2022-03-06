@@ -36,7 +36,7 @@ void main(){
     gl_Position = ubo.projection * ubo.view * position_world;
 
     fragWorldNormal = normalize(mat3(push.normal_matrix) * normal);
-    fragWorldPos = position_world.xyz;
+    fragWorldPos = position_world.yxz;
     fragColor = color;
 
 

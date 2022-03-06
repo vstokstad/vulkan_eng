@@ -5,11 +5,9 @@
 #include <memory>
 #include <unordered_map>
 // libs
-#include "reactphysics3d/reactphysics3d.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace vs {
-class vs_simple_physics_system;
 
 struct transform_component {
   glm::vec3 translation{};
@@ -23,19 +21,10 @@ struct transform_component {
 
   glm::mat3 normal_matrix();
 };
-struct rigid_body_component {
-  rigid_body_component(transform_component transform_comp,
-                       vs_simple_physics_system *physicssystem,
-                       reactphysics3d::CollisionShapeName shape,
-                       glm::vec3 collider_size);
 
-  reactphysics3d::CollisionShape *collision_shape;
-  reactphysics3d::Transform transform;
-  reactphysics3d::RigidBody *rigidBody;
-};
 
 struct point_light_component {
-  float light_intensity = .2f;
+  float light_intensity = 1.f;
 };
 
 class vs_game_object {
@@ -49,10 +38,10 @@ public:
   vs_game_object(const vs_game_object &) = delete;
   vs_game_object &operator=(const vs_game_object &) = delete;
 
-  [[nodiscard]] id_t getId() const { return id_; }
+  id_t getId() const { return id_; }
 
-  static vs_game_object createPointLight(float intensity = .2f,
-                                         float radius = 0.1f,
+  static vs_game_object createPointLight(float intensity = .1f,
+                                         float radius = 0.02f,
                                          glm::vec3 color = glm::vec3(1.f));
 
   static vs_game_object createGameObject() {
@@ -66,11 +55,8 @@ public:
   // optional pointer components
   std::shared_ptr<vs_model_component> model_comp;
   std::shared_ptr<point_light_component> point_light_comp;
-  std::shared_ptr<rigid_body_component> rigid_body_comp;
   std::unique_ptr<vs_texture> model_texture;
-  void addPhysicsComponent(vs_simple_physics_system *physicssystem,
-                           reactphysics3d::CollisionShapeName shape =
-                               reactphysics3d::CollisionShapeName::BOX);
+
 
 private:
   explicit vs_game_object(id_t obj_id) : id_(obj_id){};

@@ -39,7 +39,6 @@ void vs_assets_loader::loadModelsFromFolder(
 
               assert(!builder.vertices.empty() && "builder failed");
 
-              builder.name = name;
               return builder;
             });
 
@@ -59,36 +58,45 @@ void vs_assets_loader::loadModelsFromFolder(
     if (result.vertices.empty())
       continue;
     auto modelcomponent = std::make_unique<vs_model_component>(device_, result);
-    std::cout << "loaded model: " << modelcomponent->string_name << std::endl;
-    loaded_models.emplace(modelcomponent->string_name,
-                          std::move(modelcomponent));
+    // loaded_models.emplace(modelcomponent->string_name,
+    //                      std::move(modelcomponent));
   }
 
   for (auto &t : threads) {
     t.join();
   }
+};
 
-}
 void vs_assets_loader::loadTexturesFromFolder(
-    vs_device &device, const std::string &textures_folder_path) {}
-// helpers
+    vs_device &device, const std::string &textures_folder_path) {
+  for (auto &entry :
+       std::filesystem::recursive_directory_iterator(textures_folder_path)) {
+    if (entry.path().extension().string() == ".png") {
+      std::string path = entry.path().relative_path().string();
+      std::string name = entry.path().filename().string();
+
+      uintmax_t size = entry.file_size();
+    }
+  }
+}
+
 void vs_assets_loader::loadModelFromPath(vs_device &device_,
                                          const std::string &path) {
 
   std::shared_ptr<vs_model_component> model =
       vs_model_component::createModelFromFile(device_, path);
 
-  model->string_name = static_cast<std::string>(path);
 
-  loaded_models.emplace(path, std::move(model));
+//  loaded_models.emplace(path, std::move(model));
 
   std::cout << "loaded model: " << path << std::endl;
 }
 
 bool vs_assets_loader::isModelLoaded(const std::string &model_name) {
-  auto model = loaded_models.find(model_name);
-  return (model != loaded_models.end());
+ // auto model = loaded_models.find(model_name);
+ // return (model != loaded_models.end());
 }
+
 void vs_assets_loader::loadTextureFromPath(vs_device &device,
                                            const std::string &path) {
   std::shared_ptr<vs_texture> texture =

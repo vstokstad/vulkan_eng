@@ -15,14 +15,16 @@ file(GLOB_RECURSE src_files
 	 )
 
 #### TARGET ###
-add_executable(vulkan_eng ${src_files} src/game/profiler.h)
+add_executable(vulkan_eng ${src_files} src/application/profiler.h)
 
-target_include_directories(vulkan_eng PRIVATE src src/assetlib src/engine src/engine/renderer src/engine/render_systems src/game src/assetlib src/engine/ecs src/engine/physics shaders)
+target_include_directories(vulkan_eng PRIVATE src src/engine src/engine/renderer src/engine/render_systems src/application src/application/ecs shaders)
 
 ####### LINK DEPENDENCY LIBS
 # FetchContent added in CMake 3.11, downloads during the configure step
 include(FetchContent)
 
+
+##depending on what you have installed locally or not, you might want to comment/uncomment below declarations
 set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL ON)
 
 #FetchContent_Declare(
@@ -33,33 +35,54 @@ set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL ON)
 FetchContent_Declare(
 		glfw3
 		GIT_REPOSITORY https://github.com/glfw/glfw.git
-		GIT_TAG latest
 )
 #FetchContent_Declare(
 #		glm
 #		GIT_REPOSITORY https://github.com/g-truc/glm.git
 #)
+#FetchContent_Declare(
+#		reactphysics3d
+#		GIT_REPOSITORY https://github.com/DanielChappuis/reactphysics3d.git
+#		GIT_TAG v0.9.0
+#)
 FetchContent_Declare(
-		reactphysics3d
-		GIT_REPOSITORY https://github.com/DanielChappuis/reactphysics3d.git
-		GIT_TAG v0.9.0
+		nlohman_json
+		GIT_REPOSITORY https://github.com/nlohmann/json.git
 )
-FetchContent_MakeAvailable(glfw3 reactphysics3d)
 
-##STBI IMAGE##
+FetchContent_Declare(
+		lz4
+		GIT_REPOSITORY https://github.com/lz4/lz4.git
+		GIT_TAG 5b138c01b4644c133e556d96ad6105d24c401cac
+)
+FetchContent_MakeAvailable(glfw3 nlohman_json lz4)
+
+##LZ4
+set(LZ4_BUNDLED_MODE OFF)
+set(lz4_DIR ${lz4_BINARY_DIR})
+find_package(lz4 CONFIG REQUIRED HINT ${lz4_BINARY_DIR})
+add_subdirectory(${lz4_SOURCE_DIR}/build/cmake ${lz4_BINARY_DIR})
+target_link_libraries(vulkan_eng PRIVATE LZ4::lz4_static)
+
+##	json lib
+target_link_libraries(vulkan_eng PRIVATE nlohmann_json::nlohmann_json)
+
+##	stbi image ##
 target_include_directories(vulkan_eng PRIVATE external/stbi)
-######## reactPhysics ######
-target_link_libraries(vulkan_eng PRIVATE reactphysics3d)
-######## tiny #######
+
+## tiny object loader ##
 target_include_directories(vulkan_eng PRIVATE external/tinyobjloader)
-##########glfw3#############
+
+##	glfw3	##
 #find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(vulkan_eng PRIVATE glfw)
-###########glm###############
+
+##	glm	##
 #find_package(glm CONFIG REQUIRED)
 #target_link_libraries(vulkan_eng PRIVATE glm::glm)
 target_include_directories(vulkan_eng PRIVATE external/glm)
-###############vulkan###########
+
+##	vulkan	##
 find_package(Vulkan REQUIRED)
 target_link_libraries(vulkan_eng PRIVATE Vulkan::Vulkan)
 

@@ -5,7 +5,6 @@
 #include "vs_asset_manager.h"
 
 // std
-#include <future>
 #include <iostream>
 #include <string>
 

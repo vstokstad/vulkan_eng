@@ -31,7 +31,7 @@ vs_model_component::vs_model_component(
 
   createVertexBuffers(builder.vertices);
   createIndexBuffers(builder.indices);
-  string_name = builder.name;
+
 
 }
 
@@ -140,7 +140,6 @@ vs_model_component::vertex::getAttributeDescriptions() {
       {2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(vertex, normal)});
   attribute_descriptions.push_back(
       {3, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(vertex, uv)});
-  attribute_descriptions.push_back({4,0,VK_FORMAT_R8_UINT, offsetof(vertex, texture_id)});
   return attribute_descriptions;
 }
 #pragma clang diagnostic pop
@@ -153,7 +152,7 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
   std::string err, warn;
 
   if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err,
-                        obj_file.c_str(), "assets/models/mtl", true)) {
+                        obj_file.c_str(), 0, true)) {
     throw std::runtime_error(warn + err);
   }
 

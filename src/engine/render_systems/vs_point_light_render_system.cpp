@@ -14,7 +14,7 @@ namespace vs {
 struct point_light_push_constants {
   glm::vec4 position{}; // ignore w
   glm::vec4 color{};    // w is intensity
-  float radius;
+  float radius = 0.1f;
 };
 
 vs_point_light_render_system::vs_point_light_render_system(
@@ -73,9 +73,9 @@ void vs_point_light_render_system::createPipeline(VkRenderPass render_pass) {
 
 void vs_point_light_render_system::update(const frame_info &frame_info,
                                           global_ubo &ubo) {
-  auto rotate_light =
-      glm::rotate(glm::mat4(1.f), frame_info.frame_time * glm::quarter_pi<float>(),
-                  {0.f, -1.f, .0f});
+  auto rotate_light = glm::rotate(
+      glm::mat4(1.f), frame_info.frame_time,
+      {0.f, -1.f, .0f});
 
   int light_index = 0;
 
@@ -84,7 +84,7 @@ void vs_point_light_render_system::update(const frame_info &frame_info,
 
     assert(light_index <= MAX_LIGHTS && "reached max number of lights");
     // update position
-    obj.transform_comp.translation = glm::vec3(
+      obj.transform_comp.translation = glm::vec3(
         rotate_light * glm::vec4(obj.transform_comp.translation, 1.f));
 
     // copy light to ubo

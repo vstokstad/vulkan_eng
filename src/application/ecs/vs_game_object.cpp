@@ -1,11 +1,8 @@
-//
-// Created by vstok on 2022-02-21.
-//
+﻿#include "vs_game_object.h"
 
-#include "vs_transform_component.h"
-namespace vs{
-using id_t = unsigned int;
-glm::mat4 vs_transform_component::mat4() {
+namespace vs {
+
+glm::mat4 transform_component::mat4() {
   const float c3 = glm::cos(rotation.z);
   const float s3 = glm::sin(rotation.z);
   const float c2 = glm::cos(rotation.x);
@@ -30,10 +27,10 @@ glm::mat4 vs_transform_component::mat4() {
                        scale.z * (c1 * c2),
                        0.0f,
                    },
-                   {position.x, position.y, position.z, 1.0f}};
+                   {translation.x, translation.y, translation.z, 1.0f}};
 }
 
-glm::mat3 vs_transform_component::normal_matrix() {
+glm::mat3 transform_component::normal_matrix() {
   const float c3 = glm::cos(rotation.z);
   const float s3 = glm::sin(rotation.z);
   const float c2 = glm::cos(rotation.x);
@@ -59,5 +56,14 @@ glm::mat3 vs_transform_component::normal_matrix() {
   };
 }
 
-
+vs_game_object vs_game_object::createPointLight(float intensity, float radius,
+                                                glm::vec3 color) {
+  vs_game_object object = vs_game_object::createGameObject();
+  object.color = color;
+  object.transform_comp.scale.x = radius;
+  object.point_light_comp = std::make_unique<point_light_component>();
+  object.point_light_comp->light_intensity = intensity;
+  return object;
 }
+
+} // namespace vs

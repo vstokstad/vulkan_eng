@@ -10,8 +10,6 @@
 <li>Maybe skip all RB and use only collider bodies and handle "physics" my self, let library do collisions</li>
 <li>Use physics ecs instead of updating everything in for loops.</li>
 
-<b>LIGHTING</b>
-<li>Specular lights / blinn-phong</li>
 </ul>
 
 ##engine stuff:

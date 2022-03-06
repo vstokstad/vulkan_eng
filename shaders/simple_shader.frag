@@ -3,7 +3,7 @@
 
 layout (location = 0) in vec3 fragColor;
 layout (location = 1) in vec3 fragWorldPos;
-layout (location = 2) in vec3 fragNormal;
+layout (location = 2) in vec3 fragWorldNormal;
 
 
 struct point_light {
@@ -15,7 +15,7 @@ layout(set=0, binding=0) uniform global_ubo {
     mat4 projection;
     mat4 view;
     mat4 inv_view_mat;
-    vec4 ambient_light_color;
+    vec3 ambient_light_color;
     int num_lights;
     point_light point_lights[10];// value could be dynamically but is hardcoded for now.
 } ubo;
@@ -30,30 +30,23 @@ layout (location = 0) out vec4 outColor;
 
 void main() {
 
-    vec3 diffuseLighting = ubo.ambient_light_color.xyz;
-    vec3 specularLighting = vec3(0.0);
-    vec3 surfaceNormal = normalize(fragNormal);
+    vec3 diffuseLight = ubo.ambient_light_color.xyz;
+    vec3 surfaceNormal = normalize(fragWorldNormal);
 
-    vec3 camWorldPos = ubo.inv_view_mat[3].xyz;
+//SUN SOURCE LIGHT
+ //   vec3 directionToLight = normalize(vec3(1,-20,-1) - fragWorldPos);
+//10 is sun source multiplier
+   //  diffuseLight += diffuseLight * max(dot(surfaceNormal, normalize(directionToLight)), 0);
 
     for (int i = 0; i < ubo.num_lights; i++) {
         point_light light = ubo.point_lights[i];
         vec3 directionToLight = light.position.xyz - fragWorldPos;
-        float attenuation = light.color.w / dot(directionToLight, directionToLight);
-        float cosAngIncidence = dot(surfaceNormal, directionToLight);
-        cosAngIncidence = clamp(cosAngIncidence, 0, 1);
+        float attenuation = 1.0 / dot(directionToLight, directionToLight);// distance squared
+        float cosAngIncidence = max(dot(surfaceNormal, normalize(directionToLight)), 0);
+        vec3 intensity = light.color.xyz * light.color.w * attenuation;
 
-        // diffuse lighting
-        diffuseLighting += light.color.xyz * attenuation * cosAngIncidence;
-
-        // specular lighting
-        vec3 viewDirection = normalize(camWorldPos - fragWorldPos);
-        vec3 halfAngle = normalize(directionToLight + viewDirection);
-        float blinnTerm = dot(surfaceNormal, halfAngle);
-        blinnTerm = clamp(blinnTerm, 0, 1);
-        blinnTerm = cosAngIncidence != 0.0 ? blinnTerm : 0.0;
-        blinnTerm = pow(blinnTerm, 32.0);
-        specularLighting += light.color.xyz * attenuation * blinnTerm;
+        diffuseLight += intensity * cosAngIncidence;
     }
-    outColor = vec4((diffuseLighting+specularLighting), 1.0);
+
+    outColor = vec4(diffuseLight * fragColor, 1.0);
 }

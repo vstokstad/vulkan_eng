@@ -1,18 +1,14 @@
 #pragma once
 #include "vs_buffer.h"
-#include "vs_component.h"
 #include "vs_device.h"
-#include "vs_simple_physics_system.h"
 #include "vs_texture.h"
 // libs
-#define GLM_FORCE_RADIANS
-#define GLF_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
-#include <reactphysics3d/reactphysics3d.h>
 
 // std
 #include <memory>
 #include <vector>
+#include <unordered_map>
 
 namespace vs {
 class vs_model_component {
@@ -22,12 +18,10 @@ class vs_model_component {
 
 public:
   struct vertex {
-    glm::vec3 position{};
-    glm::vec3 color{};
-    glm::vec3 normal{};
-    glm::vec2 uv{};
-
-    uint32_t texture_id =0;
+    glm::vec3 position{0};
+    glm::vec3 color{1};
+    glm::vec3 normal{0,-1,0};
+    glm::vec2 uv{0};
 
     static std::vector<VkVertexInputBindingDescription>
     getBindingDescriptions();
@@ -43,7 +37,6 @@ public:
   struct builder {
     std::vector<vertex> vertices{};
     std::vector<uint32_t> indices{};
-    std::string name;
 
     void loadModel(const std::string &obj_file, bool normalize_scale);
   };
@@ -60,9 +53,6 @@ public:
   void bind(VkCommandBuffer command_buffer);
   void draw(VkCommandBuffer command_buffer);
 
-  std::string string_name;
-  bool has_texture = false;
-  uint32_t texture_id = -1;
 
 private:
   void createVertexBuffers(const std::vector<vertex> &vertices);

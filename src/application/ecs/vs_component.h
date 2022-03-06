@@ -16,7 +16,7 @@ struct vs_component {
   using id_t = unsigned int;
   using map = std::unordered_map<id_t, vs_component>;
 
-  virtual id_t createComponent(vs_ecs* ecs) { ecs.; }
+  virtual id_t createComponent() =0;
 
   // copy constructors
   vs_component &operator=(vs_component &&) = default;

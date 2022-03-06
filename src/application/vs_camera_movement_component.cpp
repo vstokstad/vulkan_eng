@@ -87,8 +87,8 @@ void vs_camera_movement_component::moveInPlaneXZ(GLFWwindow *window, float dt,
     moveDir -= upDir;
 
   if (glm::dot(moveDir, moveDir) > std::numeric_limits<float>::epsilon()) {
-    glm::vec3 delta = (move_speed + mouse_speed_scroll_modifier) * dt *
-                      glm::normalize(moveDir);
+    glm::vec3 delta = glm::normalize(moveDir) * (move_speed + mouse_speed_scroll_modifier) * dt;
+
     game_object.transform_comp.translation += delta;
   }
 
@@ -98,29 +98,6 @@ void vs_camera_movement_component::moveInPlaneXZ(GLFWwindow *window, float dt,
     glfwSetWindowShouldClose(window, GLFW_TRUE);
   }
 
-  /*if (glfwGetKey(window, keys.f) == GLFW_PRESS)
-  {
-          if (glfwGetKey(window, keys.f) != GLFW_REPEAT)
-          {
-          }
-          auto primary = glfwGetPrimaryMonitor();
-
-          const GLFWvidmode* mode = glfwGetVideoMode(primary);
-          int width;
-          int height;
-          glfwGetWindowSize(window, &width, &height);
-
-          if (width == mode->width)
-          {
-                  glfwMaximizeWindow(window);
-                  //glfwSetWindowSize(window, mode->width, mode->height);
-          }
-          else
-          {
-                  glfwRestoreWindow(window);
-                  //	glfwSetWindowSize(window, 800, 600);
-          }
-  }*/
 }
 
 void vs_camera_movement_component::window_in_focus_callback(GLFWwindow *window,

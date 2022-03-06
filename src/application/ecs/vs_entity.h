@@ -20,17 +20,19 @@ struct vs_entity {
     return vs_entity{current_id++};
   }
 
-//id
-  [[nodiscard]] id_t getId() const { return id_; }
+  virtual //id
+   id_t getId() const { return id_; }
 
 
 
 
 private:
-  explicit vs_entity(id_t ent_id) : id_(ent_id){};
+  ;
   id_t id_;
   uint16_t version;
-  std::vector<id_t> components; //component id
+ // std::vector<id_t> components; //component id
 
+protected:
+  explicit vs_entity(id_t ent_id) : id_(ent_id){}
 };
 } // namespace vs

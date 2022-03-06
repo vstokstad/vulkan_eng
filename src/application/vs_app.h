@@ -1,20 +1,17 @@
 #pragma once
 
-#include "vs_asset_manager.h"
 #include "vs_descriptors.h"
 #include "vs_device.h"
 #include "vs_game_object.h"
 #include "vs_renderer.h"
-#include "vs_simple_physics_system.h"
 #include "vs_window.h"
 
 // std
 #include <memory>
-// lib
-#include <reactphysics3d/reactphysics3d.h>
 
 
 namespace vs {
+
 class vs_model_component;
 
 class vs_app {
@@ -32,7 +29,6 @@ public:
   void run();
 
 private:
-  void loadVikingRoom();
 
   vs_window window_{WIDTH, HEIGHT, "Vulkan App"};
   vs_device device_{window_};
@@ -46,6 +42,7 @@ private:
   vs_game_object::map game_objects_;
   vs_game_object::map lights_;
 
+  void loadVikingRoom();
   void createWorld();
   void createSpinningPointLights();
 };

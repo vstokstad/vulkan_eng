@@ -11,5 +11,5 @@ id_t vs_ecs::addComponentToEntity(id_t entity,
   return 0;
 }
 id_t vs_ecs::createComponent(id_t id, vs_component_type type) {
-  components.emplace()
+
 }

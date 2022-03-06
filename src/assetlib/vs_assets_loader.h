@@ -8,6 +8,7 @@
 #include <map>
 namespace vs {
 
+
 class vs_assets_loader {
   const std::string models_path = "assets/models";
   const std::string textures_path = "assets/textures";
@@ -28,8 +29,8 @@ private:
 
   void cleanup();
 
-  std::map<std::string, std::shared_ptr<vs_model_component>> loaded_models;
-  std::map<std::string, std::shared_ptr<vs_texture>> loaded_textures;
+//  std::map<std::string, std::shared_ptr<vs_model_component>> loaded_models;
+  //std::map<std::string, std::shared_ptr<vs_texture>> loaded_textures;
 
   vs_device &device_;
 };

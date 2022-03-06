@@ -10,16 +10,6 @@
 #include <memory>
 namespace vs {
 
-struct TextureAsset {
-  VkImage image;
-  VkDeviceMemory deviceMemory;
-  VkImageView view;
-  VkFormat format;
-
-  uint32_t width;
-  uint32_t height;
-  uint32_t numChannels;
-};
 struct vs_texture {
   vs_texture(vs_device &device, const std::string &path);
   ~vs_texture();

@@ -12,6 +12,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+
 using namespace vs;
 
 vs_texture::vs_texture(vs_device &device, const std::string &path)

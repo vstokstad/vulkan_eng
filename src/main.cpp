@@ -1,4 +1,4 @@
-#include "game/vs_app.h"
+#include "vs_app.h"
 #include <iostream>
 #include <cstdlib>
 
