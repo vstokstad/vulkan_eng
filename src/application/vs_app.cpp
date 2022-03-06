@@ -1,4 +1,6 @@
 #include "vs_app.h"
+#include "profiler.h"
+#include "vs_asset.h"
 #include "vs_camera.h"
 #include "vs_camera_movement_component.h"
 #include "vs_point_light_render_system.h"
@@ -44,10 +46,11 @@ void vs_app::run() {
   }
 
   // could be abstracted to a Master render system instead.
-  auto global_set_layout = vs_descriptor_set_layout::vs_builder(device_)
-                               .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
-                                           VK_SHADER_STAGE_VERTEX_BIT|VK_SHADER_STAGE_FRAGMENT_BIT)
-                               .build();
+  auto global_set_layout =
+      vs_descriptor_set_layout::vs_builder(device_)
+          .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
+                      VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT)
+          .build();
 
   /**DESCRIPTOR SETS**/
   std::vector<VkDescriptorSet> global_descriptor_sets(
@@ -117,12 +120,9 @@ void vs_app::run() {
       // start frame & create frame info
       int frame_index = renderer_.getFrameIndex();
 
-      frame_info frame{frame_index,
-                       frame_time,
-                       command_buffer,
-                       global_descriptor_sets[frame_index],
-                       game_objects_,
-                       lights_};
+      frame_info frame{frame_index,    frame_time,
+                       command_buffer, global_descriptor_sets[frame_index],
+                       game_objects_,  lights_};
 
       // global ubo
       global_ubo ubo{};
@@ -154,21 +154,19 @@ void vs_app::createWorld() {
   auto floor = vs_game_object::createGameObject();
   floor.model_comp = vs_model_component::createModelFromFile(
       device_, "assets/models/quad.obj");
-  floor.transform_comp.scale = {3.f, 1.f, 3.f};
-  floor.transform_comp.translation = {0.f, 0.5f, 0.f};
+  floor.transform_comp.scale = {5.f, 1.f, 5.f};
+  floor.transform_comp.translation = {0.1f, 0.1f, 1.f};
   game_objects_.emplace(floor.getId(), std::move(floor));
 
   auto vase = vs_game_object::createGameObject();
   vase.model_comp = vs_model_component::createModelFromFile(
       device_, "assets/models/smooth_vase.obj");
   vase.transform_comp.scale = {3.f, 1.5f, 3.f};
-  vase.transform_comp.translation = {0.f, 0.5f, 0.f};
+  vase.transform_comp.translation = {0.f, 0.1f, 0.f};
   game_objects_.emplace(vase.getId(), std::move(vase));
-
 
   /** SPINNING POINT LIGHTS **/
   createSpinningPointLights();
-
 }
 void vs_app::loadVikingRoom() {
 
@@ -178,8 +176,8 @@ void vs_app::loadVikingRoom() {
   game_object.transform_comp.rotation = {glm::half_pi<float>(),
                                          glm::half_pi<float>(), 0.0f};
   game_object.transform_comp.translation = {0, 1.f, 0};
- // game_object.model_texture = vs_texture::createTextureFromFile(
-   //   device_, "assets/textures/viking_room.png");
+  // game_object.model_texture = vs_texture::createTextureFromFile(
+  //   device_, "assets/textures/viking_room.png");
 
   game_objects_.emplace(game_object.getId(), std::move(game_object));
 }

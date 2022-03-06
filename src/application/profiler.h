@@ -21,6 +21,7 @@ class timer {
 public:
   // Computes the start time and sets the thread id
   // The duration of the profiles is in microseconds
+  timer() { start(); }
   void start() {
     this->start_time_ = static_cast<double>(
         std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -35,12 +36,16 @@ public:
             std::chrono::high_resolution_clock::now().time_since_epoch())
             .count());
   }
-  double get_time() { return (end_time() - start_time())/1000.0; }
-  void print_time() {
-    std::cout << "profile time: " << get_time() << std::endl;
+  double get_time() {
+    stop();
+    return (end_time() - start_time()) / 1000.0;
+  }
+  void print_time(std::string msg = "") {
+    stop();
+    std::cout << msg << " wprofile time: " << get_time() << std::endl;
   }
 
-  // Gettors
+  // Getters
   [[nodiscard]] double start_time() const { return start_time_; }
   [[nodiscard]] double end_time() const { return end_time_; }
 

@@ -5,6 +5,7 @@
 //libs
 #include <nlohmann/json.hpp>
 #include <lz4.h>
+
 namespace vs{
 bool save_binary_file(const char *path, const vs_asset_file &file) {
   std::ofstream outfile;

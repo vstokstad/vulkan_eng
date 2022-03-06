@@ -7,8 +7,6 @@ layout (location = 2) in vec3 fragNormal;
 layout (location = 3) in vec2 fragTexCoord;
 layout (location = 4) flat in uint texture_index;
 
-
-
 layout (binding=1) uniform sampler2D texSampler;
 
 
@@ -21,7 +19,7 @@ layout(set=0, binding=0) uniform global_ubo {
     mat4 projection;
     mat4 view;
     mat4 inv_view_mat;
-    vec4 ambient_light_color;
+    vec3 ambient_light_color;
     int num_lights;
     point_light point_lights[10];// value could be dynamically but is hardcoded for now.
 } ubo;
@@ -36,7 +34,7 @@ layout (location = 0) out vec4 outColor;
 
 void main() {
 
-    vec3 diffuseLighting = ubo.ambient_light_color.xyz*ubo.ambient_light_color.w;
+    vec3 diffuseLighting = ubo.ambient_light_color.xyz;
     vec3 specularLighting = vec3(0.0);
     vec3 surfaceNormal = normalize(fragNormal);
 

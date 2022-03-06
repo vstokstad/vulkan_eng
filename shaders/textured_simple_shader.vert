@@ -20,7 +20,7 @@ layout(set=0, binding=0) uniform global_ubo {
     mat4 projection;
     mat4 view;
     mat4 inv_view_mat;
-    vec4 ambient_light_color;
+    vec3 ambient_light_color;
     int num_lights;
     point_light point_lights[10];// value could be dynamically but is hardcoded for now.
 } ubo;

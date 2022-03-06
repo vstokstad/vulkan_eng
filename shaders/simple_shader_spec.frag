@@ -27,7 +27,7 @@ layout(push_constant) uniform Push {
 } push;
 
 layout (location = 0) out vec4 outColor;
-
+const float SHININESS_FACTOR = 16.0;
 void main() {
 
     vec3 diffuseLighting = ubo.ambient_light_color.xyz;
@@ -52,7 +52,7 @@ void main() {
         float blinnTerm = dot(surfaceNormal, halfAngle);
         blinnTerm = clamp(blinnTerm, 0, 1);
         blinnTerm = cosAngIncidence != 0.0 ? blinnTerm : 0.0;
-        blinnTerm = pow(blinnTerm, 32.0);
+        blinnTerm = pow(blinnTerm, SHININESS_FACTOR);
         specularLighting += light.color.xyz * attenuation * blinnTerm;
     }
     outColor = vec4((specularLighting+diffuseLighting)*fragColor, 1.0);

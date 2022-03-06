@@ -66,7 +66,7 @@ void vs_simple_render_system::createPipeline(VkRenderPass render_pass) {
   pipeline_config.pipeline_layout = pipeline_layout_;
   pipeline = std::make_unique<vs_pipeline>(
       device_, "shaders/simple_shader.vert.spv",
-      "shaders/simple_shader.frag.spv", pipeline_config);
+      "shaders/simple_shader_spec.frag.spv", pipeline_config);
 }
 
 void vs_simple_render_system::renderGameObjects(frame_info &frame_info) {

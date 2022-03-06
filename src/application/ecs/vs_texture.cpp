@@ -218,6 +218,7 @@ void vs_texture::loadTextureFromFile(const std::string &path) {
   if (!pixels) {
     throw std::runtime_error("failed to load texture image");
   }
+
   pixel_data = pixels;
 }
 VkDescriptorImageInfo vs_texture::generateImageDescriptorInfo(VkSampler sampler, VkImageView imageView) {

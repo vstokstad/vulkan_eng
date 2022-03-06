@@ -14,6 +14,7 @@ namespace vs {
 
 enum class texture_format : uint32_t { Unknown = 0, RGBA8 };
 enum class compression_mode : uint32_t { None, LZ4 };
+
 struct vs_asset_file {
   char type[4];
   int version;
@@ -40,14 +41,18 @@ struct texture_asset {
 };
 
 compression_mode parse_compression(const char *f);
+
 texture_info read_texture_info(vs_asset_file *asset);
+
 void unpack_texture(texture_info *info, const char *source_buffer,
                     size_t source_size, char *destination);
+
 vs_asset_file pack_texture(texture_info *info, void *pixel_data);
 
 
 
 bool save_binary_file(const char *path, const vs_asset_file &file);
+
 bool load_binary_file(const char *path, vs_asset_file &output_file);
 
 struct vs_material {
