@@ -83,7 +83,7 @@ public:
                            VkDeviceMemory &imageMemory);
 
   VkSampleCountFlagBits getMaxUsableSampleCount();
-  VkPhysicalDeviceProperties properties;
+  VkPhysicalDeviceProperties properties{};
   VkSampleCountFlagBits msaa_samples = VK_SAMPLE_COUNT_1_BIT;
 
 private:
@@ -106,20 +106,23 @@ private:
   bool checkDeviceExtensionSupport(VkPhysicalDevice device);
   SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
 
-  VkInstance instance;
-  VkDebugUtilsMessengerEXT debugMessenger;
+  VkInstance instance{};
+  VkDebugUtilsMessengerEXT debugMessenger{};
   VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
   vs_window &window;
-  VkCommandPool commandPool;
+  VkCommandPool commandPool{};
 
-  VkDevice device_;
-  VkSurfaceKHR surface_;
-  VkQueue graphicsQueue_;
-  VkQueue presentQueue_;
+  VkDevice device_{};
+  VkSurfaceKHR surface_{};
+  VkQueue graphicsQueue_{};
+  VkQueue presentQueue_{};
 
   const std::vector<const char *> validationLayers = {
       "VK_LAYER_KHRONOS_validation"};
-  const std::vector<const char *> deviceExtensions = {
+  const std::vector<const char *> requiredDeviceExtensions = {
       VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+  const std::vector<const char*> requiredEnabledDeviceExtensionNames={
+	  VK_KHR_SWAPCHAIN_EXTENSION_NAME,"VK_KHR_portability_subset"
+  };
 };
 } // namespace vs

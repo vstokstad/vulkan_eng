@@ -72,10 +72,10 @@ void vs_device::createInstance() {
   VkApplicationInfo appInfo = {};
   appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
   appInfo.pApplicationName = "vs_vulkan_tester";
-  appInfo.applicationVersion = VK_API_VERSION_1_2;
+  appInfo.applicationVersion = VK_API_VERSION_1_3;
   appInfo.pEngineName = "vs_vulkan_eng";
-  appInfo.engineVersion = VK_API_VERSION_1_2;
-  appInfo.apiVersion = VK_API_VERSION_1_2;
+  appInfo.engineVersion = VK_API_VERSION_1_3;
+  appInfo.apiVersion = VK_API_VERSION_1_3;
 
   VkInstanceCreateInfo createInfo = {};
   createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
@@ -83,7 +83,7 @@ void vs_device::createInstance() {
   auto extensions = getRequiredExtensions();
   createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
   createInfo.ppEnabledExtensionNames = extensions.data();
-
+createInfo.flags=VkInstanceCreateFlagBits::VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
   VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo;
   if (enableValidationLayers) {
     createInfo.enabledLayerCount =
@@ -129,6 +129,7 @@ void vs_device::pickPhysicalDevice() {
     vkGetPhysicalDeviceProperties(device, &properties);
     std::cout << "physical device found: " << properties.deviceName
               << std::endl;
+
     if (isPreferredDevice(device)) {
 
       physicalDevice = device;
@@ -178,15 +179,14 @@ void vs_device::createLogicalDevice() {
 
   VkDeviceCreateInfo createInfo = {};
   createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-
   createInfo.queueCreateInfoCount =
       static_cast<uint32_t>(queueCreateInfos.size());
   createInfo.pQueueCreateInfos = queueCreateInfos.data();
 
   createInfo.pEnabledFeatures = &deviceFeatures;
   createInfo.enabledExtensionCount =
-      static_cast<uint32_t>(deviceExtensions.size());
-  createInfo.ppEnabledExtensionNames = deviceExtensions.data();
+      static_cast<uint32_t>(requiredEnabledDeviceExtensionNames.size());
+  createInfo.ppEnabledExtensionNames = requiredEnabledDeviceExtensionNames.data();
 
   // might not really be necessary anymore because device specific
   // validation layers have been deprecated
@@ -303,6 +303,8 @@ std::vector<const char *> vs_device::getRequiredExtensions() {
   std::vector<const char *> extensions(glfwExtensions,
                                        glfwExtensions + glfwExtensionCount);
 
+	extensions.push_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
+
   if (enableValidationLayers) {
     extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
   }
@@ -343,8 +345,8 @@ bool vs_device::checkDeviceExtensionSupport(VkPhysicalDevice device) {
   vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount,
                                        availableExtensions.data());
 
-  std::set<std::string> requiredExtensions(deviceExtensions.begin(),
-                                           deviceExtensions.end());
+  std::set<std::string> requiredExtensions(requiredDeviceExtensions.begin(),
+                                           requiredDeviceExtensions.end());
 
   for (const auto &extension : availableExtensions) {
     requiredExtensions.erase(extension.extensionName);

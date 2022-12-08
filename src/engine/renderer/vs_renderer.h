@@ -17,7 +17,7 @@ public:
   vs_renderer(const vs_renderer &) = delete;
   vs_renderer &operator==(const vs_renderer &) = delete;
 
-  VkRenderPass getSwapChainRenderPass() const {
+  [[nodiscard]] VkRenderPass getSwapChainRenderPass() const {
     return swap_chain_->getRenderPass();
   }
   float getAspectRatio() const { return swap_chain_->extentAspectRatio(); }

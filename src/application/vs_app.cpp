@@ -35,6 +35,7 @@ void vs_app::run() {
   /** UBO BUFFERS **/
   std::vector<std::unique_ptr<vs_buffer>> ubo_buffers{
       vs_swap_chain::MAX_FRAMES_IN_FLIGHT};
+
   for (auto &ubo_buffer : ubo_buffers) {
     ubo_buffer = std::make_unique<vs_buffer>(
         device_, sizeof(global_ubo), 1, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
