@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 project(vulkan_eng
 		VERSION 0.3
 		DESCRIPTION "Vulkan based game engine"
-		LANGUAGES CXX C
+		LANGUAGES CXX
 		)
 
 set(CMAKE_CXX_STANDARD 20)
