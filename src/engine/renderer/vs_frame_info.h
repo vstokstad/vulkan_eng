@@ -21,12 +21,12 @@ struct global_ubo {
 };
 
 struct frame_info {
-  int frame_index;
-  float frame_time;
-
-  VkCommandBuffer command_buffer;
-  VkDescriptorSet global_descriptor_set;
-  vs_game_object::map &game_objects;
-  vs_game_object::map &lights;
+	int frame_index = 0;
+  	float frame_time = 0;
+  	int frame_count = 0;
+  	VkCommandBuffer command_buffer;
+ 	VkDescriptorSet global_descriptor_set;
+	vs_game_object::map &game_objects;
+  	vs_game_object::map &lights;
 };
 } // namespace vs

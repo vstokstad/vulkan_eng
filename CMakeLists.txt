@@ -13,10 +13,10 @@ file(GLOB_RECURSE src_files
 	 CONFIGURE_DEPENDS
 	 src/*.cpp
 	 )
-
+file(GLOB_RECURSE header_files CONFIGURE_DEPENDS src/*.h)
 #### TARGET ###
-add_executable(vulkan_eng src/main.cpp ${src_files} )
-target_include_directories(vulkan_eng PRIVATE src src/application/profiler.h src/engine src/engine/renderer src/engine/render_systems src/application src/assetlib src/application/ecs shaders)
+add_executable(vulkan_eng src/main.cpp ${src_files} ${header_files})
+target_include_directories(vulkan_eng PRIVATE src ${header_files} src/application/profiler.h src/engine src/engine/renderer src/engine/render_systems src/application src/assetlib src/application/ecs shaders)
 
 ####### LINK DEPENDENCY LIBS
 # FetchContent added in CMake 3.11, downloads during the configure step
@@ -26,11 +26,10 @@ include(FetchContent)
 ##depending on what you have installed locally or not, you might want to comment/uncomment below declarations
 set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL ON)
 
-#FetchContent_Declare(
-#		tinyobjloader
-#		GIT_REPOSITORY https://github.com/tinyobjloader/tinyobjloader.git
-#
-#)
+FetchContent_Declare(
+		tinyobjloader
+		GIT_REPOSITORY https://github.com/tinyobjloader/tinyobjloader.git
+)
 FetchContent_Declare(
 		glfw3
 		GIT_REPOSITORY https://github.com/glfw/glfw.git
@@ -54,7 +53,7 @@ FetchContent_Declare(
 		GIT_REPOSITORY https://github.com/lz4/lz4.git
 		GIT_TAG 5b138c01b4644c133e556d96ad6105d24c401cac
 )
-FetchContent_MakeAvailable(glfw3 nlohman_json lz4)
+FetchContent_MakeAvailable(glfw3 nlohman_json lz4 tinyobjloader)
 
 ##LZ4
 set(LZ4_BUNDLED_MODE OFF)

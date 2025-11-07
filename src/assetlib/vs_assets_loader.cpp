@@ -19,7 +19,7 @@ void vs_assets_loader::loadModelsFromFolder(
   std::vector<std::future<vs::vs_model_component::builder>> futures;
   std::vector<std::thread> threads;
 
-  for (auto &entry :
+  for (const std::filesystem::directory_entry entry :
        std::filesystem::recursive_directory_iterator(models_folder_path)) {
     if (entry.path().extension().string() == ".obj") {
       std::string path = entry.path().relative_path().string();

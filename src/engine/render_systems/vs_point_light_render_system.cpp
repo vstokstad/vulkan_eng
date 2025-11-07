@@ -71,22 +71,22 @@ void vs_point_light_render_system::createPipeline(VkRenderPass render_pass) {
       pipeline_config);
 }
 
-void vs_point_light_render_system::update(const frame_info &frame_info,
+void vs_point_light_render_system::update(const frame_info &frame,
                                           global_ubo &ubo) {
   auto rotate_light = glm::rotate(
-      glm::mat4(1.f), frame_info.frame_time,
+      glm::mat4(1.f), frame.frame_time,
       {0.f, -1.f, .0f});
-
+  const float translationoffset = (glm::sin(frame.frame_count)*glm::cos(frame.frame_count))*frame.frame_time;
   int light_index = 0;
 
-  for (auto &kv : frame_info.lights) {
+  for (auto &kv : frame.lights) {
     auto &obj = kv.second;
 
     assert(light_index <= MAX_LIGHTS && "reached max number of lights");
     // update position
       obj.transform_comp.translation = glm::vec3(
         rotate_light * glm::vec4(obj.transform_comp.translation, 1.f));
-
+	  obj.transform_comp.translation += glm::vec3(translationoffset);
     // copy light to ubo
     ubo.point_lights[light_index].position =
         glm::vec4(obj.transform_comp.translation, 1.f);

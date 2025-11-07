@@ -18,8 +18,8 @@ namespace vs
                 vs_point_light_render_system & operator==(const vs_point_light_render_system &) = delete;
 
 
-		void update(const frame_info& frame_info, global_ubo& ubo);
-		void render(frame_info& frame_info);
+		void update(const frame_info& frameinfo, global_ubo& ubo);
+		void render(frame_info& frameinfo);
 
 
 	private:
