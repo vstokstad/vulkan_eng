@@ -125,9 +125,10 @@ vs_model_component::vertex::getBindingDescriptions() {
   binding_descriptions[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
   return binding_descriptions;
 }
-
+#if __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wc++11-narrowing"
+#endif
 std::vector<VkVertexInputAttributeDescription>
 vs_model_component::vertex::getAttributeDescriptions() {
   std::vector<VkVertexInputAttributeDescription> attribute_descriptions{};
@@ -142,8 +143,9 @@ vs_model_component::vertex::getAttributeDescriptions() {
       {3, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(vertex, uv)});
   return attribute_descriptions;
 }
+#if __clang__
 #pragma clang diagnostic pop
-
+#endif
 void vs_model_component::builder::loadModel(const std::string &obj_file,
                                             bool normalize_scale) {
   tinyobj::attrib_t attrib;
@@ -152,7 +154,7 @@ void vs_model_component::builder::loadModel(const std::string &obj_file,
   std::string err, warn;
 
   if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err,
-                        obj_file.c_str(), 0, true)) {
+                        obj_file.c_str(), nullptr, true)) {
     throw std::runtime_error(warn + err);
   }
 

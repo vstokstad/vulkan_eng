@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 project(vulkan_eng
 		VERSION 0.3
 		DESCRIPTION "Vulkan based game engine"
-		LANGUAGES CXX
+		LANGUAGES CXX C
 		)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -26,10 +26,10 @@ include(FetchContent)
 ##depending on what you have installed locally or not, you might want to comment/uncomment below declarations
 set(FETCHCONTENT_UPDATES_DISCONNECTED CACHE BOOL ON)
 
-FetchContent_Declare(
-		tinyobjloader
-		GIT_REPOSITORY https://github.com/tinyobjloader/tinyobjloader.git
-)
+#FetchContent_Declare(
+#		tinyobjloader
+#		GIT_REPOSITORY https://github.com/tinyobjloader/tinyobjloader.git
+#)
 FetchContent_Declare(
 		glfw3
 		GIT_REPOSITORY https://github.com/glfw/glfw.git
@@ -53,7 +53,7 @@ FetchContent_Declare(
 		GIT_REPOSITORY https://github.com/lz4/lz4.git
 		GIT_TAG 5b138c01b4644c133e556d96ad6105d24c401cac
 )
-FetchContent_MakeAvailable(glfw3 nlohman_json lz4 tinyobjloader)
+FetchContent_MakeAvailable(glfw3 nlohman_json lz4)
 
 ##LZ4
 set(LZ4_BUNDLED_MODE OFF)
@@ -141,12 +141,12 @@ add_custom_target(
 #	 DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/shaders/)
 
 ##Copy shaders folder
-add_custom_command(
-		TARGET Shaders PRE_BUILD
-		COMMAND ${CMAKE_COMMAND} -E remove_directory
-		${CMAKE_CURRENT_BINARY_DIR}/shaders/
-		COMMENT "deleting old shaders folder"
-)
+#add_custom_command(
+#		TARGET Shaders PRE_BUILD
+#		COMMAND ${CMAKE_COMMAND} -E remove_directory
+#		${CMAKE_CURRENT_BINARY_DIR}/shaders/
+#		COMMENT "deleting old shaders folder"
+#)
 
 ##Copy shaders folder
 add_custom_command(

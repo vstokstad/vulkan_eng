@@ -38,7 +38,7 @@ public:
   vs_game_object(const vs_game_object &) = delete;
   vs_game_object &operator=(const vs_game_object &) = delete;
 
-  id_t getId() const { return id_; }
+  [[nodiscard]] id_t getId() const { return id_; }
 
   static vs_game_object createPointLight(float intensity = .1f,
                                          float radius = 0.02f,
