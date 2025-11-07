@@ -95,6 +95,7 @@ void vs_assets_loader::loadModelFromPath(vs_device &device_,
 bool vs_assets_loader::isModelLoaded(const std::string &model_name) {
  // auto model = loaded_models.find(model_name);
  // return (model != loaded_models.end());
+	return true;
 }
 
 void vs_assets_loader::loadTextureFromPath(vs_device &device,

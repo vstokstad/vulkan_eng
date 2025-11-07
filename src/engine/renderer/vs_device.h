@@ -122,7 +122,7 @@ private:
   const std::vector<const char *> requiredDeviceExtensions = {
       VK_KHR_SWAPCHAIN_EXTENSION_NAME};
   const std::vector<const char*> requiredEnabledDeviceExtensionNames={
-	  VK_KHR_SWAPCHAIN_EXTENSION_NAME,"VK_KHR_portability_subset"
-  };
+	  VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+  //"VK_KHR_portability_subset"
 };
 } // namespace vs
