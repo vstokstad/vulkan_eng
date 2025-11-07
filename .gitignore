@@ -8,7 +8,8 @@ cmake-build*
 out/*
 CMakePresets.json
 vcpkg_rf.txt
-
+.cmake/*
+_deps/
 hairball.obj
 
 # User-specific files
@@ -377,3 +378,16 @@ FodyWeavers.xsd!/vulkan_eng.sln
 .DS_Store
 /models/hairball.obj
 /models/hairball/hairball.obj
+/_deps/*
+/.cmake/*
+/.idea
+
+*.cmake
+/_deps
+/.cmake
+CMakeCache.txt
+cmake_install.cmake
+/CMakeFiles
+/CMakeFiles/*/
+vulkan_eng.10x
+CMakeSettings.json
